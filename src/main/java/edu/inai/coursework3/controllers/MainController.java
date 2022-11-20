@@ -22,6 +22,7 @@ public class MainController {
 
         model.addAttribute("courses",courseService.getCourses());
 
+
         return "index";
     }
 

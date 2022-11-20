@@ -27,6 +27,7 @@
     <script src="/vendor/bootstrap5/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/ffe0d7ed97.js"></script>
 
+
     <#list scripts as scriptSource>
         <script src="${scriptSource}"></script>
     </#list>
