@@ -26,11 +26,13 @@ public class Course {
     @Size(min=3)
     private String name;
 
+    @NotBlank
     private String thumbNailPath;
 
     @NotNull
     @Column(name="user_id")
     @ManyToMany(mappedBy = "studyingCourses")
+    @Builder.Default
     private List<User> users=new ArrayList<>();
 
     @OneToMany
@@ -56,6 +58,7 @@ public class Course {
     private Category category;
 
     @PositiveOrZero
-    private Double ratingScore;
+    @Builder.Default
+    private Double ratingScore=0.0;
 
 }

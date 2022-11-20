@@ -30,7 +30,7 @@ public class User {
     @Email
     private String email;
 
-    @NotBlank
+    @NotNull
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private UserRoles role= UserRoles.USER;
@@ -44,6 +44,7 @@ public class User {
     private String password;
 
 
+    @NotBlank
     private String avatar;
 
     @OneToMany
@@ -62,6 +63,7 @@ public class User {
     private List<Course> studyingCourses=new ArrayList<>();
 
     @PositiveOrZero
-    private Double coins;
+    @Builder.Default
+    private Double coins=0.0;
 
 }
