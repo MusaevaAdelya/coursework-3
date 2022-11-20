@@ -43,6 +43,9 @@ public class User {
     @Size(min=8)
     private String password;
 
+
+    private String avatar;
+
     @OneToMany
     @Column(name="created_courses")
     private List<Course> createdCourses=new ArrayList<>();
