@@ -3,7 +3,7 @@
 <@main.renderWith title="Calopsia | Main"
 scripts=["/js/script.js"]
 styles=["/css/style.css"]>
-<#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
+    <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 
     <header>
         <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3" id="mainNav">
@@ -17,7 +17,7 @@ styles=["/css/style.css"]>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav  ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link text-black active" href="index.html#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/">Home</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">All courses</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">Free courses</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>
@@ -28,9 +28,10 @@ styles=["/css/style.css"]>
                         <ul class="navbar-nav ms-auto d-sm-inline py-4 py-lg-0">
                             <li class="menu-separator nav-item d-sm-inline ">.</li>
                             <li class="nav-item d-sm-inline "><a class="nav-link d-sm-inline text-black text-bold"
-                                                                 href="#">Login</a></li>
-                            <li class="nav-item d-sm-inline "><a class="nav-link d-sm-inline text-black header-button-purp"
-                                                                 href="#">Register</a></li>
+                                                                 href="/login">Login</a></li>
+                            <li class="nav-item d-sm-inline "><a
+                                        class="nav-link d-sm-inline text-black header-button-purp"
+                                        href="/login?register=true">Register</a></li>
 
                         </ul>
                     </@security.authorize>
@@ -44,8 +45,17 @@ styles=["/css/style.css"]>
                             </a>
                         </#if>
 
-                        <div class="nav-item d-sm-inline  ms-3"><a class="nav-link d-sm-inline text-black header-button-purp"
-                                                                   href="#">Logout</a></div>
+                        <form action="/logout" method="post" role="form">
+                            <#if _csrf??>
+                                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                                       value="${(_csrf.token)!'--no-token--'}"/>
+                            </#if>
+
+                            <div class="nav-item d-sm-inline  ms-3"><button type="submit"
+                                        class="d-sm-inline btn btn-outline-secondary btn-main text-white header-button-purp"
+                                        href="#">Logout</button></div>
+
+                        </form>
                     </@security.authorize>
 
                 </div>
@@ -64,7 +74,8 @@ styles=["/css/style.css"]>
                         Learn what you want, <br>
                         from any device <br>
                     </h1>
-                    <p class="hero-sub-text text-start fs-5 mt-3">Knowledge is the eye of desire<br> and can become the pilot of the soul</p>
+                    <p class="hero-sub-text text-start fs-5 mt-3">Knowledge is the eye of desire<br> and can become the
+                        pilot of the soul</p>
 
                     <div class="input-group mb-3 mt-5 search-input">
                         <i class="b"></i>
@@ -92,7 +103,6 @@ styles=["/css/style.css"]>
                 <hr class="hr mx-auto mb-5">
 
 
-
                 <div class="row">
                     <#if courses??>
                         <#list courses as course>
@@ -101,14 +111,16 @@ styles=["/css/style.css"]>
                                     <img class="rounded"
                                          src="${coursesPath}${course.thumbNailPath}"
                                          alt="">
-                                    <div class="py-3"><a class="motion-btn my-3 rounded  px-2 py-1" href="#">${course.category.name}</a>
+                                    <div class="py-3"><a class="motion-btn my-3 rounded  px-2 py-1"
+                                                         href="#">${course.category.name}</a>
                                     </div>
                                     <h4 class="text-black fw-bold">${course.name}</h4>
 
                                     <p class="text-secondary fw-bolder">${course.users?size} Students</p>
 
                                     <div class="btn-price d-flex justify-content-between">
-                                        <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
+                                        <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
+                                            learning</a>
                                         <span class="fw-bolder purp-text  text-center">$${course.coins}</span>
                                     </div>
 
