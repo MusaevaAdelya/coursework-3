@@ -6,7 +6,6 @@ styles=["/css/style.css"]>
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 
     <main>
-
         <div class="main-block d-flex align-items-center ">
             <div class="container">
                 <div class="col-lg-6 text-c">
@@ -45,153 +44,32 @@ styles=["/css/style.css"]>
 
 
                 <div class="row">
-                    <div class="col-lg-3 my-3">
-                        <div class="card popular-cources shadow p-3 bg-white rounded">
-                            <img class="rounded"
-                                 src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                 alt="">
-                            <!--                            Здесь как span только я хз как и во всех других карточках тоже-->
-                            <div class="py-3"><a class="design-btn my-3 rounded px-2 py-1" href="#">Design</a></div>
-                            <h4 class="text-black fw-bold">Web-design</h4>
+                    <#if courses??>
+                        <#list courses as course>
+                            <div class="col-lg-3 my-3">
+                                <div class="card popular-cources shadow p-3 bg-white rounded">
+                                    <img class="rounded"
+                                         src="${coursesPath}${course.thumbNailPath}"
+                                         alt="">
+                                    <div class="py-3"><a class="motion-btn my-3 rounded  px-2 py-1" href="#">${course.category.name}</a>
+                                    </div>
+                                    <h4 class="text-black fw-bold">${course.name}</h4>
 
-                            <p class="text-secondary fw-bolder">156 Students</p>
+                                    <p class="text-secondary fw-bolder">${course.users?size} Students</p>
 
-                            <div class="btn-price d-flex justify-content-between">
-                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                <span class="fw-bolder purp-text  text-center">Free $0</span>
+                                    <div class="btn-price d-flex justify-content-between">
+                                        <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
+                                        <span class="fw-bolder purp-text  text-center">$${course.coins}</span>
+                                    </div>
+
+                                </div>
                             </div>
+                        </#list>
+                    </#if>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3 my-3">
-                        <div class="card popular-cources shadow p-3 bg-white rounded">
-                            <img class="rounded"
-                                 src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                 alt="">
-                            <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                    developer</a></div>
-                            <h4 class="text-black fw-bold">Web-design</h4>
-
-                            <p class="text-secondary fw-bolder">156 Students</p>
-
-                            <div class="btn-price d-flex justify-content-between">
-                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                <span class="fw-bolder purp-text  text-center">Free $0</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-3 my-3">
-                        <div class="card popular-cources shadow p-3 bg-white rounded">
-                            <img class="rounded"
-                                 src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                 alt="">
-                            <div class="py-3"><a class="motion-btn my-3 rounded  px-2 py-1" href="#">Motion-Design</a>
-                            </div>
-                            <h4 class="text-black fw-bold">Adobe Premiere Pro </h4>
-
-                            <p class="text-secondary fw-bolder">156 Students</p>
-
-                            <div class="btn-price d-flex justify-content-between">
-                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                <span class="fw-bolder purp-text  text-center">Free $0</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-3 my-3">
-                        <div class="card popular-cources shadow p-3 bg-white rounded">
-                            <img class="rounded"
-                                 src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                 alt="">
-                            <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                    developer</a></div>
-                            <h4 class="text-black fw-bold">Web-design</h4>
-
-                            <p class="text-secondary fw-bolder">156 Students</p>
-
-                            <div class="btn-price d-flex justify-content-between">
-                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                <span class="fw-bolder purp-text  text-center">Free $0</span>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-3 my-3">
-                        <div class="card popular-cources shadow p-3 bg-white rounded">
-                            <img class="rounded"
-                                 src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                 alt="">
-                            <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1 " href="#">Back-end
-                                    developer</a></div>
-                            <h4 class="text-black fw-bold">Web-design</h4>
 
-                            <p class="text-secondary fw-bolder">156 Students</p>
-
-                            <div class="btn-price d-flex justify-content-between">
-                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                <span class="fw-bolder purp-text  text-center">Free $0</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-3 my-3 ">
-                        <div class="card popular-cources shadow  p-3 bg-white rounded">
-                            <img class="rounded"
-                                 src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                 alt="">
-                            <div class="py-3"><a class="motion-btn my-3 rounded  px-2 py-1" href="#">Motion-Design</a>
-                            </div>
-                            <h4 class="text-black fw-bold">Adobe Premiere Pro </h4>
-
-                            <p class="text-secondary fw-bolder">156 Students</p>
-
-                            <div class="btn-price d-flex justify-content-between">
-                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                <span class="fw-bolder purp-text  text-center">Free $0</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-3 my-3">
-                        <div class="card popular-cources shadow p-3 bg-white rounded">
-                            <img class="rounded"
-                                 src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                 alt="">
-                            <div class="py-3"><a class="design-btn my-3 rounded  px-2 py-1" href="#">Design</a></div>
-                            <h4 class="text-black fw-bold">Web-design</h4>
-
-                            <p class="text-secondary fw-bolder">156 Students</p>
-
-                            <div class="btn-price d-flex justify-content-between">
-                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                <span class="fw-bolder purp-text  text-center">Free $0</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-3 my-3">
-                        <div class="card popular-cources shadow p-3 bg-white rounded">
-                            <img class="rounded"
-                                 src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                 alt="">
-                            <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                    developer</a></div>
-                            <h4 class="text-black fw-bold">Web-design</h4>
-
-                            <p class="text-secondary fw-bolder">156 Students</p>
-
-                            <div class="btn-price d-flex justify-content-between">
-                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                <span class="fw-bolder purp-text  text-center">Free $0</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
             </div>
             <div class="text-center">
                 <button class="fw-bolder view-all text-center mt-5 mx-auto py-3 px-5" href="#">View All</button>
