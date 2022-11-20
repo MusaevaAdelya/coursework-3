@@ -10,7 +10,7 @@ styles=["/css/style.css","/css/sign.css","https://cdn.jsdelivr.net/npm/bootstrap
             <h3 class="text-danger">wrong email and password</h3>
         </#if>
     </#if>
-    <div class="container" id="container">
+    <div class="container <#if register??><#if register>right-panel-active</#if></#if>" id="container" >
         <div class="form-container sign-up-container">
             <form>
                 <h2>Create Account</h2>

@@ -13,10 +13,11 @@ public class AuthController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public String login(Model model, @RequestParam(required = false, defaultValue = "false") Boolean error){
-        if(error){
-            model.addAttribute("error",true);
-        }
+    public String login(Model model,
+                        @RequestParam(required = false, defaultValue = "false") Boolean error,
+                        @RequestParam(required = false, defaultValue = "false") Boolean register){
+        model.addAttribute("error",error);
+        model.addAttribute("register",register);
 
         return "login";
     }
