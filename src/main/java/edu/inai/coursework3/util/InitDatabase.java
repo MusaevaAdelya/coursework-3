@@ -24,6 +24,12 @@ public class InitDatabase {
     private final PasswordEncoder passwordEncoder;
     private final static Random rnd=new Random();
 
+    @Value(value="${avatar.path}")
+    private String avatarPath;
+
+    @Value(value="${courses.path}")
+    private String coursesPath;
+
     @Value(value="${avatar.default.image}")
     private String defaultAvatar;
 
