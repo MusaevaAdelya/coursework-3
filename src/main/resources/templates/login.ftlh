@@ -10,19 +10,23 @@ styles=["/css/style.css","/css/sign.css","https://cdn.jsdelivr.net/npm/bootstrap
             <h3 class="text-danger">wrong email and password</h3>
         </#if>
     </#if>
-    <div class="container" id="container">
+    <div class="container <#if register??><#if register>right-panel-active</#if></#if>" id="container" >
         <div class="form-container sign-up-container">
-            <form>
+            <form action="/register" method="post"  role="form" modelAttribute="registerForm">
                 <h2>Create Account</h2>
                 <div class="social-container">
                     <a href="#" class="social"><i class="bi bi-google"></i></a>
                     <a href="#" class="social"><i class="bi bi-telegram"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input type="text" class="rounded" placeholder="Name" />
-                <input type="email" class="rounded" placeholder="Email" />
-                <input type="password" class="rounded" placeholder="Password" />
-                <button>Sign Up</button>
+                <input name="username" type="text" class="rounded" placeholder="Username" minlength="1" />
+                <input name="email" type="email" class="rounded" placeholder="Email" minlength="1"/>
+                <input name="password" type="password" class="rounded" placeholder="Password" minlength="8"/>
+                <#if _csrf??>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
+                </#if>
+                <button type="submit">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
