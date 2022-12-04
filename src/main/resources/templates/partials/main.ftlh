@@ -1,4 +1,4 @@
-<#macro renderWith title="Calopsia" scripts=[] styles=[]>
+<#macro renderWith title="Calopsia" scripts=[] styles=[] footer="true">
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
     <!DOCTYPE html>
     <html lang="en">
@@ -25,12 +25,15 @@
 
     <#nested>
 
-    <div class="container-fluid bg-blue">
-        <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3">
-            <a href="#"><img class="logo-header" src="/img/White_logo.svg" alt=""></a>
-            <p class="mb-0 text-white">© 2022 Calopsia, Inc</p>
-        </footer>
-    </div>
+    <#if footer=="true">
+        <div class="container-fluid bg-blue">
+            <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3">
+                <a href="#"><img class="logo-header" src="/img/White_logo.svg" alt=""></a>
+                <p class="mb-0 text-white">© 2022 Calopsia, Inc</p>
+            </footer>
+        </div>
+    </#if>
+
 
     <script src="/vendor/jquery.js"></script>
     <script src="/vendor/bootstrap5/js/bootstrap.min.js"></script>

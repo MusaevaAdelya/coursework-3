@@ -2,15 +2,22 @@
 
 <@main.renderWith title="Calopsia | Sign"
 scripts=["/js/sign.js"]
-styles=["/css/style.css","/css/sign.css","https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"]>
-<#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
+styles=["/css/style.css","/css/sign.css"]
+footer="false">
+    <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
+
 
     <#if error??>
         <#if error>
-            <h3 class="text-danger">wrong email and password</h3>
+            <div class="alert alert-danger alert-dismissible fade show " role="alert">
+                <strong>Error!</strong> Wrong email and password
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
         </#if>
     </#if>
     <div class="container <#if register??><#if register>right-panel-active</#if></#if>" id="container" >
+
         <div class="form-container sign-up-container">
             <form action="/register" method="post"  role="form" modelAttribute="registerForm">
                 <h2>Create Account</h2>
