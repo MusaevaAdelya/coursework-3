@@ -47,8 +47,8 @@ a {
 
 button {
     border-radius: 20px;
-    border: 1px solid #B5267E;
-    background-color: #B5267E;
+    border: 1px solid var(--Accent);
+    background-color: var(--Accent);
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -161,7 +161,7 @@ input {
 }
 
 .overlay {
-    background: #B5267E;
+    background: var(--Accent);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
