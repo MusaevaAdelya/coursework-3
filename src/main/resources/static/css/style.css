@@ -245,7 +245,7 @@ header .nav-link:hover {
 
 .students-block{
     min-height: 500px;
-    background: linear-gradient(rgba(25, 25, 25, 0.50), rgba(25, 25, 25, 0.60)), url("/img/Back-image.jpg") ;
+    background: linear-gradient(rgba(25, 25, 25, 0.50), rgba(25, 25, 25, 0.60)), url("../calopsia_view/img/Back-image.jpg") ;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -333,7 +333,7 @@ a:hover{
 }
 .main-block::before {
     display: block;
-    background-image: url('/img/Back-image.jpg');
+    background-image: url('/calopsia_view/img/Back-image.jpg');
     content: '  ';
     min-height: 100vh !important;
     background-size: 50%;
@@ -436,7 +436,7 @@ a{
         display: block;
         content: '  ';
         min-height: 100vh !important;
-        background-image: url("/img/Back-image.jpg");
+        background-image: url("/calopsia_view/img/Back-image.jpg");
         background-size: cover;
         background-clip: border-box;
         background-repeat: no-repeat;
@@ -494,30 +494,4 @@ a{
         min-height: 650px !important;
     }
 
-}
-
-.auth-user{
-    display: inline;
-    text-decoration: none;
-    color:black
-}
-
-.auth-user .avatar{
-    display:inline;
-    width: 40px;
-    height:40px;
-    border-radius: 50%;
-    object-fit: cover;
-    background-position: center center;
-    border:3px solid var(--BackContent)
-}
-
-.auth-user .username{
-    display: inline;
-    font-weight: bold;
-    margin:0 10px;
-}
-
-.auth-user .username:hover{
-    color:var(--Accent)
 }
