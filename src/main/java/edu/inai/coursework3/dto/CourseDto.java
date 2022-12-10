@@ -21,7 +21,7 @@ public class CourseDto {
                 .users(course.getUsers().stream().map(UserDto::from).collect(Collectors.toList()))
                 .courseSections(course.getCourseSections())
                 .coins(course.getCoins())
-                .enabled(course.getEnabled())
+                .status(course.getStatus().toString())
                 .dateOn(course.getDateOn())
                 .teacher(UserDto.from(course.getTeacher()))
                 .category(course.getCategory())
@@ -37,7 +37,7 @@ public class CourseDto {
     private List<UserDto> users;
     private List<CourseSection> courseSections;
     private Double coins;
-    private Boolean enabled;
+    private String status;
     private LocalDateTime dateOn;
     private UserDto teacher;
     private Category category;

@@ -1,5 +1,7 @@
 package edu.inai.coursework3.entities;
 
+import edu.inai.coursework3.enums.CourseLevel;
+import edu.inai.coursework3.enums.CourseStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,7 +45,8 @@ public class Course {
     private Double coins;
 
     @Builder.Default
-    private Boolean enabled=false;
+    @Enumerated(EnumType.STRING)
+    private CourseStatus status=CourseStatus.MODERATION;
 
     @Builder.Default
     @Column(name="date_on")
@@ -60,5 +63,9 @@ public class Course {
     @PositiveOrZero
     @Builder.Default
     private Double ratingScore=0.0;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private CourseLevel level=CourseLevel.AllLevels;
 
 }

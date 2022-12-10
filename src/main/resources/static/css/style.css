@@ -495,29 +495,3 @@ a{
     }
 
 }
-
-.auth-user{
-    display: inline;
-    text-decoration: none;
-    color:black
-}
-
-.auth-user .avatar{
-    display:inline;
-    width: 40px;
-    height:40px;
-    border-radius: 50%;
-    object-fit: cover;
-    background-position: center center;
-    border:3px solid var(--BackContent)
-}
-
-.auth-user .username{
-    display: inline;
-    font-weight: bold;
-    margin:0 10px;
-}
-
-.auth-user .username:hover{
-    color:var(--Accent)
-}

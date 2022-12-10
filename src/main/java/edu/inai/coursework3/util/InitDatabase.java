@@ -4,6 +4,7 @@ package edu.inai.coursework3.util;
 import edu.inai.coursework3.entities.Category;
 import edu.inai.coursework3.entities.Course;
 import edu.inai.coursework3.entities.User;
+import edu.inai.coursework3.enums.CourseStatus;
 import edu.inai.coursework3.enums.UserRoles;
 import edu.inai.coursework3.exceptions.CategoryNotFoundException;
 import edu.inai.coursework3.exceptions.UserNotFoundException;
@@ -115,7 +116,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("Spring Boot")
                                     .coins(100.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher2)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Back-end").orElseThrow(()-> new CategoryNotFoundException("Back-end")))
@@ -123,7 +124,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("Spring Security")
                                     .coins(100.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher2)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Back-end").orElseThrow(()-> new CategoryNotFoundException("Back-end")))
@@ -131,7 +132,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("Spring Data JPA")
                                     .coins(100.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher2)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Back-end").orElseThrow(()-> new CategoryNotFoundException("Back-end")))
@@ -139,7 +140,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("JDBC")
                                     .coins(100.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher2)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Back-end").orElseThrow(()-> new CategoryNotFoundException("Back-end")))
@@ -147,7 +148,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("Bootstrap 5")
                                     .coins(150.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher1)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Front-end").orElseThrow(()-> new CategoryNotFoundException("Front-end")))
@@ -155,7 +156,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("Full HTML/CSS course")
                                     .coins(150.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher1)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Front-end").orElseThrow(()-> new CategoryNotFoundException("Front-end")))
@@ -163,7 +164,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("Introduction to JavaScript")
                                     .coins(150.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher1)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Front-end").orElseThrow(()-> new CategoryNotFoundException("Front-end")))
@@ -171,7 +172,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("UX/UI Design with Figma")
                                     .coins(150.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher1)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("UX/UI Design").orElseThrow(()-> new CategoryNotFoundException("UX/UI Design")))
