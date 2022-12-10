@@ -62,6 +62,7 @@ rangeInput.forEach(input =>{
 
 const allStars = document.querySelectorAll(".star"),
 currentRating = document.querySelector(".current-rating");
+inputRating=document.getElementById("rating")
 
 
 allStars.forEach((star , i) =>{
@@ -72,6 +73,7 @@ allStars.forEach((star , i) =>{
             if (current_star_level >= j+1){
                 star.innerHTML = '&#9733';
                 currentRating.innerText = `${current_star_level} of 5`
+                inputRating.value=current_star_level
             }else {
                 star.innerHTML = '&#9734';
             }

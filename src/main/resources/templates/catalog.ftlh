@@ -72,7 +72,7 @@ extrastyle=extraStyleMarkup>
         </nav>
     </header>
 
-    <main class="pt-top">
+    <main class="pt-top mb-5">
 
         <div class="courses container">
             <button class="filter-menu-button filter-menu d-lg-none fixed-top" type="button" data-bs-toggle="offcanvas"
@@ -81,18 +81,18 @@ extrastyle=extraStyleMarkup>
             </button>
             <div class="row">
 
-                <form action="/courses" method="get" role="form" modelAttribute="catalogForm">
-                    <!--            Начало фильтра-->
-                    <div class="col-lg-3 pt-3 h-75  d-sm-none d-md-none d-lg-block filter-menu-none">
 
+                <!--            Начало фильтра-->
+                <div class="col-lg-3 pt-3 h-75  d-sm-none d-md-none d-lg-block filter-menu-none">
+                    <form action="/courses" method="get" role="form" modelAttribute="catalogForm">
 
                         <!--                Поиск по ключевому слову-->
 
                         <div class="input-group search-input container mb-3">
                             <i class="b"></i>
                             <input type="text" class="form-control input-main-page border-0" aria-label="searchInput"
-                                   placeholder="Course titles or keywords">
-                            <button class="btn btn-outline-secondary btn-main text-white" type="button"
+                                   placeholder="Course titles or keywords" name="keywords">
+                            <button class="btn btn-outline-secondary btn-main text-white" type="submit"
                                     id="button-addon2">
                                 Search
                             </button>
@@ -101,32 +101,32 @@ extrastyle=extraStyleMarkup>
 
                         <!--                По диапазону цены -->
 
-                        <div class="wrapper">
-                            <p class="text-center text-secondary fw-bolder fs-5">Price</p>
-                            <div class="price-input">
-                                <!--                        Минимальное поле ввода-->
-                                <div class="field">
-                                    <span>Min</span>
-                                    <input type="number" class="input-min" value="0">
-                                </div>
-                                <div class="separator">-</div>
-                                <!--                        Максимальное поле ввода-->
-                                <div class="field">
-                                    <span>Max</span>
-                                    <input type="number" class="input-max" value="1000">
-                                </div>
-                            </div>
-                            <!--                    Конец полей ввода-->
+                        <#--                        <div class="wrapper">-->
+                        <#--                            <p class="text-center text-secondary fw-bolder fs-5">Price</p>-->
+                        <#--                            <div class="price-input">-->
+                        <#--                                <!--                        Минимальное поле ввода&ndash;&gt;-->
+                        <#--                                <div class="field">-->
+                        <#--                                    <span>Min</span>-->
+                        <#--                                    <input type="number" class="input-min" value="0" name="minPrice">-->
+                        <#--                                </div>-->
+                        <#--                                <div class="separator">-</div>-->
+                        <#--                                <!--                        Максимальное поле ввода&ndash;&gt;-->
+                        <#--                                <div class="field">-->
+                        <#--                                    <span>Max</span>-->
+                        <#--                                    <input type="number" class="input-max" value="1000" name="maxPrice">-->
+                        <#--                                </div>-->
+                        <#--                            </div>-->
+                        <#--                            <!--                    Конец полей ввода&ndash;&gt;-->
 
-                            <!--                    Начало слайдера-->
-                            <div class="slider">
-                                <div class="progress-filter"></div>
-                            </div>
-                            <div class="range-input">
-                                <input type="range" class="range-min" min="0" max="1000" value="0" step="10">
-                                <input type="range" class="range-max" min="0" max="1000" value="999" step="10">
-                            </div>
-                        </div>
+                        <#--                            <!--                    Начало слайдера&ndash;&gt;-->
+                        <#--                            <div class="slider">-->
+                        <#--                                <div class="progress-filter"></div>-->
+                        <#--                            </div>-->
+                        <#--                            <div class="range-input">-->
+                        <#--                                <input type="range" class="range-min" min="0" max="1000" value="0" step="10">-->
+                        <#--                                <input type="range" class="range-max" min="0" max="1000" value="999" step="10">-->
+                        <#--                            </div>-->
+                        <#--                        </div>-->
                         <!--                Конец слайдера-->
                         <!--Конец диапазона цены-->
 
@@ -137,15 +137,18 @@ extrastyle=extraStyleMarkup>
                             <p class="text-center text-secondary fw-bolder fs-5">Rating</p>
 
                             <div class="star-rating text-center">
-                                <button class="star">&#9734</button>
-                                <button class="star">&#9734</button>
-                                <button class="star">&#9734</button>
-                                <button class="star">&#9734</button>
-                                <button class="star">&#9734</button>
+                                <button class="star" type="button">&#9734</button>
+                                <button class="star" type="button">&#9734</button>
+                                <button class="star" type="button">&#9734</button>
+                                <button class="star" type="button">&#9734</button>
+                                <button class="star" type="button">&#9734</button>
                             </div>
 
                             <p class="current-rating text-center fw-bold">0 of 5</p>
+                            <input id="rating" name="rating" value="0" hidden>
                         </div>
+
+
                         <!--        Конец сортировки по рейтингу -->
 
                         <!--                Уровни сложности-->
@@ -157,23 +160,24 @@ extrastyle=extraStyleMarkup>
                                     <div class="col">
                                         <div class="level-checkbox">
                                             <input type="checkbox" id="AllLevel" value="AllLevel"
-                                                   class="checkbox-level">
+                                                   class="checkbox-level" name="level">
                                             <label class="label-level" for="AllLevel">All level</label>
                                         </div>
                                         <div class="level-checkbox">
-                                            <input type="checkbox" id="Expert" value="Expert" class="checkbox-level">
+                                            <input type="checkbox" id="Expert" value="Expert" class="checkbox-level"
+                                                   name="level">
                                             <label class="label-level" for="Expert">Expert</label>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="level-checkbox">
                                             <input type="checkbox" id="Intermediate" value="Intermediate"
-                                                   class="checkbox-level">
+                                                   class="checkbox-level" name="level">
                                             <label class="label-level" for="Intermediate">Intermediate</label>
                                         </div>
                                         <div class="level-checkbox">
                                             <input type="checkbox" id="Beginner" value="Beginner"
-                                                   class="checkbox-level">
+                                                   class="checkbox-level" name="level">
                                             <label class="label-level" for="Beginner">Beginner</label>
                                         </div>
                                     </div>
@@ -192,22 +196,22 @@ extrastyle=extraStyleMarkup>
                                 <div class="row">
                                     <div class="col">
                                         <div class="sort-radio">
-                                            <input type="radio" id="New" value="New" class="radio-sort" name="sort">
+                                            <input type="radio" id="New" value="New" class="radio-sort" name="orderBy">
                                             <label class="sort-label" for="New">New</label>
                                         </div>
                                         <div class="sort-radio">
                                             <input type="radio" id="Popular" value="Popular" class="radio-sort"
-                                                   name="sort">
+                                                   name="orderBy">
                                             <label class="sort-label" for="Popular">Popular</label>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="sort-radio">
-                                            <input type="radio" id="Top" value="Top" class="radio-sort" name="sort">
+                                            <input type="radio" id="Top" value="Top" class="radio-sort" name="orderBy">
                                             <label class="sort-label" for="Top">Top</label>
                                         </div>
                                         <div class="sort-radio">
-                                            <input type="radio" id="All" value="All" class="radio-sort" name="sort">
+                                            <input type="radio" id="All" value="All" class="radio-sort" name="orderBy">
                                             <label class="sort-label " for="All">All</label>
                                         </div>
                                     </div>
@@ -220,16 +224,19 @@ extrastyle=extraStyleMarkup>
                         <!--            Фильтр по бесплатное и платное-->
                         <div class="wrapper mt-2">
                             <p class="text-center text-secondary fw-bolder fs-5">Categories</p>
-                            <div class="free-or-paid text-center">
-                                <div class="radio">
-                                    <input type="radio" name="free-paid" id="free" value="free" class="radio-input">
-                                    <label for="free" class="radio-label">Free</label>
-                                    <input type="radio" name="free-paid" id="all" value="all" class="radio-input">
-                                    <label for="all" class="radio-label">All</label>
-                                    <input type="radio" name="free-paid" id="paid" value="paid" class="radio-input">
-                                    <label for="paid" class="radio-label">Paid</label>
-                                </div>
-                            </div>
+                            <#--                            <div class="free-or-paid text-center">-->
+                            <#--                                <div class="radio">-->
+                            <#--                                    <input type="radio" name="free-paid" id="free" value="free" class="radio-input"-->
+                            <#--                                           name="price">-->
+                            <#--                                    <label for="free" class="radio-label">Free</label>-->
+                            <#--                                    <input type="radio" name="free-paid" id="all" value="all" class="radio-input"-->
+                            <#--                                           name="price">-->
+                            <#--                                    <label for="all" class="radio-label">All</label>-->
+                            <#--                                    <input type="radio" name="free-paid" id="paid" value="paid" class="radio-input"-->
+                            <#--                                           name="price">-->
+                            <#--                                    <label for="paid" class="radio-label">Paid</label>-->
+                            <#--                                </div>-->
+                            <#--                            </div>-->
 
 
                             <!--                Конец фильтра бесплатное и платное-->
@@ -239,134 +246,65 @@ extrastyle=extraStyleMarkup>
 
                             <div class="filter-categories mt-3 ">
                                 <div class="accordion" id="accordionExample">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseOne" aria-expanded="true"
-                                                    aria-controls="collapseOne">
-                                                <input type="checkbox" name="design" id="headerBtn1"
-                                                       class="headerBtnCheckbox">
-                                                Design
-                                            </button>
-                                        </h2>
-                                        <div id="collapseOne" class="accordion-collapse collapse"
-                                             aria-labelledby="headingOne"
-                                             data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <ul class="ul-checkbox" id="id-ul-check">
-                                                    <li>
-                                                        <input type="checkbox">
-                                                        <label>Подкатегория</label>
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox">
-                                                        <label>Подкатегория</label>
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox">
-                                                        <label>Подкатегория</label>
-                                                        <ul class="ul-checkbox">
-                                                            <li><input type="checkbox">
-                                                                <label>Подподкатегория</label>
-                                                            </li>
-                                                            <li><input type="checkbox">
-                                                                <label>Подподкатегория</label>
-                                                            </li>
-                                                            <li><input type="checkbox">
-                                                                <label>Подподкатегория</label>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
+
+                                    <#if categories??>
+                                        <#list categories as grandparent>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="heading${grandparent.categoryDto.id}">
+                                                    <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#collapse${grandparent.categoryDto.id}"
+                                                            aria-expanded="true"
+                                                            aria-controls="collapse${grandparent.categoryDto.id}">
+                                                        <input type="checkbox" name="category"
+                                                               id="headerBtn${grandparent.categoryDto.id}"
+                                                               class="headerBtnCheckbox"
+                                                               value="${grandparent.categoryDto.id}">
+                                                        ${grandparent.categoryDto.name}
+                                                    </button>
+                                                </h2>
+                                                <#if grandparent.children??>
+                                                    <#if grandparent.children?size!=0>
+                                                        <div id="collapse${grandparent.categoryDto.id}"
+                                                             class="accordion-collapse collapse"
+                                                             aria-labelledby="heading${grandparent.categoryDto.id}"
+                                                             data-bs-parent="#accordionExample">
+                                                            <div class="accordion-body">
+                                                                <ul class="ul-checkbox" id="id-ul-check">
+
+                                                                    <#list grandparent.children as parent>
+                                                                        <li>
+                                                                            <input type="checkbox" name="category"
+                                                                                   value="${parent.categoryDto.id}">
+                                                                            <label>${parent.categoryDto.name}</label>
+                                                                            <#if parent.children??>
+                                                                                <#if parent.children?size!=0>
+                                                                                    <ul class="ul-checkbox">
+                                                                                        <#list parent.children as child>
+                                                                                            <li><input type="checkbox"
+                                                                                                       name="category"
+                                                                                                       value="${child.categoryDto.id}">
+                                                                                                <label>${child.categoryDto.name}</label>
+                                                                                            </li>
+                                                                                        </#list>
+
+                                                                                    </ul>
+                                                                                </#if>
+                                                                            </#if>
+
+                                                                        </li>
+                                                                    </#list>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </#if>
+                                                </#if>
+
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingTwo">
-                                            <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseTwo" aria-expanded="false"
-                                                    aria-controls="collapseTwo">
-                                                <input type="checkbox" name="Back" id="headerBtn2"
-                                                       class="headerBtnCheckbox">
-                                                Back-end developer
-                                            </button>
-                                        </h2>
-                                        <!--                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"-->
-                                        <!--                                     data-bs-parent="#accordionExample">-->
-                                        <!--                                    <div class="accordion-body">-->
-                                        <!--                                        <ul class="ul-checkbox" id="id-ul-check">-->
-                                        <!--                                            <li><input type="checkbox">-->
-                                        <!--                                                <label>Подкатегория</label>-->
-                                        <!--                                            </li>-->
-                                        <!--                                            <li><input type="checkbox">-->
-                                        <!--                                                <label>Подкатегория</label>-->
-                                        <!--                                            </li>-->
-                                        <!--                                            <li><input type="checkbox">-->
-                                        <!--                                                <label>Подкатегория</label>-->
-                                        <!--                                            </li>-->
-                                        <!--                                        </ul>-->
-                                        <!--                                    </div>-->
-                                        <!--                                </div>-->
-                                    </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingThree">
-                                            <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseThree" aria-expanded="false"
-                                                    aria-controls="collapseThree">
-                                                <input type="checkbox" name="motion" id="headerBtn3"
-                                                       class="headerBtnCheckbox">
-                                                Motion-Design
-                                            </button>
-                                        </h2>
-                                        <div id="collapseThree" class="accordion-collapse collapse"
-                                             aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <ul class="ul-checkbox" id="id-ul-check">
-                                                    <li><input type="checkbox">
-                                                        <label>Подкатегория</label>
-                                                    </li>
-                                                    <li><input type="checkbox">
-                                                        <label>Подкатегория</label>
-                                                    </li>
-                                                    <li><input type="checkbox">
-                                                        <label>Подкатегория</label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingFour">
-                                            <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseFour" aria-expanded="false"
-                                                    aria-controls="collapseFour">
-                                                <input type="checkbox" name="Math" id="headerBtn4"
-                                                       class="headerBtnCheckbox">
-                                                Math
-                                            </button>
-                                        </h2>
-                                        <div id="collapseFour" class="accordion-collapse collapse"
-                                             aria-labelledby="headingFour"
-                                             data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <ul class="ul-checkbox" id="id-ul-check">
-                                                    <li><input type="checkbox">
-                                                        <label>Подкатегория</label>
-                                                    </li>
-                                                    <li><input type="checkbox">
-                                                        <label>Подкатегория</label>
-                                                    </li>
-                                                    <li><input type="checkbox">
-                                                        <label>Подкатегория</label>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        </#list>
+                                    </#if>
+
                                 </div>
 
                             </div>
@@ -375,9 +313,8 @@ extrastyle=extraStyleMarkup>
                         <div class="text-center">
                             <button type="submit" class="filter-search-btn mt-3">Search</button>
                         </div>
-
-                    </div>
-                </form>
+                    </form>
+                </div>
 
 
                 <!--            Конец фильтра-->
@@ -385,233 +322,61 @@ extrastyle=extraStyleMarkup>
                 <!--            Блок с курсами-->
                 <div class="col ">
 
-                    <div class="row">
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="design-btn my-3 rounded px-2 py-1" href="#">Design</a></div>
-                                <h4 class="text-black fw-bold">Web-design</h4>
+                    <div class="row row-cols-1 row-cols-lg-3">
+                        <#if courses??>
+                            <#list courses as course>
+                                <div class="col my-3">
+                                    <div class="card popular-cources shadow p-3 bg-white rounded">
+                                        <img class="rounded"
+                                             src="/files/courses/${course.thumbNailPath}"
+                                             alt="">
+                                        <div class="py-3"><a class="design-btn my-3 rounded px-2 py-1"
+                                                             href="#">${course.category.name}</a></div>
+                                        <h4 class="text-black fw-bold">${course.name}</h4>
 
-                                <p class="text-secondary fw-bolder">156 Students</p>
+                                        <p class="text-secondary fw-bolder">${course.users?size} Students</p>
 
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
+                                        <div class="btn-price d-flex justify-content-between">
+                                            <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
+                                                learning</a>
+                                            <span class="fw-bolder purp-text  text-center"><i
+                                                        class="bi bi-star-fill text-warning"></i>${course.ratingScore?string["0.#"]}</span>
+                                        </div>
+
+                                    </div>
                                 </div>
+                            </#list>
+                        </#if>
 
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                        developer</a></div>
-                                <h4 class="text-black fw-bold">Web-design</h4>
 
-                                <p class="text-secondary fw-bolder">156 Students</p>
 
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="motion-btn my-3 rounded  px-2 py-1"
-                                                     href="#">Motion-Design</a>
-                                </div>
-                                <h4 class="text-black fw-bold">Adobe Premiere Pro </h4>
-
-                                <p class="text-secondary fw-bolder">156 Students</p>
-
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                        developer</a></div>
-                                <h4 class="text-black fw-bold">Web-design</h4>
-
-                                <p class="text-secondary fw-bolder">156 Students</p>
-
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                        developer</a></div>
-                                <h4 class="text-black fw-bold">Web-design</h4>
-
-                                <p class="text-secondary fw-bolder">156 Students</p>
-
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                        developer</a></div>
-                                <h4 class="text-black fw-bold">Web-design</h4>
-
-                                <p class="text-secondary fw-bolder">156 Students</p>
-
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="design-btn my-3 rounded px-2 py-1" href="#">Design</a></div>
-                                <h4 class="text-black fw-bold">Web-design</h4>
-
-                                <p class="text-secondary fw-bolder">156 Students</p>
-
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                        developer</a></div>
-                                <h4 class="text-black fw-bold">Web-design</h4>
-
-                                <p class="text-secondary fw-bolder">156 Students</p>
-
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="motion-btn my-3 rounded  px-2 py-1"
-                                                     href="#">Motion-Design</a>
-                                </div>
-                                <h4 class="text-black fw-bold">Adobe Premiere Pro </h4>
-
-                                <p class="text-secondary fw-bolder">156 Students</p>
-
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                        developer</a></div>
-                                <h4 class="text-black fw-bold">Web-design</h4>
-
-                                <p class="text-secondary fw-bolder">156 Students</p>
-
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                        developer</a></div>
-                                <h4 class="text-black fw-bold">Web-design</h4>
-
-                                <p class="text-secondary fw-bolder">156 Students</p>
-
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 my-3">
-                            <div class="card popular-cources shadow p-3 bg-white rounded">
-                                <img class="rounded"
-                                     src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
-                                     alt="">
-                                <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">Back-end
-                                        developer</a></div>
-                                <h4 class="text-black fw-bold">Web-design</h4>
-
-                                <p class="text-secondary fw-bolder">156 Students</p>
-
-                                <div class="btn-price d-flex justify-content-between">
-                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start learning</a>
-                                    <span class="fw-bolder purp-text  text-center">Free $0</span>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    <!--Pagination-->
+                    <nav aria-label="Page">
+                        <ul class="pagination d-flex justify-content-center py-5 mt-5">
+                            <li class="page-item <#if !hasPrev>disabled</#if>">
+                                <a class="page-link" href="${prevPageLink!'#'}">Previous</a>
+                            </li>
+                            <li class="page-item <#if !hasNext>disabled</#if>">
+                                <a class="page-link" href="${nextPageLink!'#'}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
 
                 </div>
                 <!--            Конец-->
+
+
+
             </div>
+
+
+
+
+
         </div>
-        </div>
+
+
 
 
         <div class="offcanvas offcanvas-start filter-menu" data-bs-scroll="false" tabindex="-1" id="small-filter"
@@ -622,156 +387,236 @@ extrastyle=extraStyleMarkup>
                         aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <div class="input-group search-input container mb-3">
-                    <i class="b"></i>
-                    <input type="text" class="form-control input-main-page border-0" aria-label="searchInput"
-                           placeholder="Course titles or keywords">
-                    <button class="btn btn-outline-secondary btn-main text-white" type="button" id="button-addon2">
-                        Search
-                    </button>
-                </div>
-                <!--                Конец поиска-->
+                <form action="/courses" method="get" role="form" modelAttribute="catalogForm">
 
-                <!--                По диапазону цены -->
+                    <!--                Поиск по ключевому слову-->
 
-                <div class="wrapper">
-                    <p class="text-center text-secondary fw-bolder fs-5">Price</p>
-                    <div class="price-input">
-                        <!--                        Минимальное поле ввода-->
-                        <div class="field">
-                            <span>Min</span>
-                            <input type="number" class="input-min" value="0">
+                    <div class="input-group search-input container mb-3">
+                        <i class="b"></i>
+                        <input type="text" class="form-control input-main-page border-0" aria-label="searchInput"
+                               placeholder="Course titles or keywords" name="keywords">
+                        <button class="btn btn-outline-secondary btn-main text-white" type="submit"
+                                id="button-addon2">
+                            Search
+                        </button>
+                    </div>
+                    <!--                Конец поиска-->
+
+                    <!--                По диапазону цены -->
+
+                    <#--                        <div class="wrapper">-->
+                    <#--                            <p class="text-center text-secondary fw-bolder fs-5">Price</p>-->
+                    <#--                            <div class="price-input">-->
+                    <#--                                <!--                        Минимальное поле ввода&ndash;&gt;-->
+                    <#--                                <div class="field">-->
+                    <#--                                    <span>Min</span>-->
+                    <#--                                    <input type="number" class="input-min" value="0" name="minPrice">-->
+                    <#--                                </div>-->
+                    <#--                                <div class="separator">-</div>-->
+                    <#--                                <!--                        Максимальное поле ввода&ndash;&gt;-->
+                    <#--                                <div class="field">-->
+                    <#--                                    <span>Max</span>-->
+                    <#--                                    <input type="number" class="input-max" value="1000" name="maxPrice">-->
+                    <#--                                </div>-->
+                    <#--                            </div>-->
+                    <#--                            <!--                    Конец полей ввода&ndash;&gt;-->
+
+                    <#--                            <!--                    Начало слайдера&ndash;&gt;-->
+                    <#--                            <div class="slider">-->
+                    <#--                                <div class="progress-filter"></div>-->
+                    <#--                            </div>-->
+                    <#--                            <div class="range-input">-->
+                    <#--                                <input type="range" class="range-min" min="0" max="1000" value="0" step="10">-->
+                    <#--                                <input type="range" class="range-max" min="0" max="1000" value="999" step="10">-->
+                    <#--                            </div>-->
+                    <#--                        </div>-->
+                    <!--                Конец слайдера-->
+                    <!--Конец диапазона цены-->
+
+
+                    <!--                Сортировка по рейтингу-->
+
+                    <div class="wrapper mt-2">
+                        <p class="text-center text-secondary fw-bolder fs-5">Rating</p>
+
+                        <div class="star-rating text-center">
+                            <button class="star" type="button">&#9734</button>
+                            <button class="star" type="button">&#9734</button>
+                            <button class="star" type="button">&#9734</button>
+                            <button class="star" type="button">&#9734</button>
+                            <button class="star" type="button">&#9734</button>
                         </div>
-                        <div class="separator">-</div>
-                        <!--                        Максимальное поле ввода-->
-                        <div class="field">
-                            <span>Max</span>
-                            <input type="number" class="input-max" value="10000">
-                        </div>
-                    </div>
-                    <!--                    Конец полей ввода-->
 
-                    <!--                    Начало слайдера-->
-                    <div class="slider">
-                        <div class="progress-filter"></div>
-                    </div>
-                    <div class="range-input">
-                        <input type="range" class="range-min" min="0" max="10000" value="0" step="100">
-                        <input type="range" class="range-max" min="0" max="10000" value="9999" step="100">
-                    </div>
-                </div>
-                <!--                Конец слайдера-->
-                <!--Конец диапазона цены-->
-
-
-                <!--                Сортировка по рейтингу-->
-
-                <div class="wrapper mt-2">
-                    <p class="text-center text-secondary fw-bolder fs-5">Rating</p>
-
-                    <div class="star-rating text-center">
-                        <button class="star">&#9734</button>
-                        <button class="star">&#9734</button>
-                        <button class="star">&#9734</button>
-                        <button class="star">&#9734</button>
-                        <button class="star">&#9734</button>
+                        <p class="current-rating text-center fw-bold">0 of 5</p>
+                        <input id="rating" name="rating" value="0" hidden>
                     </div>
 
-                    <p class="current-rating text-center fw-bold">0 of 5</p>
-                </div>
-                <!--        Конец сортировки по рейтингу -->
 
-                <!--                Уровни сложности-->
-                <div class="wrapper mt-2">
-                    <p class="text-center text-secondary fw-bolder fs-5">Levels</p>
+                    <!--        Конец сортировки по рейтингу -->
 
-                    <div class="levels">
-                        <div class="row">
-                            <div class="col">
-                                <div class="level-checkbox">
-                                    <input type="checkbox" id="AllLevel" value="AllLevel" class="checkbox-level">
-                                    <label class="label-level" for="AllLevel">All level</label>
+                    <!--                Уровни сложности-->
+                    <div class="wrapper mt-2">
+                        <p class="text-center text-secondary fw-bolder fs-5">Levels</p>
+
+                        <div class="levels">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="level-checkbox">
+                                        <input type="checkbox" id="AllLevel" value="AllLevel"
+                                               class="checkbox-level" name="level">
+                                        <label class="label-level" for="AllLevel">All level</label>
+                                    </div>
+                                    <div class="level-checkbox">
+                                        <input type="checkbox" id="Expert" value="Expert" class="checkbox-level"
+                                               name="level">
+                                        <label class="label-level" for="Expert">Expert</label>
+                                    </div>
                                 </div>
-                                <div class="level-checkbox">
-                                    <input type="checkbox" id="Expert" value="Expert" class="checkbox-level">
-                                    <label class="label-level" for="Expert">Expert</label>
+                                <div class="col">
+                                    <div class="level-checkbox">
+                                        <input type="checkbox" id="Intermediate" value="Intermediate"
+                                               class="checkbox-level" name="level">
+                                        <label class="label-level" for="Intermediate">Intermediate</label>
+                                    </div>
+                                    <div class="level-checkbox">
+                                        <input type="checkbox" id="Beginner" value="Beginner"
+                                               class="checkbox-level" name="level">
+                                        <label class="label-level" for="Beginner">Beginner</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="level-checkbox">
-                                    <input type="checkbox" id="Intermediate" value="Intermediate"
-                                           class="checkbox-level">
-                                    <label class="label-level" for="Intermediate">Intermediate</label>
-                                </div>
-                                <div class="level-checkbox">
-                                    <input type="checkbox" id="Beginner" value="Beginner" class="checkbox-level">
-                                    <label class="label-level" for="Beginner">Beginner</label>
-                                </div>
-                            </div>
+
                         </div>
-
                     </div>
-                </div>
 
-                <!--                Конец уровни сложности-->
+                    <!--                Конец уровни сложности-->
 
 
-                <!--                Новый , Популярный , Лучший-->
-                <div class="wrapper mt-2">
-                    <p class="text-center text-secondary fw-bolder fs-5">Sort by</p>
-                    <div class="sort-by">
-                        <div class="row">
-                            <div class="col">
-                                <div class="sort-radio">
-                                    <input type="radio" id="New" value="New" class="radio-sort" name="sort">
-                                    <label class="sort-label" for="New">New</label>
+                    <!--                Новый , Популярный , Лучший-->
+                    <div class="wrapper mt-2">
+                        <p class="text-center text-secondary fw-bolder fs-5">Sort by</p>
+                        <div class="sort-by">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="sort-radio">
+                                        <input type="radio" id="New" value="New" class="radio-sort" name="orderBy">
+                                        <label class="sort-label" for="New">New</label>
+                                    </div>
+                                    <div class="sort-radio">
+                                        <input type="radio" id="Popular" value="Popular" class="radio-sort"
+                                               name="orderBy">
+                                        <label class="sort-label" for="Popular">Popular</label>
+                                    </div>
                                 </div>
-                                <div class="sort-radio">
-                                    <input type="radio" id="Popular" value="Popular" class="radio-sort" name="sort">
-                                    <label class="sort-label" for="Popular">Popular</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="sort-radio">
-                                    <input type="radio" id="Top" value="Top" class="radio-sort" name="sort">
-                                    <label class="sort-label" for="Top">Top</label>
-                                </div>
-                                <div class="sort-radio">
-                                    <input type="radio" id="None" value="None" class="radio-sort" name="sort">
-                                    <label class="sort-label " for="None">None</label>
+                                <div class="col">
+                                    <div class="sort-radio">
+                                        <input type="radio" id="Top" value="Top" class="radio-sort" name="orderBy">
+                                        <label class="sort-label" for="Top">Top</label>
+                                    </div>
+                                    <div class="sort-radio">
+                                        <input type="radio" id="All" value="All" class="radio-sort" name="orderBy">
+                                        <label class="sort-label " for="All">All</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!--                Конец-->
+                    <!--                Конец-->
 
-                <div class="wrapper mt-2">
-                    <p class="text-center text-secondary fw-bolder fs-5">Categories</p>
-                    <div class="free-or-paid text-center">
-                        <div class="radio">
-                            <input type="radio" name="free-paid" id="free" value="free" class="radio-input">
-                            <label for="free" class="radio-label">Free</label>
-                            <input type="radio" name="free-paid" id="all" value="all" class="radio-input">
-                            <label for="all" class="radio-label">All</label>
-                            <input type="radio" name="free-paid" id="paid" value="paid" class="radio-input">
-                            <label for="paid" class="radio-label">Paid</label>
+                    <!--            Фильтр по бесплатное и платное-->
+                    <div class="wrapper mt-2">
+                        <p class="text-center text-secondary fw-bolder fs-5">Categories</p>
+                        <#--                            <div class="free-or-paid text-center">-->
+                        <#--                                <div class="radio">-->
+                        <#--                                    <input type="radio" name="free-paid" id="free" value="free" class="radio-input"-->
+                        <#--                                           name="price">-->
+                        <#--                                    <label for="free" class="radio-label">Free</label>-->
+                        <#--                                    <input type="radio" name="free-paid" id="all" value="all" class="radio-input"-->
+                        <#--                                           name="price">-->
+                        <#--                                    <label for="all" class="radio-label">All</label>-->
+                        <#--                                    <input type="radio" name="free-paid" id="paid" value="paid" class="radio-input"-->
+                        <#--                                           name="price">-->
+                        <#--                                    <label for="paid" class="radio-label">Paid</label>-->
+                        <#--                                </div>-->
+                        <#--                            </div>-->
+
+
+                        <!--                Конец фильтра бесплатное и платное-->
+
+
+                        <!--                Выпадающий список-->
+
+                        <div class="filter-categories mt-3 ">
+                            <div class="accordion" id="accordionExample">
+
+                                <#if categories??>
+                                    <#list categories as grandparent>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading${grandparent.categoryDto.id}">
+                                                <button class="accordion-button collapsed" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#collapse${grandparent.categoryDto.id}"
+                                                        aria-expanded="true"
+                                                        aria-controls="collapse${grandparent.categoryDto.id}">
+                                                    <input type="checkbox" name="category"
+                                                           id="headerBtn${grandparent.categoryDto.id}"
+                                                           class="headerBtnCheckbox"
+                                                           value="${grandparent.categoryDto.id}">
+                                                    ${grandparent.categoryDto.name}
+                                                </button>
+                                            </h2>
+                                            <#if grandparent.children??>
+                                                <#if grandparent.children?size!=0>
+                                                    <div id="collapse${grandparent.categoryDto.id}"
+                                                         class="accordion-collapse collapse"
+                                                         aria-labelledby="heading${grandparent.categoryDto.id}"
+                                                         data-bs-parent="#accordionExample">
+                                                        <div class="accordion-body">
+                                                            <ul class="ul-checkbox" id="id-ul-check">
+
+                                                                <#list grandparent.children as parent>
+                                                                    <li>
+                                                                        <input type="checkbox" name="category"
+                                                                               value="${parent.categoryDto.id}">
+                                                                        <label>${parent.categoryDto.name}</label>
+                                                                        <#if parent.children??>
+                                                                            <#if parent.children?size!=0>
+                                                                                <ul class="ul-checkbox">
+                                                                                    <#list parent.children as child>
+                                                                                        <li><input type="checkbox"
+                                                                                                   name="category"
+                                                                                                   value="${child.categoryDto.id}">
+                                                                                            <label>${child.categoryDto.name}</label>
+                                                                                        </li>
+                                                                                    </#list>
+
+                                                                                </ul>
+                                                                            </#if>
+                                                                        </#if>
+
+                                                                    </li>
+                                                                </#list>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </#if>
+                                            </#if>
+
+                                        </div>
+                                    </#list>
+                                </#if>
+
+                            </div>
+
                         </div>
                     </div>
 
-
-                    <!--                Конец фильтра бесплатное и платное-->
-
-
-                    <!--                Выпадающий список-->
-
-                    <!--                конец выпадающего списка-->
-                </div>
-
-                <div class="text-center">
-                    <button type="submit" class="filter-search-btn mt-3">Search</button>
-                </div>
+                    <div class="text-center">
+                        <button type="submit" class="filter-search-btn mt-3">Search</button>
+                    </div>
+                </form>
             </div>
         </div>
 
