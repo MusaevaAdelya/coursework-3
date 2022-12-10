@@ -28,12 +28,8 @@ public class CourseService {
     private final SpringDataWebProperties pageableDefaultProps;
     private final CategoryRepository categoryRepository;
 
-    public List<CourseDto> getCourses() {
-        Page<Course> courses=courseRepository.getCourses(CourseStatus.ACCEPTED,
-                        PageRequest.of(0,
-                                pageableDefaultProps.getPageable().getDefaultPageSize(),
-                                Sort.by("ratingScore").ascending()
-                                        .and(Sort.by("dateOn").ascending())));
+    public List<CourseDto> getCourses(Pageable pageable) {
+        Page<Course> courses=courseRepository.getCourses(CourseStatus.ACCEPTED, pageable);
         return parseCourseDtoFromList(courses.getContent());
 
     }

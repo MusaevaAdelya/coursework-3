@@ -122,7 +122,8 @@ styles=["/css/style.css"]>
                                     <div class="btn-price d-flex justify-content-between">
                                         <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
                                             learning</a>
-                                        <span class="fw-bolder purp-text  text-center">$${course.coins}</span>
+                                        <span class="fw-bolder purp-text  text-center"><i
+                                                    class="bi bi-star-fill text-warning"></i>${course.ratingScore?string["0.#"]}</span>
                                     </div>
 
                                 </div>

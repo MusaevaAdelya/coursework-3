@@ -15,7 +15,8 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends JpaRepository<Course,Long> {
 
-    @Query(value = "select c from Course c where c.status = :status")
+    @Query(value = "select c from Course c where c.status = :status " +
+            "order by size(c.users) desc, c.ratingScore desc, c.dateOn desc")
     Page<Course> getCourses(@Param("status") CourseStatus status, Pageable pageable);
 
     @Query(value = "select c from Course c where c.status=:status and " +
