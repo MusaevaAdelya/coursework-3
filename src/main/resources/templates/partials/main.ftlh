@@ -22,6 +22,9 @@
 
         ${extrastyle}
 
+        <script src="//code.jivo.ru/widget/e7qXj0lhXn" async></script>
+
+
     </head>
 
     <body>
