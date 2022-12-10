@@ -19,7 +19,7 @@ styles=["/css/style.css"]>
                 <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-0">
                         <li class="nav-item"><a class="nav-link text-black active" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-black " href="">All courses</a></li>
+                        <li class="nav-item"><a class="nav-link text-black " href="/courses">All courses</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
@@ -29,11 +29,11 @@ styles=["/css/style.css"]>
                             <li class="menu-separator nav-item ">.</li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black text-bold"
-                                        href="#">Login</a>
+                                        href="/login">Login</a>
                             </li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black header-button-purp"
-                                        href="#">Register</a></li>
+                                        href="/login?register=true">Register</a></li>
                         </ul>
                     </@security.authorize>
 

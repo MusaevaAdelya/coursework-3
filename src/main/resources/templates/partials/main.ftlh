@@ -35,7 +35,7 @@
         <div class="container-fluid bg-blue">
             <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3">
                 <a href="#"><img class="logo-header" src="/img/White_logo.svg" alt=""></a>
-                <p class="mb-0 text-white">© 2022 Calopsia, Inc</p>
+                <p class="mb-0 text-white"><i class="bi bi-c-circle"></i> 2022 Calopsia, Inc</p>
             </footer>
         </div>
     </#if>
