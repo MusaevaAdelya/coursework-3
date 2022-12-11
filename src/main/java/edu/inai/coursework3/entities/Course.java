@@ -68,4 +68,14 @@ public class Course {
     @Enumerated(EnumType.STRING)
     private CourseLevel level=CourseLevel.AllLevels;
 
+    @ElementCollection
+    private List<String> requirements=new ArrayList<>();
+
+    @ElementCollection
+    private List<String> skills=new ArrayList<>();
+
+    @NotBlank
+    @Size(max=700)
+    String description;
+
 }
