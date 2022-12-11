@@ -26,16 +26,11 @@ public class PropertiesService {
     public <T> void fillPaginationDataModel(Model model, Page<T> list, String name, String baseUri) {
         if (list.hasNext()) {
             model.addAttribute("nextPageLink", constructPageUri(baseUri, list.nextPageable().getPageNumber()));
-            log.info(constructPageUri(baseUri, list.nextPageable().getPageNumber()));
         }
 
         if (list.hasPrevious()) {
             model.addAttribute("prevPageLink", constructPageUri(baseUri, list.previousPageable().getPageNumber()));
-            log.info(constructPageUri(baseUri, list.previousPageable().getPageNumber()));
         }
-
-        log.info(String.valueOf(list.hasNext()));
-        log.info(String.valueOf(list.hasPrevious()));
 
 
         model.addAttribute("hasNext", list.hasNext());

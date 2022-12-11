@@ -43,9 +43,8 @@ public class CatalogController {
         propertiesService.fillPaginationDataModel(model, courses, "courses", uri);
 
         model.addAttribute("categories", categoryService.getCatalogCategories());
-
-
-
+        model.addAttribute("levels",courseService.getStringCourseLevels());
+        log.info(courseService.getStringCourseLevels().toString());
         return "catalog";
 
     }
