@@ -76,8 +76,11 @@ styles=["/css/style.css"]>
                         Learn what you want, <br>
                         from any device <br>
                     </h1>
-                    <p class="hero-sub-text text-start fs-5 mt-3">Knowledge is the eye of desire<br> and can become the
-                        pilot of the soul</p>
+                    <div class="w-75">
+                        <p class="hero-sub-text text-start fs-5 mt-3">“Yesterday is history, tomorrow is a mystery, but today is a gift. That is why it is called the present.”</p>
+                        <p class="hero-sub-text text-end italic fs-6">- Master Oogway</p>
+                    </div>
+
 
                     <div class="input-group mb-3 mt-5 search-input">
                         <i class="b"></i>
