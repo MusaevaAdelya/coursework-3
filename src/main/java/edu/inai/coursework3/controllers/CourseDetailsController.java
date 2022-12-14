@@ -32,6 +32,8 @@ public class CourseDetailsController {
     @GetMapping("/{id}")
     public String getCourseDetails(Model model, Authentication authentication,
                                    @PathVariable("id")Long courseId){
+
+
         if(authentication!=null){
             model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
         }
