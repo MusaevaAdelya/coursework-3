@@ -5,6 +5,7 @@ import edu.inai.coursework3.dto.CourseDto;
 import edu.inai.coursework3.entities.Course;
 import edu.inai.coursework3.enums.CourseLevel;
 import edu.inai.coursework3.enums.CourseStatus;
+import edu.inai.coursework3.exceptions.CourseNotFoundException;
 import edu.inai.coursework3.repositories.CategoryRepository;
 import edu.inai.coursework3.repositories.CourseRepository;
 import lombok.RequiredArgsConstructor;
@@ -107,11 +108,16 @@ public class CourseService {
         return courseLevelsEnums.stream().map(CourseLevel::toString).collect(Collectors.toList());
     }
 
-    public Object getCourseById(Long courseId) {
-        return null;
+    public CourseDto getCourseById(Long courseId) {
+        return CourseDto.from(courseRepository.findById(courseId).orElseThrow(
+                ()-> new CourseNotFoundException("course with id "+courseId+ " not found")));
     }
 
-    public Object getMoreCourses(Long courseId) {
-        return null;
+    public List<CourseDto> getMoreCourses(Long courseId) {
+        Course course=courseRepository.findById(courseId).orElseThrow(
+                ()-> new CourseNotFoundException("course with id "+courseId+ " not found"));
+
+        List<Course> moreCourses=courseRepository.getCourses(CourseStatus.ACCEPTED,Pageable.ofSize(3)).getContent();
+        return moreCourses.stream().map(CourseDto::from).collect(Collectors.toList());
     }
 }

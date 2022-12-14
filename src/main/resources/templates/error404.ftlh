@@ -49,7 +49,7 @@ extrastyle=extraStyleMarkup>
         </div>
         <div class="ground-wrapper"></div>
         <div class="button-container">
-            <p>Sorry! That page dosen't seem to exist</p><a class="button button--back" href="#">Go Back
+            <p>Sorry! That page dosen't seem to exist</p><a class="button button--back" href="/">Go Back
                 <div class="ghost">
                     <div class="ghost__hand"></div>
                     <div class="ghost__face"></div>
