@@ -30,7 +30,7 @@ public class CourseChapter {
     private String title;
 
     @Builder.Default
-    private Boolean freeTry=false;
+    private Boolean freeTry=true;
 
     @ElementCollection
     @JoinColumn(name="images")
@@ -41,7 +41,7 @@ public class CourseChapter {
     private LocalDateTime dateOn=LocalDateTime.now();
 
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private CourseTest test;
 
 }
