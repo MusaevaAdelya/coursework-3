@@ -5,6 +5,7 @@ import edu.inai.coursework3.entities.*;
 import edu.inai.coursework3.enums.CourseStatus;
 import edu.inai.coursework3.enums.UserRoles;
 import edu.inai.coursework3.exceptions.CategoryNotFoundException;
+import edu.inai.coursework3.exceptions.CourseNotFoundException;
 import edu.inai.coursework3.exceptions.UserNotFoundException;
 import edu.inai.coursework3.repositories.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Configuration
@@ -44,7 +46,8 @@ public class InitDatabase {
                            CourseRepository courseRepository,
                            CourseTestRepository courseTestRepository,
                            CourseChapterRepository courseChapterRepository,
-                           CourseSectionRepository courseSectionRepository) {
+                           CourseSectionRepository courseSectionRepository,
+                           CourseRatingRepository courseRatingRepository) {
         return (args) -> {
             if (userRepository.findByEmail("msvadelya@gmail.com").isEmpty()) {
                 User user1=User.builder()
@@ -243,6 +246,32 @@ public class InitDatabase {
                 courseRepository.saveAll(courses);
 
             }
+
+            List<CourseRating> ratings=courseRatingRepository.findAll();
+
+            if(ratings.size()==0){
+                Course course=courseRepository.findFirstByName("Spring Boot")
+                        .orElseThrow(()->new CourseNotFoundException("course with name Spring Boot not found"));
+
+                User user=userRepository.findByEmail("msvadelya@gmail.com").orElseThrow(()->new UserNotFoundException("msvadelya@gmail.com"));
+
+                courseRatingRepository.saveAll(List.of(
+                        CourseRating.builder()
+                                .user(user)
+                                .course(course)
+                                .rating(4)
+                                .comment("This course is great, I highly recommend it for anyone either completely unfamiliar, or even with some experience, with Spring Boot that wants a comprehensive foundation of knowledge that they can be confident will")
+                                .build(),
+                        CourseRating.builder()
+                                .rating(5)
+                                .user(user)
+                                .course(course)
+                                .comment("Excellent course concept. Very nice explanation for each step. So easy to understand and learn. I just enjoy learning from this course. Best regards to the wonderful lecturers!!!")
+                                .build()
+                ));
+
+            }
+
         };
     }
 }
