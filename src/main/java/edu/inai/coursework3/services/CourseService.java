@@ -106,4 +106,12 @@ public class CourseService {
         List<CourseLevel> courseLevelsEnums=getAllCourseLevels();
         return courseLevelsEnums.stream().map(CourseLevel::toString).collect(Collectors.toList());
     }
+
+    public Object getCourseById(Long courseId) {
+        return null;
+    }
+
+    public Object getMoreCourses(Long courseId) {
+        return null;
+    }
 }

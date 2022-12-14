@@ -168,7 +168,7 @@ public class InitDatabase {
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Back-end").orElseThrow(()-> new CategoryNotFoundException("Back-end")))
                                     .users(allUsers)
-                                    .ratingScore(5.0)
+                                    .ratingScore(4.5)
                                     .description("Become a Java Web Developer: MVC, REST API, OpenAPI Documentation, Testing, Spring Data JPA (SQL), Spring Security (JWT)")
                                     .requirements(List.of("Java","Object-Oriented Programming"))
                                     .skills(List.of("Launch an HTTP Server","Field Validation",
