@@ -24,7 +24,6 @@ public class CourseDetailsController {
     public String getCourseDetails(Model model, Authentication authentication,
                                    @PathVariable("id")Long courseId){
 
-
         if(authentication!=null){
             model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
         }
