@@ -29,6 +29,7 @@ public class CourseDto {
                 .level(course.getLevel().toString())
                 .requirements(course.getRequirements())
                 .skills(course.getSkills())
+                .description(course.getDescription())
                 .build();
 
 
@@ -48,4 +49,5 @@ public class CourseDto {
     private String level;
     private List<String> requirements;
     private List<String> skills;
+    private String description;
 }

@@ -78,7 +78,7 @@ extrastyle=extraStyleMarkup>
                 <div class="col-lg-9">
                     <div class="d-lg-none">
                         <img class="rounded img-fluid"
-                             src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
+                             src="/files/courses/${course.thumbNailPath}"
                              alt="">
                     </div>
                     <div class="row">
@@ -163,7 +163,7 @@ extrastyle=extraStyleMarkup>
                                 <p>${course.teacher.about}</p>
                             </div>
                             <div class="col-lg-4">
-                                <img src="/img/Erbol.jpg" class="img-fluid rounded">
+                                <img src="/files/avatars/${course.teacher.avatar}" class="img-fluid rounded">
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@ extrastyle=extraStyleMarkup>
                 <div class="col-lg-3 d-none d-lg-block info-block">
                     <div class="sticky-top-block">
                         <img class="img-fluid rounded"
-                             src="https://media.istockphoto.com/photos/elearning-education-concept-learning-online-picture-id1290864946?b=1&k=20&m=1290864946&s=170667a&w=0&h=zZq7rG5McSptSIpEm9f8iTGd3Mrdkcslakr91T7qTYM="
+                             src="/files/courses/${course.thumbNailPath}"
                              alt="">
                         <p class="fw-bolder price mx-auto h2 text-center my-3">${course.level}</p>
                         <div class="row justify-content-end">
