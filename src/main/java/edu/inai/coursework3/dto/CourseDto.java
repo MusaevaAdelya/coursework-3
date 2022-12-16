@@ -26,6 +26,10 @@ public class CourseDto {
                 .teacher(UserDto.from(course.getTeacher()))
                 .category(course.getCategory())
                 .ratingScore(course.getRatingScore())
+                .level(course.getLevel().toString())
+                .requirements(course.getRequirements())
+                .skills(course.getSkills())
+                .description(course.getDescription())
                 .build();
 
 
@@ -42,4 +46,8 @@ public class CourseDto {
     private UserDto teacher;
     private Category category;
     private Double ratingScore;
+    private String level;
+    private List<String> requirements;
+    private List<String> skills;
+    private String description;
 }

@@ -66,4 +66,7 @@ public class User {
     @Builder.Default
     private Double coins=0.0;
 
+    @Size(max=500)
+    String about;
+
 }

@@ -19,7 +19,7 @@ styles=["/css/style.css"]>
                 <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-0">
                         <li class="nav-item"><a class="nav-link text-black active" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-black " href="">All courses</a></li>
+                        <li class="nav-item"><a class="nav-link text-black " href="/courses">All courses</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
@@ -29,11 +29,11 @@ styles=["/css/style.css"]>
                             <li class="menu-separator nav-item ">.</li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black text-bold"
-                                        href="#">Login</a>
+                                        href="/login">Login</a>
                             </li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black header-button-purp"
-                                        href="#">Register</a></li>
+                                        href="/login?register=true">Register</a></li>
                         </ul>
                     </@security.authorize>
 
@@ -76,8 +76,11 @@ styles=["/css/style.css"]>
                         Learn what you want, <br>
                         from any device <br>
                     </h1>
-                    <p class="hero-sub-text text-start fs-5 mt-3">Knowledge is the eye of desire<br> and can become the
-                        pilot of the soul</p>
+                    <div class="w-75">
+                        <p class="hero-sub-text text-start fs-5 mt-3">“Yesterday is history, tomorrow is a mystery, but today is a gift. That is why it is called the present.”</p>
+                        <p class="hero-sub-text text-end italic fs-6">- Master Oogway</p>
+                    </div>
+
 
                     <div class="input-group mb-3 mt-5 search-input">
                         <i class="b"></i>
@@ -122,7 +125,8 @@ styles=["/css/style.css"]>
                                     <div class="btn-price d-flex justify-content-between">
                                         <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
                                             learning</a>
-                                        <span class="fw-bolder purp-text  text-center">$${course.coins}</span>
+                                        <span class="fw-bolder purp-text  text-center"><i
+                                                    class="bi bi-star-fill text-warning"></i>${course.ratingScore?string["0.#"]}</span>
                                     </div>
 
                                 </div>

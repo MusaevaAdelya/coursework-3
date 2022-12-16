@@ -37,7 +37,7 @@ public class Course {
     @Builder.Default
     private List<User> users=new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="course_section_id")
     private List<CourseSection> courseSections=new ArrayList<>();
 
@@ -67,5 +67,15 @@ public class Course {
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private CourseLevel level=CourseLevel.AllLevels;
+
+    @ElementCollection
+    private List<String> requirements=new ArrayList<>();
+
+    @ElementCollection
+    private List<String> skills=new ArrayList<>();
+
+
+    @Size(max=700)
+    String description;
 
 }

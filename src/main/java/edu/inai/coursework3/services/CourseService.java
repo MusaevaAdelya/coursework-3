@@ -5,6 +5,7 @@ import edu.inai.coursework3.dto.CourseDto;
 import edu.inai.coursework3.entities.Course;
 import edu.inai.coursework3.enums.CourseLevel;
 import edu.inai.coursework3.enums.CourseStatus;
+import edu.inai.coursework3.exceptions.CourseNotFoundException;
 import edu.inai.coursework3.repositories.CategoryRepository;
 import edu.inai.coursework3.repositories.CourseRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,12 +29,8 @@ public class CourseService {
     private final SpringDataWebProperties pageableDefaultProps;
     private final CategoryRepository categoryRepository;
 
-    public List<CourseDto> getCourses() {
-        Page<Course> courses=courseRepository.getCourses(CourseStatus.ACCEPTED,
-                        PageRequest.of(0,
-                                pageableDefaultProps.getPageable().getDefaultPageSize(),
-                                Sort.by("ratingScore").ascending()
-                                        .and(Sort.by("dateOn").ascending())));
+    public List<CourseDto> getCourses(Pageable pageable) {
+        Page<Course> courses=courseRepository.getCourses(CourseStatus.ACCEPTED, pageable);
         return parseCourseDtoFromList(courses.getContent());
 
     }
@@ -106,4 +103,21 @@ public class CourseService {
 
     }
 
+    public List<String> getStringCourseLevels() {
+        List<CourseLevel> courseLevelsEnums=getAllCourseLevels();
+        return courseLevelsEnums.stream().map(CourseLevel::toString).collect(Collectors.toList());
+    }
+
+    public CourseDto getCourseById(Long courseId) {
+        return CourseDto.from(courseRepository.findById(courseId).orElseThrow(
+                ()-> new CourseNotFoundException("course with id "+courseId+ " not found")));
+    }
+
+    public List<CourseDto> getMoreCourses(Long courseId) {
+        Course course=courseRepository.findById(courseId).orElseThrow(
+                ()-> new CourseNotFoundException("course with id "+courseId+ " not found"));
+
+        List<Course> moreCourses=courseRepository.getCourses(CourseStatus.ACCEPTED,Pageable.ofSize(3)).getContent();
+        return moreCourses.stream().map(CourseDto::from).collect(Collectors.toList());
+    }
 }

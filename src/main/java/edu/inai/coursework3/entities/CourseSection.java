@@ -26,7 +26,7 @@ public class CourseSection {
     @Size(min=3)
     private String title;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CourseChapter> chapters=new ArrayList<>();
 
 }

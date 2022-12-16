@@ -23,8 +23,8 @@ extrastyle=extraStyleMarkup>
 
                 <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-0">
-                        <li class="nav-item"><a class="nav-link text-black active" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-black " href="">All courses</a></li>
+                        <li class="nav-item"><a class="nav-link text-black " href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">All courses</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
@@ -34,11 +34,11 @@ extrastyle=extraStyleMarkup>
                             <li class="menu-separator nav-item ">.</li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black text-bold"
-                                        href="#">Login</a>
+                                        href="/login">Login</a>
                             </li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black header-button-purp"
-                                        href="#">Register</a></li>
+                                        href="/login?register=true">Register</a></li>
                         </ul>
                     </@security.authorize>
 
@@ -156,31 +156,20 @@ extrastyle=extraStyleMarkup>
                             <p class="text-center text-secondary fw-bolder fs-5">Levels</p>
 
                             <div class="levels">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="level-checkbox">
-                                            <input type="checkbox" id="AllLevel" value="AllLevel"
-                                                   class="checkbox-level" name="level">
-                                            <label class="label-level" for="AllLevel">All level</label>
-                                        </div>
-                                        <div class="level-checkbox">
-                                            <input type="checkbox" id="Expert" value="Expert" class="checkbox-level"
-                                                   name="level">
-                                            <label class="label-level" for="Expert">Expert</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="level-checkbox">
-                                            <input type="checkbox" id="Intermediate" value="Intermediate"
-                                                   class="checkbox-level" name="level">
-                                            <label class="label-level" for="Intermediate">Intermediate</label>
-                                        </div>
-                                        <div class="level-checkbox">
-                                            <input type="checkbox" id="Beginner" value="Beginner"
-                                                   class="checkbox-level" name="level">
-                                            <label class="label-level" for="Beginner">Beginner</label>
-                                        </div>
-                                    </div>
+                                <div class="row row-cols-2">
+                                    <#if levels??>
+                                        <#list levels as level>
+                                            <div class="col">
+                                                <div class="level-checkbox">
+                                                    <input type="checkbox" id="${level}" value="${level}"
+                                                           class="checkbox-level" name="level">
+                                                    <label class="label-level" for="${level}">
+                                                        <#if level=="AllLevels">All levels<#else>${level}</#if>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </#list>
+                                    </#if>
                                 </div>
 
                             </div>
@@ -322,35 +311,48 @@ extrastyle=extraStyleMarkup>
                 <!--            Блок с курсами-->
                 <div class="col ">
 
-                    <div class="row row-cols-1 row-cols-lg-3">
-                        <#if courses??>
-                            <#list courses as course>
-                                <div class="col my-3">
-                                    <div class="card popular-cources shadow p-3 bg-white rounded">
-                                        <img class="rounded"
-                                             src="/files/courses/${course.thumbNailPath}"
-                                             alt="">
-                                        <div class="py-3"><a class="design-btn my-3 rounded px-2 py-1"
-                                                             href="#">${course.category.name}</a></div>
-                                        <h4 class="text-black fw-bold">${course.name}</h4>
 
-                                        <p class="text-secondary fw-bolder">${course.users?size} Students</p>
+                    <#if courses??>
+                        <#if courses?size!=0>
+                            <div class="row row-cols-1 row-cols-lg-3">
+                                <#list courses as course>
 
-                                        <div class="btn-price d-flex justify-content-between">
-                                            <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
-                                                learning</a>
-                                            <span class="fw-bolder purp-text  text-center"><i
-                                                        class="bi bi-star-fill text-warning"></i>${course.ratingScore?string["0.#"]}</span>
+                                    <div class="col my-3">
+                                        <div class="card popular-cources shadow p-3 bg-white rounded">
+                                            <img class="rounded"
+                                                 src="/files/courses/${course.thumbNailPath}"
+                                                 alt="">
+                                            <div class="py-3"><a class="design-btn my-3 rounded px-2 py-1"
+                                                                 href="#">${course.category.name}</a></div>
+                                            <h4 class="text-black fw-bold">${course.name}</h4>
+
+                                            <p class="text-secondary fw-bolder">${course.users?size} Students</p>
+
+                                            <div class="btn-price d-flex justify-content-between">
+                                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
+                                                    learning</a>
+                                                <span class="fw-bolder purp-text  text-center"><i
+                                                            class="bi bi-star-fill text-warning"></i>${course.ratingScore?string["0.#"]}</span>
+                                            </div>
+
                                         </div>
-
                                     </div>
-                                </div>
-                            </#list>
+
+                                </#list>
+                            </div>
+                        <#else>
+                            <div class="d-flex justify-content-center align-content-center mt-5">
+                                <img src="/img/no_courses_were_found.svg"
+                                     alt="no courses were found"
+                                     width="70%" height="70%"
+                                     style="object-fit: contain; background-position: center center;">
+
+                            </div>
                         </#if>
 
+                    </#if>
 
 
-                    </div>
                     <!--Pagination-->
                     <nav aria-label="Page">
                         <ul class="pagination d-flex justify-content-center py-5 mt-5">
@@ -367,16 +369,10 @@ extrastyle=extraStyleMarkup>
                 <!--            Конец-->
 
 
-
             </div>
 
 
-
-
-
         </div>
-
-
 
 
         <div class="offcanvas offcanvas-start filter-menu" data-bs-scroll="false" tabindex="-1" id="small-filter"
@@ -459,31 +455,39 @@ extrastyle=extraStyleMarkup>
                         <p class="text-center text-secondary fw-bolder fs-5">Levels</p>
 
                         <div class="levels">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="level-checkbox">
-                                        <input type="checkbox" id="AllLevel" value="AllLevel"
-                                               class="checkbox-level" name="level">
-                                        <label class="label-level" for="AllLevel">All level</label>
-                                    </div>
-                                    <div class="level-checkbox">
-                                        <input type="checkbox" id="Expert" value="Expert" class="checkbox-level"
-                                               name="level">
-                                        <label class="label-level" for="Expert">Expert</label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="level-checkbox">
-                                        <input type="checkbox" id="Intermediate" value="Intermediate"
-                                               class="checkbox-level" name="level">
-                                        <label class="label-level" for="Intermediate">Intermediate</label>
-                                    </div>
-                                    <div class="level-checkbox">
-                                        <input type="checkbox" id="Beginner" value="Beginner"
-                                               class="checkbox-level" name="level">
-                                        <label class="label-level" for="Beginner">Beginner</label>
-                                    </div>
-                                </div>
+                            <div class="row row-cols-2">
+                                <#if levels??>
+                                    <#list levels as level>
+                                        <div class="col">
+                                            <div class="level-checkbox">
+                                                <input type="checkbox" id="${level}" value="${level}"
+                                                       class="checkbox-level" name="level">
+                                                <label class="label-level" for="${level}">
+                                                    <#if level=="AllLevels">All levels<#else>${level}</#if>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </#list>
+                                </#if>
+
+
+                                <#--                                <div class="col">-->
+                                <#--                                    <div class="level-checkbox">-->
+                                <#--                                        <input type="checkbox" id="Expert" value="Expert" class="checkbox-level"-->
+                                <#--                                               name="level">-->
+                                <#--                                        <label class="label-level" for="Expert">Expert</label>-->
+                                <#--                                    </div>-->
+                                <#--                                    <div class="level-checkbox">-->
+                                <#--                                        <input type="checkbox" id="Intermediate" value="Intermediate"-->
+                                <#--                                               class="checkbox-level" name="level">-->
+                                <#--                                        <label class="label-level" for="Intermediate">Intermediate</label>-->
+                                <#--                                    </div>-->
+                                <#--                                    <div class="level-checkbox">-->
+                                <#--                                        <input type="checkbox" id="Beginner" value="Beginner"-->
+                                <#--                                               class="checkbox-level" name="level">-->
+                                <#--                                        <label class="label-level" for="Beginner">Beginner</label>-->
+                                <#--                                    </div>-->
+                                <#--                                </div>-->
                             </div>
 
                         </div>
