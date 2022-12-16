@@ -1,0 +1,472 @@
+<#import "partials/main.ftlh" as main />
+
+<#assign extraScriptBeforerMarkup>
+    <script>
+
+        anychart.onDocumentReady(function () {
+            // set chart theme
+            anychart.theme('monochrome');
+            anychart.data.loadJsonFile(
+                '/vendor/anychart/data.json',
+                function (data) {
+                    var dataset = anychart.data.set(data);
+                    var mapping = dataset.mapAs({
+                        x: 'date',
+                        value: 'level'
+                    });
+                    var chart = anychart.calendar(mapping);
+
+                    chart.background('#fff');
+
+                    chart.months()
+                        .stroke(false)
+                        .noDataStroke(false);
+
+                    chart.days()
+                        .spacing(5)
+                        .stroke(false)
+                        .noDataStroke(false)
+                        .noDataFill('#f2f2f2')
+                        .noDataHatchFill(false);
+
+                    chart.colorRange(false);
+
+                    var customColorScale = anychart.scales.ordinalColor();
+                    customColorScale.ranges([
+                        {equal: 1, color: '#0119aa'},
+                        {equal: 2, color: '#425dff'},
+                        {equal: 3, color: '#6c81ff'},
+                        {equal: 4, color: '#b9c3ff'}
+                    ]);
+
+                    // Set color scale.
+                    chart.colorScale(customColorScale);
+
+                    chart.tooltip()
+                        .format('{%count} cources');
+
+                    chart.listen('chartDraw', function () {
+                        document.getElementById('container').style.height = chart.getActualHeight() + 'px';
+                    });
+
+                    chart.container('activity-chart');
+                    chart.draw();
+                }
+            );
+        });
+
+    </script>
+</#assign>
+
+<#assign extraScriptAfterMarkup>
+    <script>
+        // seeallcourcesbut
+        $(document).ready(function () {
+            $('.seeallcourcesbut').html('See all cources');
+            $('.seeallcourcesbut').click(function () {
+                if ($(this).text() == 'See all cources') {
+                    $(this).html('Hide all cources');
+                } else {
+                    $(this).html('See all cources');
+                }
+            })
+        });
+    </script>
+</#assign>
+
+<@main.renderWith title="Calopsia | Profile"
+scripts=["/js/script.js"]
+styles=["/css/style.css","/css/profile.css","/css/progress-style.css"]
+extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMarkup>
+    <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
+
+    <header>
+        <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3" id="mainNav">
+            <div class="container d-flex justify-content-between">
+                <a href="#"><img class="logo-header" src="/img/Black_logo.svg" alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarResponsive"
+                        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fa fa-bars text-black fs-1" aria-hidden="true"></i>
+                </button>
+
+                <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-0">
+                        <li class="nav-item"><a class="nav-link text-black " href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">All courses</a></li>
+                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>
+                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>
+                        <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
+                    </ul>
+                    <@security.authorize access="! isAuthenticated()">
+                        <ul class="navbar-nav ms-auto d-sm-inline py-4 py-lg-0 second">
+                            <li class="menu-separator nav-item ">.</li>
+                            <li class="nav-item d-sm-inline header-button"><a
+                                        class="nav-link d-sm-inline text-black text-bold"
+                                        href="/login">Login</a>
+                            </li>
+                            <li class="nav-item d-sm-inline header-button"><a
+                                        class="nav-link d-sm-inline text-black header-button-purp"
+                                        href="/login?register=true">Register</a></li>
+                        </ul>
+                    </@security.authorize>
+
+                    <@security.authorize access="isAuthenticated()">
+                        <p class="menu-separator d-sm-inline ms-auto">.</p>
+                        <#if user??>
+                            <a class="auth-user mx-3" href="#">
+                                <p class=" username">${user.username}</p>
+                                <img src="${avatarPath}${user.avatar}" alt="user avatar" class=" avatar">
+                            </a>
+                        </#if>
+
+                        <form action="/logout" method="post" role="form">
+                            <#if _csrf??>
+                                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                                       value="${(_csrf.token)!'--no-token--'}"/>
+                            </#if>
+
+                            <div class="nav-item d-sm-inline  ms-3">
+                                <button type="submit"
+                                        class="d-sm-inline btn btn-outline-secondary btn-main text-white header-button-purp"
+                                        href="#">Logout
+                                </button>
+                            </div>
+
+                        </form>
+                    </@security.authorize>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="modal modal-lg fade" id="settingsProfileModal" data-bs-backdrop="static" aria-hidden="true"
+         aria-labelledby="titleModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="titleModal">Profile Settings</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body p-4">
+                        <div class="row">
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Profile picture</label>
+                                <div class="image-upload">
+                                    <label for="formFile">
+
+                                        <img class="border shadow" src="/img/Erbol.jpg"/>
+                                    </label>
+
+                                    <input id="formFile" type="file"/>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" value="Nikolay" class="form-control" id="firstName">
+                            </div>
+                            <div class=" col-6 mb-3">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" value="Nikolay" class="form-control" id="lastName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPass" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPass">
+                            </div>
+                            <div class="mb-3">
+                                <label for="renewPass" class="form-label">Repeat Password</label>
+                                <input type="password" class="form-control" id="renewPass">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            Discard changes
+                        </button>
+                        <button class="btn btn-primary" class="btn-close" type="submit" data-bs-dismiss="modal"
+                                aria-label="Close">Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <main class="min-vh-100">
+        <div class="container">
+            <div class="row profile-info">
+                <div class="col-md-3 col-sm-12 profile-img  h-25 shadow">
+                    <img src="/img/Erbol.jpg" class="border" alt="">
+                    <div class="info text-start mt-3">
+                        <h5 class="name">Nikolay Toktorbaev</h5>
+                        <p class="desc text-muted">I like to learn and I love men.</p>
+                        <div class="subs">
+                            <p><i class="bi bi-people-fill"></i> 2 subscribers</p>
+                        </div>
+                        <a href="#" class="btn btn-primary btn-max-width">
+                            Follow
+                        </a>
+                        <!-- <a href="#" class="btn btn-secondary btn-max-width">
+                        Unfollow
+                     </a> -->
+                    </div>
+                </div>
+                <div class="col pt-3 ms-md-3 mt-sm-3 mt-md-0 ms-sm-0 profile-info shadow">
+                    <div class="sticky-top d-block">
+                        <ul class="nav nav-tabs sticky-top" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="prof-stats-tab" data-bs-toggle="tab"
+                                   data-bs-target="#prof-stats" type="button" role="tab" aria-controls="nav-home"
+                                   aria-selected="true">Overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="prof-stud-activity-tab" data-bs-toggle="tab"
+                                   data-bs-target="#prof-stud-activity" type="button" role="tab"
+                                   aria-controls="nav-home" aria-selected="true">Student
+                                    Activity</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="prof-teach-activity-tab" data-bs-toggle="tab"
+                                   data-bs-target="#prof-teach-activity" type="button" role="tab"
+                                   aria-controls="nav-profile" aria-selected="false">Teacher Activity</a>
+                            </li>
+
+                            <li class="nav-item ms-auto">
+                                <a class="nav-link" data-bs-toggle="modal" href="#settingsProfileModal" role="button"><i
+                                            class="bi bi-gear-fill"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content p-3 " id="nav-tabContent">
+                        <div class="tab-pane fade active show" id="prof-stats" role="tabpanel"
+                             aria-labelledby="prof-stats-tab">
+                            <div id="activity-chart" class="mt-5 border px-3">
+                                <div class="text-chart m-2">Activity last year</div>
+                            </div>
+                            <div class="statistic-chart w-100 d-flex border justify-content-between py-3 px-4">
+                                <div>
+                                    <dt class="activity-graph__counter-val">0</dt>
+                                    <dd class="activity-graph__counter-descr">Days repeat</dd>
+                                </div>
+                                <div>
+                                    <dt class="activity-graph__counter-val">2</dt>
+                                    <dd class="activity-graph__counter-descr">Day maximum</dd>
+                                </div>
+                                <div>
+                                    <dt class="activity-graph__counter-val">30</dt>
+                                    <dd class="activity-graph__counter-descr">Solved</dd>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="prof-stud-activity" role="tabpanel"
+                             aria-labelledby="prof-stud-activity-tab">
+                            <h3>Current Courses</h3>
+                            <hr>
+                            <div class="cources-block">
+                                <div class="row mb-4">
+                                    <div class="col-sm-6">
+                                        <div class="card curCources-card">
+                                            <div class="card-body">
+                                                <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
+                                                <h4 class="card-title mt-4">Motion Designer</h4>
+                                                <p class="card-text">With supporting text below as a natural lead-in to
+                                                    additional content.</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                    <div class="progress-circle over50 p70">
+                                                        <span>70%</span>
+                                                        <div class="left-half-clipper">
+                                                            <div class="first50-bar"></div>
+                                                            <div class="value-bar"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card curCources-card">
+                                            <div class="card-body">
+                                                <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
+                                                <h4 class="card-title mt-4">Motion Designer</h4>
+                                                <p class="card-text">With supporting text below as a natural lead-in to
+                                                    additional content.</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                    <div class="progress-circle over50 p70">
+                                                        <span>70%</span>
+                                                        <div class="left-half-clipper">
+                                                            <div class="first50-bar"></div>
+                                                            <div class="value-bar"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-cources-block">
+                                    <div class="row mb-4">
+                                        <div class="col-sm-6">
+                                            <div class="card curCources-card">
+                                                <div class="card-body">
+                                                    <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
+                                                    <h4 class="card-title mt-4">Motion Designer</h4>
+                                                    <p class="card-text">With supporting text below as a natural lead-in
+                                                        to
+                                                        additional content.</p>
+                                                    <div class="d-flex justify-content-between">
+                                                        <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                        <div class="progress-circle over50 p70">
+                                                            <span>70%</span>
+                                                            <div class="left-half-clipper">
+                                                                <div class="first50-bar"></div>
+                                                                <div class="value-bar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="card curCources-card">
+                                                <div class="card-body">
+                                                    <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
+                                                    <h4 class="card-title mt-4">Motion Designer</h4>
+                                                    <p class="card-text">With supporting text below as a natural lead-in
+                                                        to
+                                                        additional content.</p>
+                                                    <div class="d-flex justify-content-between">
+                                                        <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                        <div class="progress-circle over50 p70">
+                                                            <span>70%</span>
+                                                            <div class="left-half-clipper">
+                                                                <div class="first50-bar"></div>
+                                                                <div class="value-bar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-primary seeallcourcesbut" data-bs-toggle="collapse"
+                                   href="#collapse-cources-block"
+                                   role="button" aria-expanded="false" aria-controls="collapse-cources-block">
+                                    See all cources
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="prof-teach-activity" role="tabpanel"
+                             aria-labelledby="prof-teach-activity-tab">
+                            <h3>Created Courses</h3>
+                            <hr>
+                            <div class="cources-block">
+                                <div class="row mb-4">
+                                    <div class="col-sm-6">
+                                        <div class="card curCources-card">
+                                            <div class="card-body">
+                                                <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
+                                                <h4 class="card-title mt-4">Motion Designer</h4>
+                                                <p class="card-text">With supporting text below as a natural lead-in to
+                                                    additional content.</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                    <div class="progress-circle over50 p70">
+                                                        <span>70%</span>
+                                                        <div class="left-half-clipper">
+                                                            <div class="first50-bar"></div>
+                                                            <div class="value-bar"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="card curCources-card">
+                                            <div class="card-body">
+                                                <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
+                                                <h4 class="card-title mt-4">Motion Designer</h4>
+                                                <p class="card-text">With supporting text below as a natural lead-in to
+                                                    additional content.</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                    <div class="progress-circle over50 p70">
+                                                        <span>70%</span>
+                                                        <div class="left-half-clipper">
+                                                            <div class="first50-bar"></div>
+                                                            <div class="value-bar"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapse-created-block">
+                                    <div class="row mb-4">
+                                        <div class="col-sm-6">
+                                            <div class="card curCources-card">
+                                                <div class="card-body">
+                                                    <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
+                                                    <h4 class="card-title mt-4">Motion Designer</h4>
+                                                    <p class="card-text">With supporting text below as a natural lead-in
+                                                        to
+                                                        additional content.</p>
+                                                    <div class="d-flex justify-content-between">
+                                                        <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                        <div class="progress-circle over50 p70">
+                                                            <span>70%</span>
+                                                            <div class="left-half-clipper">
+                                                                <div class="first50-bar"></div>
+                                                                <div class="value-bar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="card curCources-card">
+                                                <div class="card-body">
+                                                    <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
+                                                    <h4 class="card-title mt-4">Motion Designer</h4>
+                                                    <p class="card-text">With supporting text below as a natural lead-in
+                                                        to
+                                                        additional content.</p>
+                                                    <div class="d-flex justify-content-between">
+                                                        <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                        <div class="progress-circle over50 p70">
+                                                            <span>70%</span>
+                                                            <div class="left-half-clipper">
+                                                                <div class="first50-bar"></div>
+                                                                <div class="value-bar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-primary seeallcourcesbut" data-bs-toggle="collapse"
+                                   href="#collapse-created-block"
+                                   role="button" aria-expanded="false" aria-controls="collapse-cources-block">
+                                    See all cources
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+
+</@main.renderWith>

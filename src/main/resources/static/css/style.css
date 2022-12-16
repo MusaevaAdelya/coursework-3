@@ -23,6 +23,11 @@
     --LightGray: #d0d0d0;
     --BackContent: #77B5FE;
     --hover-bg: #0030b9;
+    --ScrollBar: linear-gradient(to bottom, var(--Accent) , var(--Accent2) );
+    --ScrollBarThumb: #f1cdff;
+    --TestBtn: #85d285;
+    --Send: #00ff00;
+    --Danger: #f83333;
 }
 
 html{
@@ -315,6 +320,8 @@ a:hover{
 .card.popular-cources img{
     border: none;
     border-radius: 1rem !important;
+    max-height: 15rem;
+    object-fit: cover;
 }
 .card.popular-cources .purp_button{
     border: none;
@@ -388,7 +395,7 @@ header .nav.full {
 }
 
 .bg-blue {
-    background: var(--SpinButton);
+    background: var(--Accent);
 }
 
 .byebyeheader {
@@ -429,6 +436,17 @@ a{
 }
 
 
+.success{
+    background: var(--TestBtn);
+}
+
+.danger{
+    background: var(--Danger);
+}
+
+.light{
+    background: var(--Back);
+}
 
 
 @media screen and (max-width: 992px) {
@@ -495,7 +513,6 @@ a{
     }
 
 }
-
 .auth-user{
     display: inline;
     text-decoration: none;

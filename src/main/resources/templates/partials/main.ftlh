@@ -1,4 +1,5 @@
-<#macro renderWith title="Calopsia" scripts=[] styles=[] footer="true" extrastyle="">
+<#macro renderWith title="Calopsia" scripts=[] styles=[] footer="true" extrastyle=""
+extraScriptAfter="" extraScriptBefore="">
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
     <!DOCTYPE html>
     <html lang="en">
@@ -8,6 +9,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${title}</title>
+
+        <script src="/vendor/anychart/anychart-base.min.js"></script>
+        <script src="/vendor/anychart/anychart-ui.min.js"></script>
+        <script src="/vendor/anychart/anychart-exports.min.js"></script>
+        <script src="/vendor/anychart/anychart-calendar.min.js"></script>
+        <script src="/vendor/anychart/anychart-data-adapter.min.js"></script>
+        <link rel="stylesheet" href="/vendor/anychart/anychart-font.min.css">
+        <link rel="stylesheet" href="/vendor/anychart/anychart-ui.min.css">
+
         <link href="https://use.fontawesome.com/ffe0d7ed97.css" media="all" rel="stylesheet">
         <link rel="stylesheet" href="/vendor/bootstrap-icons/bootstrap-icons.css">
         <link rel="stylesheet" href="/vendor/bootstrap5/css/bootstrap.min.css">
@@ -41,6 +51,7 @@
     </#if>
 
 
+    ${extraScriptBefore}
     <script src="/vendor/jquery.js"></script>
     <script src="/vendor/bootstrap5/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/ffe0d7ed97.js"></script>
@@ -49,6 +60,8 @@
     <#list scripts as scriptSource>
         <script src="${scriptSource}"></script>
     </#list>
+
+    ${extraScriptAfter}
 
     </body>
 

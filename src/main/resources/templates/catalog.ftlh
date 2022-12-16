@@ -309,7 +309,7 @@ extrastyle=extraStyleMarkup>
                 <!--            Конец фильтра-->
 
                 <!--            Блок с курсами-->
-                <div class="col ">
+                <div class="col-lg-9 ">
 
 
                     <#if courses??>

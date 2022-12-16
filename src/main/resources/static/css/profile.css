@@ -1,0 +1,183 @@
+.shadow {
+    box-shadow: #1a1e2120 0px 5px 10px !important;
+}
+
+.profile-img {
+    border-radius: 20px;
+    padding: 1rem;
+    text-align: center;
+}
+.profile-img img {
+    width: 100%;
+    border-radius: 10px;
+
+}
+
+.profile-info {
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top:80px;
+
+}
+.subs i {
+    color: var(--Accent);
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active  {
+    color: white;
+    background-color: var(--Accent);
+    border-color: var(--bs-nav-tabs-link-active-border-color);
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+}
+.nav-tabs .nav-link {
+    padding: 0.5rem 1rem;
+    margin: 0.3rem 0.3rem 0.3rem 0.3rem;
+    border-radius: 10px;
+}
+.nav-tabs:first-child .nav-link {
+    margin-left: 0.3rem;
+}
+.nav-tabs {
+    background-color: #fff;
+}
+.nav-tabs.sticky-top {
+}
+
+/* Article - https://bitsofco.de/github-contribution-graph-css-grid/ */
+
+/* Grid-related CSS */
+
+:root {
+    --square-size: 15px;
+    --square-gap: 5px;
+    --week-width: calc(var(--square-size) + var(--square-gap));
+  }
+  
+  .months { grid-area: months; }
+  .days { grid-area: days; }
+  .squares { grid-area: squares; }
+  
+  .graph {
+    display: inline-grid;
+    grid-template-areas: "empty months"
+                         "days squares";
+    grid-template-columns: auto 1fr;
+    grid-gap: 10px;
+  }
+  
+  .months {
+    display: grid;
+    grid-template-columns: calc(var(--week-width) * 4) /* Jan */
+                           calc(var(--week-width) * 4) /* Feb */
+                           calc(var(--week-width) * 4) /* Mar */
+                           calc(var(--week-width) * 5) /* Apr */
+                           calc(var(--week-width) * 4) /* May */
+                           calc(var(--week-width) * 4) /* Jun */
+                           calc(var(--week-width) * 5) /* Jul */
+                           calc(var(--week-width) * 4) /* Aug */
+                           calc(var(--week-width) * 4) /* Sep */
+                           calc(var(--week-width) * 5) /* Oct */
+                           calc(var(--week-width) * 4) /* Nov */
+                           calc(var(--week-width) * 5) /* Dec */;
+  }
+  
+  .days,
+  .squares {
+    display: grid;
+    grid-gap: var(--square-gap);
+    grid-template-rows: repeat(7, var(--square-size));
+  }
+  
+  .squares {
+    grid-auto-flow: column;
+    grid-auto-columns: var(--square-size);
+  }
+  
+  
+.anychart-credits {
+    display: none !important;
+}
+
+.statistic-chart {
+    border-top: none !important;
+}
+.activity-chart {
+    border-bottom: none !important;
+}
+.statistic-chart div {
+    min-height: 50px !important;
+}
+.statistic-chart .activity-graph__counter-val {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 3px;
+}
+.statistic-chart .activity-graph__counter-descr {
+font-size: 14px;
+    color: #777;
+    margin: 0;
+    padding-right: 1em;
+}
+
+.curCources-card img {
+    min-width: 100%;
+    max-height: 15rem;
+    object-fit: cover
+}
+
+
+.curCources-card skill {
+    width: 220px;
+    height: 220px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5),
+    -5px -5px 15px rgba(0, 0, 0, 0.5);
+}
+
+
+.max-h-30 {
+    max-height: 30em;
+}
+
+.image-upload {
+    position: relative;
+}
+.image-upload * {
+    max-width: 10rem !important;
+}
+.image-upload > input {
+    display: none;
+}
+.image-upload label img {
+    border-radius: 1rem;
+}
+
+
+.image-upload label:hover::before {
+    content: '';
+    text-align: center;
+    color: white;
+    line-height: 10rem;
+    font-size: 1.5rem;
+    position: absolute;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-pencil-fill" viewBox="0 0 16 16"> <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/> </svg>');
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+    background-position: 50% 50%;
+    color: #fff;
+    background-color: #1a1e2160;
+    cursor: pointer;
+    width: 10rem;
+    height: 10rem;
+    z-index: 3232;
+    border-radius: 1rem;
+}
