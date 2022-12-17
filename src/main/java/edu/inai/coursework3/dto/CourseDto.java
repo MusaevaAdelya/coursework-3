@@ -32,7 +32,6 @@ public class CourseDto {
                 .description(course.getDescription())
                 .build();
 
-
     }
 
     private Long id;

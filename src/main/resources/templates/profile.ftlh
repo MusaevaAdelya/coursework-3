@@ -75,7 +75,7 @@
 </#assign>
 
 <@main.renderWith title="Calopsia | Profile"
-scripts=["/js/script.js"]
+scripts=["/js/script.js","/js/profile.js"]
 styles=["/css/style.css","/css/profile.css","/css/progress-style.css"]
 extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMarkup>
     <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
@@ -155,21 +155,17 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                             <div class="mb-3">
                                 <label for="formFile" class="form-label">Profile picture</label>
                                 <div class="image-upload">
+
                                     <label for="formFile">
-
-                                        <img class="border shadow" src="/img/Erbol.jpg"/>
+                                        <img class="border shadow" src="/files/avatars/${user.avatar}" id="blah"/>
                                     </label>
+                                    <input id="formFile" type="file"  onchange="readURL(this);"/>
 
-                                    <input id="formFile" type="file"/>
                                 </div>
                             </div>
-                            <div class="col-6 mb-3">
-                                <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" value="Nikolay" class="form-control" id="firstName">
-                            </div>
-                            <div class=" col-6 mb-3">
-                                <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" value="Nikolay" class="form-control" id="lastName">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" value="${user.username}" class="form-control" id="username">
                             </div>
                             <div class="mb-3">
                                 <label for="newPass" class="form-label">New Password</label>
@@ -198,16 +194,16 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
         <div class="container">
             <div class="row profile-info">
                 <div class="col-md-3 col-sm-12 profile-img  h-25 shadow">
-                    <img src="/img/Erbol.jpg" class="border" alt="">
+                    <img src="/files/avatars/${user.avatar}" class="border" alt="">
                     <div class="info text-start mt-3">
-                        <h5 class="name">Nikolay Toktorbaev</h5>
-                        <p class="desc text-muted">I like to learn and I love men.</p>
-                        <div class="subs">
-                            <p><i class="bi bi-people-fill"></i> 2 subscribers</p>
-                        </div>
-                        <a href="#" class="btn btn-primary btn-max-width">
-                            Follow
-                        </a>
+                        <h5 class="name">${user.username}</h5>
+                        <p class="desc text-muted">${user.about!''}</p>
+<#--                        <div class="subs">-->
+<#--                            <p><i class="bi bi-people-fill"></i> 2 subscribers</p>-->
+<#--                        </div>-->
+<#--                        <a href="#" class="btn btn-primary btn-max-width">-->
+<#--                            Follow-->
+<#--                        </a>-->
                         <!-- <a href="#" class="btn btn-secondary btn-max-width">
                         Unfollow
                      </a> -->
@@ -265,99 +261,100 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                             <h3>Current Courses</h3>
                             <hr>
                             <div class="cources-block">
-                                <div class="row mb-4">
-                                    <div class="col-sm-6">
-                                        <div class="card curCources-card">
-                                            <div class="card-body">
-                                                <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
-                                                <h4 class="card-title mt-4">Motion Designer</h4>
-                                                <p class="card-text">With supporting text below as a natural lead-in to
-                                                    additional content.</p>
-                                                <div class="d-flex justify-content-between">
-                                                    <a href="#" class="btn btn-primary">Continue Learning</a>
-                                                    <div class="progress-circle over50 p70">
-                                                        <span>70%</span>
-                                                        <div class="left-half-clipper">
-                                                            <div class="first50-bar"></div>
-                                                            <div class="value-bar"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="card curCources-card">
-                                            <div class="card-body">
-                                                <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
-                                                <h4 class="card-title mt-4">Motion Designer</h4>
-                                                <p class="card-text">With supporting text below as a natural lead-in to
-                                                    additional content.</p>
-                                                <div class="d-flex justify-content-between">
-                                                    <a href="#" class="btn btn-primary">Continue Learning</a>
-                                                    <div class="progress-circle over50 p70">
-                                                        <span>70%</span>
-                                                        <div class="left-half-clipper">
-                                                            <div class="first50-bar"></div>
-                                                            <div class="value-bar"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="collapse" id="collapse-cources-block">
+                                <#if user.studyingCourses?size!=0>
                                     <div class="row mb-4">
-                                        <div class="col-sm-6">
-                                            <div class="card curCources-card">
-                                                <div class="card-body">
-                                                    <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
-                                                    <h4 class="card-title mt-4">Motion Designer</h4>
-                                                    <p class="card-text">With supporting text below as a natural lead-in
-                                                        to
-                                                        additional content.</p>
-                                                    <div class="d-flex justify-content-between">
-                                                        <a href="#" class="btn btn-primary">Continue Learning</a>
-                                                        <div class="progress-circle over50 p70">
-                                                            <span>70%</span>
-                                                            <div class="left-half-clipper">
-                                                                <div class="first50-bar"></div>
-                                                                <div class="value-bar"></div>
+                                        <#if (user.studyingCourses?size>2)>
+                                            <#list 0..1 as index>
+                                                <div class="col-sm-6">
+                                                    <div class="card curCources-card">
+                                                        <div class="card-body">
+                                                            <img src="/files/courses/${user.studyingCourses[index].thumbNailPath}"
+                                                                 class="img-fluid rounded" alt="">
+                                                            <h4 class="card-title mt-4">${user.studyingCourses[index].name}</h4>
+                                                            <p class="card-text">${user.studyingCourses[index].description!''}</p>
+                                                            <div class="d-flex justify-content-between">
+                                                                <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                                <div class="progress-circle <#if (user.studyingCourses[index].percent>=50)>over50</#if> p${user.studyingCourses[index].percent}">
+                                                                    <span>${user.studyingCourses[index].percent}%</span>
+                                                                    <div class="left-half-clipper">
+                                                                        <div class="first50-bar"></div>
+                                                                        <div class="value-bar"></div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="card curCources-card">
-                                                <div class="card-body">
-                                                    <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
-                                                    <h4 class="card-title mt-4">Motion Designer</h4>
-                                                    <p class="card-text">With supporting text below as a natural lead-in
-                                                        to
-                                                        additional content.</p>
-                                                    <div class="d-flex justify-content-between">
-                                                        <a href="#" class="btn btn-primary">Continue Learning</a>
-                                                        <div class="progress-circle over50 p70">
-                                                            <span>70%</span>
-                                                            <div class="left-half-clipper">
-                                                                <div class="first50-bar"></div>
-                                                                <div class="value-bar"></div>
+                                            </#list>
+                                        <#else>
+                                            <#list user.studyingCourses as c>
+                                                <div class="col-sm-6">
+                                                    <div class="card curCources-card">
+                                                        <div class="card-body">
+                                                            <img src="/files/courses/${c.thumbNailPath}"
+                                                                 class="img-fluid rounded" alt="">
+                                                            <h4 class="card-title mt-4">${c.name}</h4>
+                                                            <p class="card-text">${c.description!''}</p>
+                                                            <div class="d-flex justify-content-between">
+                                                                <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                                <div class="progress-circle <#if (user.studyingCourses[index].percent>=50)>over50</#if> p${user.studyingCourses[index].percent}">
+                                                                    <span>${user.studyingCourses[index].percent}%</span>
+                                                                    <div class="left-half-clipper">
+                                                                        <div class="first50-bar"></div>
+                                                                        <div class="value-bar"></div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </#list>
+                                        </#if>
+
+
+
                                     </div>
-                                </div>
-                                <a class="btn btn-primary seeallcourcesbut" data-bs-toggle="collapse"
-                                   href="#collapse-cources-block"
-                                   role="button" aria-expanded="false" aria-controls="collapse-cources-block">
-                                    See all cources
-                                </a>
+                                    <#if (user.studyingCourses?size>2) >
+                                        <div class="collapse" id="collapse-cources-block">
+                                            <div class="row mb-4">
+
+                                                <#list 2..(user.studyingCourses?size-1) as index>
+                                                    <div class="col-sm-6" style="margin-bottom:1.5rem">
+                                                        <div class="card curCources-card">
+                                                            <div class="card-body">
+                                                                <img src="/files/courses/${user.studyingCourses[index].thumbNailPath}"
+                                                                     class="img-fluid rounded" alt="">
+                                                                <h4 class="card-title mt-4">${user.studyingCourses[index].name}</h4>
+                                                                <p class="card-text">${user.studyingCourses[index].description!''}</p>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                                    <div class="progress-circle <#if (user.studyingCourses[index].percent>=50)>over50</#if> p${user.studyingCourses[index].percent}">
+                                                                        <span>${user.studyingCourses[index].percent}%</span>
+                                                                        <div class="left-half-clipper">
+                                                                            <div class="first50-bar"></div>
+                                                                            <div class="value-bar"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </#list>
+
+                                            </div>
+                                        </div>
+                                        <a class="btn btn-primary seeallcourcesbut" data-bs-toggle="collapse"
+                                           href="#collapse-cources-block"
+                                           role="button" aria-expanded="false" aria-controls="collapse-cources-block">
+                                            See all courses
+                                        </a>
+                                    </#if>
+
+                                <#else>
+                                    <img src="/img/not_found_cat.jpg"
+                                         style="width:100%;height:45vh; margin:0 auto; object-fit: contain">
+                                </#if>
+
                             </div>
 
                         </div>
@@ -366,99 +363,80 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                             <h3>Created Courses</h3>
                             <hr>
                             <div class="cources-block">
-                                <div class="row mb-4">
-                                    <div class="col-sm-6">
-                                        <div class="card curCources-card">
-                                            <div class="card-body">
-                                                <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
-                                                <h4 class="card-title mt-4">Motion Designer</h4>
-                                                <p class="card-text">With supporting text below as a natural lead-in to
-                                                    additional content.</p>
-                                                <div class="d-flex justify-content-between">
-                                                    <a href="#" class="btn btn-primary">Continue Learning</a>
-                                                    <div class="progress-circle over50 p70">
-                                                        <span>70%</span>
-                                                        <div class="left-half-clipper">
-                                                            <div class="first50-bar"></div>
-                                                            <div class="value-bar"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="card curCources-card">
-                                            <div class="card-body">
-                                                <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
-                                                <h4 class="card-title mt-4">Motion Designer</h4>
-                                                <p class="card-text">With supporting text below as a natural lead-in to
-                                                    additional content.</p>
-                                                <div class="d-flex justify-content-between">
-                                                    <a href="#" class="btn btn-primary">Continue Learning</a>
-                                                    <div class="progress-circle over50 p70">
-                                                        <span>70%</span>
-                                                        <div class="left-half-clipper">
-                                                            <div class="first50-bar"></div>
-                                                            <div class="value-bar"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="collapse" id="collapse-created-block">
+                                <#if user.createdCourses?size!=0>
                                     <div class="row mb-4">
-                                        <div class="col-sm-6">
-                                            <div class="card curCources-card">
-                                                <div class="card-body">
-                                                    <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
-                                                    <h4 class="card-title mt-4">Motion Designer</h4>
-                                                    <p class="card-text">With supporting text below as a natural lead-in
-                                                        to
-                                                        additional content.</p>
-                                                    <div class="d-flex justify-content-between">
-                                                        <a href="#" class="btn btn-primary">Continue Learning</a>
-                                                        <div class="progress-circle over50 p70">
-                                                            <span>70%</span>
-                                                            <div class="left-half-clipper">
-                                                                <div class="first50-bar"></div>
-                                                                <div class="value-bar"></div>
+
+                                        <#if (user.createdCourses?size>2)>
+                                            <#list 0..1 as index>
+                                                <div class="col-sm-6">
+                                                    <div class="card curCources-card">
+                                                        <div class="card-body">
+                                                            <img src="/files/courses/${user.createdCourses[index].thumbNailPath}"
+                                                                 class="img-fluid rounded" alt="">
+                                                            <h4 class="card-title mt-4">${user.createdCourses[index].name}</h4>
+                                                            <p class="card-text">${user.createdCourses[index].description!''}</p>
+                                                            <div class="d-flex justify-content-between">
+                                                                <a href="#" class="btn btn-primary">Read More</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="card curCources-card">
-                                                <div class="card-body">
-                                                    <img src="/img/Back-image.jpg" class="img-fluid rounded" alt="">
-                                                    <h4 class="card-title mt-4">Motion Designer</h4>
-                                                    <p class="card-text">With supporting text below as a natural lead-in
-                                                        to
-                                                        additional content.</p>
-                                                    <div class="d-flex justify-content-between">
-                                                        <a href="#" class="btn btn-primary">Continue Learning</a>
-                                                        <div class="progress-circle over50 p70">
-                                                            <span>70%</span>
-                                                            <div class="left-half-clipper">
-                                                                <div class="first50-bar"></div>
-                                                                <div class="value-bar"></div>
+                                            </#list>
+                                        <#else>
+                                            <#list user.createdCourses as c>
+                                                <div class="col-sm-6">
+                                                    <div class="card curCources-card">
+                                                        <div class="card-body">
+                                                            <img src="/files/courses/${c.thumbNailPath}"
+                                                                 class="img-fluid rounded" alt="">
+                                                            <h4 class="card-title mt-4">${c.name}</h4>
+                                                            <p class="card-text">${c.description!''}</p>
+                                                            <div class="d-flex justify-content-between">
+                                                                <a href="#" class="btn btn-primary">Read More</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </#list>
+                                        </#if>
+
+
+
                                     </div>
-                                </div>
-                                <a class="btn btn-primary seeallcourcesbut" data-bs-toggle="collapse"
-                                   href="#collapse-created-block"
-                                   role="button" aria-expanded="false" aria-controls="collapse-cources-block">
-                                    See all cources
-                                </a>
+                                    <#if (user.createdCourses?size>2) >
+                                        <div class="collapse" id="collapse-cources-block">
+                                            <div class="row mb-4">
+
+                                                <#list 2..(user.createdCourses?size-1) as index>
+                                                    <div class="col-sm-6">
+                                                        <div class="card curCources-card">
+                                                            <div class="card-body">
+                                                                <img src="/files/courses/${user.createdCourses[index].thumbNailPath}"
+                                                                     class="img-fluid rounded" alt="">
+                                                                <h4 class="card-title mt-4">${user.createdCourses[index].name}</h4>
+                                                                <p class="card-text">${user.createdCourses[index].description!''}</p>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <a href="#" class="btn btn-primary">Read More</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </#list>
+
+                                            </div>
+                                        </div>
+                                        <a class="btn btn-primary seeallcourcesbut" data-bs-toggle="collapse"
+                                           href="#collapse-cources-block"
+                                           role="button" aria-expanded="false" aria-controls="collapse-cources-block">
+                                            See all courses
+                                        </a>
+                                    </#if>
+
+                                <#else>
+                                    <img src="/img/not_found_cat.jpg"
+                                         style="width:100%;height:45vh; margin:0 auto; object-fit: contain">
+                                </#if>
+
                             </div>
                         </div>
                     </div>

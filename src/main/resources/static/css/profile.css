@@ -143,6 +143,34 @@ font-size: 14px;
     -5px -5px 15px rgba(0, 0, 0, 0.5);
 }
 
+.curCources-card {
+    height: 30rem;
+}
+
+.curCources-card p.card-text {
+    white-space: normal;
+    height: 5.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    line-height: 1.3em;
+    margin: 0;
+}
+
+.curCources-card .card-body {
+    display: flex;
+
+    justify-content: flex-start;
+
+    flex-direction: column;
+}
+.curCources-card .card-body>div {
+    align-items: flex-end;
+    flex: 1 0 auto;
+}
+
 
 .max-h-30 {
     max-height: 30em;
@@ -151,14 +179,18 @@ font-size: 14px;
 .image-upload {
     position: relative;
 }
+
 .image-upload * {
     max-width: 10rem !important;
+    max-height: 10rem;
 }
 .image-upload > input {
     display: none;
 }
 .image-upload label img {
     border-radius: 1rem;
+    min-width: 10rem;
+    object-fit: cover
 }
 
 
