@@ -82,7 +82,7 @@ public class UserService {
 
     }
 
-    private List<Long> getCourseChapterIds(Long courseId){
+    public List<Long> getCourseChapterIds(Long courseId){
         Course course=courseRepository.findById(courseId)
                 .orElseThrow(()->new CourseNotFoundException("course with id "+courseId+" not found"));
 

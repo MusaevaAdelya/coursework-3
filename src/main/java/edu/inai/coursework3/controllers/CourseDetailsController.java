@@ -31,9 +31,10 @@ public class CourseDetailsController {
         model.addAttribute("course", courseService.getCourseById(courseId));
         model.addAttribute("ratings",courseRatingService.getRatingsByCourseId(courseId));
         model.addAttribute("moreCourses",courseService.getMoreCourses(courseId));
+        model.addAttribute("chaptersQty",userService.getCourseChapterIds(courseId).size());
 
 
-        return "course_details";
+        return "course_details_new";
 
     }
 }

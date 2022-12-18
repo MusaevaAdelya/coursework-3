@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Builder
@@ -14,7 +15,7 @@ public class CourseRatingDto {
     private CourseDto course;
     private Integer rating;
     private String comment;
-    private LocalDateTime dateOn;
+    private String dateOn;
 
     public static CourseRatingDto from(CourseRating cr){
         return CourseRatingDto.builder()
@@ -23,7 +24,7 @@ public class CourseRatingDto {
                 .course(CourseDto.from(cr.getCourse()))
                 .rating(cr.getRating())
                 .comment(cr.getComment())
-                .dateOn(cr.getDateOn())
+                .dateOn(cr.getDateOn().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .build();
     }
 }

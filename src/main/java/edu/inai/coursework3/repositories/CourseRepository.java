@@ -51,4 +51,8 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 
     Optional<Course> findFirstByName(String name);
 
+    @Query(value="select c from Course c where c.teacher.id=:teacherId and c.id<>:courseId and c.status=:status " +
+            "order by size(c.users) desc, c.ratingScore desc, c.dateOn desc")
+    List<Course> getMoreCoursesFromTeacher(Long teacherId, Long courseId, CourseStatus status);
+
 }

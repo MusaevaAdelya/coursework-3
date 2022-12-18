@@ -117,7 +117,8 @@ public class CourseService {
         Course course=courseRepository.findById(courseId).orElseThrow(
                 ()-> new CourseNotFoundException("course with id "+courseId+ " not found"));
 
-        List<Course> moreCourses=courseRepository.getCourses(CourseStatus.ACCEPTED,Pageable.ofSize(3)).getContent();
+        List<Course> moreCourses=courseRepository.getMoreCoursesFromTeacher(course.getTeacher().getId(),course.getId(),
+                CourseStatus.ACCEPTED );
         return moreCourses.stream().map(CourseDto::from).collect(Collectors.toList());
     }
 }

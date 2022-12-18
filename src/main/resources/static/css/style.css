@@ -12,7 +12,7 @@
     --FilterBack: #eaf4f8;
     --ProgressColor: #b9fffc;
     --SpinButton: #000a80;
-    --InputField: #e3fafd;
+    --InputField: #f0f7fa;
     --Star: #ff9800;
     --Label-level: #065277;
     --DesignButton: #CC00FF;
@@ -28,6 +28,8 @@
     --TestBtn: #85d285;
     --Send: #00ff00;
     --Danger: #f83333;
+    --Danger-btn: #b60909;
+    --Green-btn:#288B28;
 }
 
 html{
