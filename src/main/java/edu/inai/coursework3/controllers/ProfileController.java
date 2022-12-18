@@ -1,5 +1,7 @@
 package edu.inai.coursework3.controllers;
 
+import edu.inai.coursework3.dto.ProfileEditForm;
+import edu.inai.coursework3.dto.RegisterForm;
 import edu.inai.coursework3.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -24,18 +25,24 @@ public class ProfileController {
     private final UserService userService;
 
     @GetMapping()
-    public String getProfilePage(Model model, Authentication authentication, @PageableDefault(size=8) Pageable pageable){
-        model.addAttribute("user",userService.getProfileUserDtoByEmail(authentication.getName()));
-
-        log.warn(userService.getProfileUserDtoByEmail(authentication.getName()).getStudyingCourses().toString());
+    public String getProfilePage(Model model,
+                                 Authentication authentication,
+                                 @RequestParam(required = false, name = "invalidDataMessage") String invalidDataMessage) {
+        model.addAttribute("user", userService.getProfileUserDtoByEmail(authentication.getName()));
+        model.addAttribute("invalidData", invalidDataMessage);
 
         return "profile";
     }
 
-//    @ResponseBody
-//    @GetMapping()
-//    public ResponseEntity<List<HierarchicalCategoryDTO>> getHierarchicalCategories() {
-//        List<HierarchicalCategoryDTO> hierarchicalCategories = categoryService.getHierarchicalCategories();
-//        return new ResponseEntity<>(hierarchicalCategories, HttpStatus.OK);
-//    }
+    @PostMapping("/edit")
+    public String editProfileInfo(@ModelAttribute("newProfileData") ProfileEditForm form, Authentication authentication,
+                                  RedirectAttributes ra) {
+
+        userService.editProfile(form, authentication.getName(), ra);
+        return "redirect:/profile";
+    }
+
+
+
+
 }

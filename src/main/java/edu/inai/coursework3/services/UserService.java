@@ -2,6 +2,7 @@ package edu.inai.coursework3.services;
 
 import edu.inai.coursework3.config.SecurityConfig;
 import edu.inai.coursework3.dto.CourseDto;
+import edu.inai.coursework3.dto.ProfileEditForm;
 import edu.inai.coursework3.dto.RegisterForm;
 import edu.inai.coursework3.dto.UserDto;
 import edu.inai.coursework3.entities.Course;
@@ -16,9 +17,12 @@ import edu.inai.coursework3.repositories.CourseRepository;
 import edu.inai.coursework3.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -32,6 +36,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final CourseRepository courseRepository;
     private final CompletedTaskRepository completedTaskRepository;
+    private final ImageService imageService;
+    private final PasswordEncoder passwordEncoder;
 
     @Value(value="${avatar.default.image}")
     private String defaultAvatar;
@@ -87,5 +93,38 @@ public class UserService {
         });
 
         return chapters.stream().map(CourseChapter::getId).collect(Collectors.toList());
+    }
+
+    public void editProfile(ProfileEditForm form, String userEmail ,RedirectAttributes ra) {
+        User user=userRepository.findByEmail(userEmail).orElseThrow(()->new UserNotFoundException(userEmail));
+
+        if(!form.getNewUsername().equals(user.getUsername())){
+            if(form.getNewUsername().isBlank()){
+                ra.addAttribute("invalidDataMessage","username cannot be blank");
+                return;
+            }else{
+                user.setUsername(form.getNewUsername());
+            }
+        }
+
+        if(form.getNewPassword().length()!=0){
+            if(form.getNewPassword().length()<8){
+                ra.addAttribute("invalidDataMessage","password must contain 8 or more letters");
+                return;
+            }
+            if(!form.getNewPassword().equals(form.getNewPasswordRepeat())){
+                ra.addAttribute("invalidDataMessage","passwords do not match");
+                return;
+            }
+            user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+        }
+
+
+        if(!form.getNewAvatar().getOriginalFilename().isBlank()){
+            user.setAvatar(imageService.saveImage(form.getNewAvatar(),user.getAvatar()));
+        }
+
+
+        userRepository.save(user);
     }
 }

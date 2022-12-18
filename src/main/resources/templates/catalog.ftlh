@@ -320,7 +320,7 @@ extrastyle=extraStyleMarkup>
                                     <div class="col my-3">
                                         <div class="card popular-cources shadow p-3 bg-white rounded">
                                             <img class="rounded"
-                                                 src="/files/courses/${course.thumbNailPath}"
+                                                 src="${coursesPath}${course.thumbNailPath}"
                                                  alt="">
                                             <div class="py-3"><a class="design-btn my-3 rounded px-2 py-1"
                                                                  href="#">${course.category.name}</a></div>

@@ -78,7 +78,7 @@ extrastyle=extraStyleMarkup>
                 <div class="col-lg-9">
                     <div class="d-lg-none">
                         <img class="rounded img-fluid"
-                             src="/files/courses/${course.thumbNailPath}"
+                             src="${coursesPath}${course.thumbNailPath}"
                              alt="">
                     </div>
                     <div class="row">
@@ -163,7 +163,7 @@ extrastyle=extraStyleMarkup>
                                 <p>${course.teacher.about}</p>
                             </div>
                             <div class="col-lg-4">
-                                <img src="/files/avatars/${course.teacher.avatar}" class="img-fluid rounded">
+                                <img src="${avatarPath}${course.teacher.avatar}" class="img-fluid rounded">
                             </div>
                         </div>
                     </div>
@@ -248,7 +248,7 @@ extrastyle=extraStyleMarkup>
                 <div class="col-lg-3 d-none d-lg-block info-block">
                     <div class="sticky-top-block">
                         <img class="img-fluid rounded"
-                             src="/files/courses/${course.thumbNailPath}"
+                             src="${coursesPath}${course.thumbNailPath}"
                              alt="">
                         <p class="fw-bolder price mx-auto h2 text-center my-3">${course.level}</p>
                         <div class="row justify-content-end">

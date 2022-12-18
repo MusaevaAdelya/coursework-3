@@ -43,7 +43,7 @@
                     chart.colorScale(customColorScale);
 
                     chart.tooltip()
-                        .format('{%count} cources');
+                        .format('{%count} courses');
 
                     chart.listen('chartDraw', function () {
                         document.getElementById('container').style.height = chart.getActualHeight() + 'px';
@@ -62,20 +62,41 @@
     <script>
         // seeallcourcesbut
         $(document).ready(function () {
-            $('.seeallcourcesbut').html('See all cources');
+            $('.seeallcourcesbut').html('See all courses');
             $('.seeallcourcesbut').click(function () {
-                if ($(this).text() == 'See all cources') {
-                    $(this).html('Hide all cources');
+                if ($(this).text() == 'See all courses') {
+                    $(this).html('Hide all courses');
                 } else {
-                    $(this).html('See all cources');
+                    $(this).html('See all courses');
                 }
             })
+
+            <#if invalidData??>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Data',
+                    text: '${invalidData}',
+                })
+            </#if>
         });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 </#assign>
 
 <@main.renderWith title="Calopsia | Profile"
-scripts=["/js/script.js","/js/profile.js"]
+scripts=["/js/script.js"]
 styles=["/css/style.css","/css/profile.css","/css/progress-style.css"]
 extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMarkup>
     <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
@@ -149,7 +170,13 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                     <h1 class="modal-title fs-5" id="titleModal">Profile Settings</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form>
+                <form method="POST" action="/profile/edit" enctype="multipart/form-data"
+                      modelAttribute="newProfileData">
+                    <#if _csrf??>
+                        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                               value="${(_csrf.token)!'--no-token--'}"/>
+                    </#if>
+
                     <div class="modal-body p-4">
                         <div class="row">
                             <div class="mb-3">
@@ -157,23 +184,26 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                 <div class="image-upload">
 
                                     <label for="formFile">
-                                        <img class="border shadow" src="/files/avatars/${user.avatar}" id="blah"/>
+                                        <img class="border shadow" src="${avatarPath}${user.avatar}" id="blah"/>
                                     </label>
-                                    <input id="formFile" type="file"  onchange="readURL(this);"/>
+                                    <input name="newAvatar" id="formFile" type="file" onchange="readURL(this);"/>
 
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" value="${user.username}" class="form-control" id="username">
+                                <input name="newUsername" type="text" value="${user.username}" class="form-control"
+                                       id="username">
                             </div>
                             <div class="mb-3">
                                 <label for="newPass" class="form-label">New Password</label>
-                                <input type="password" class="form-control" id="newPass">
+                                <input name="newPassword" type="password" class="form-control" id="newPass"
+                                       minlength="8">
                             </div>
                             <div class="mb-3">
                                 <label for="renewPass" class="form-label">Repeat Password</label>
-                                <input type="password" class="form-control" id="renewPass">
+                                <input name="newPasswordRepeat" type="password" class="form-control" id="renewPass"
+                                       minlength="8">
                             </div>
                         </div>
                     </div>
@@ -194,16 +224,16 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
         <div class="container">
             <div class="row profile-info">
                 <div class="col-md-3 col-sm-12 profile-img  h-25 shadow">
-                    <img src="/files/avatars/${user.avatar}" class="border" alt="">
+                    <img src="${avatarPath}${user.avatar}" class="border" alt="">
                     <div class="info text-start mt-3">
                         <h5 class="name">${user.username}</h5>
                         <p class="desc text-muted">${user.about!''}</p>
-<#--                        <div class="subs">-->
-<#--                            <p><i class="bi bi-people-fill"></i> 2 subscribers</p>-->
-<#--                        </div>-->
-<#--                        <a href="#" class="btn btn-primary btn-max-width">-->
-<#--                            Follow-->
-<#--                        </a>-->
+                        <#--                        <div class="subs">-->
+                        <#--                            <p><i class="bi bi-people-fill"></i> 2 subscribers</p>-->
+                        <#--                        </div>-->
+                        <#--                        <a href="#" class="btn btn-primary btn-max-width">-->
+                        <#--                            Follow-->
+                        <#--                        </a>-->
                         <!-- <a href="#" class="btn btn-secondary btn-max-width">
                         Unfollow
                      </a> -->
@@ -268,12 +298,13 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                 <div class="col-sm-6">
                                                     <div class="card curCources-card">
                                                         <div class="card-body">
-                                                            <img src="/files/courses/${user.studyingCourses[index].thumbNailPath}"
+                                                            <img src="${coursesPath}${user.studyingCourses[index].thumbNailPath}"
                                                                  class="img-fluid rounded" alt="">
                                                             <h4 class="card-title mt-4">${user.studyingCourses[index].name}</h4>
                                                             <p class="card-text">${user.studyingCourses[index].description!''}</p>
                                                             <div class="d-flex justify-content-between">
-                                                                <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                                <a href="#" class="btn btn-primary">Continue
+                                                                    Learning</a>
                                                                 <div class="progress-circle <#if (user.studyingCourses[index].percent>=50)>over50</#if> p${user.studyingCourses[index].percent}">
                                                                     <span>${user.studyingCourses[index].percent}%</span>
                                                                     <div class="left-half-clipper">
@@ -291,12 +322,13 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                 <div class="col-sm-6">
                                                     <div class="card curCources-card">
                                                         <div class="card-body">
-                                                            <img src="/files/courses/${c.thumbNailPath}"
+                                                            <img src="${coursesPath}${c.thumbNailPath}"
                                                                  class="img-fluid rounded" alt="">
                                                             <h4 class="card-title mt-4">${c.name}</h4>
                                                             <p class="card-text">${c.description!''}</p>
                                                             <div class="d-flex justify-content-between">
-                                                                <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                                <a href="#" class="btn btn-primary">Continue
+                                                                    Learning</a>
                                                                 <div class="progress-circle <#if (user.studyingCourses[index].percent>=50)>over50</#if> p${user.studyingCourses[index].percent}">
                                                                     <span>${user.studyingCourses[index].percent}%</span>
                                                                     <div class="left-half-clipper">
@@ -312,7 +344,6 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                         </#if>
 
 
-
                                     </div>
                                     <#if (user.studyingCourses?size>2) >
                                         <div class="collapse" id="collapse-cources-block">
@@ -322,12 +353,13 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                     <div class="col-sm-6" style="margin-bottom:1.5rem">
                                                         <div class="card curCources-card">
                                                             <div class="card-body">
-                                                                <img src="/files/courses/${user.studyingCourses[index].thumbNailPath}"
+                                                                <img src="${coursesPath}${user.studyingCourses[index].thumbNailPath}"
                                                                      class="img-fluid rounded" alt="">
                                                                 <h4 class="card-title mt-4">${user.studyingCourses[index].name}</h4>
                                                                 <p class="card-text">${user.studyingCourses[index].description!''}</p>
                                                                 <div class="d-flex justify-content-between">
-                                                                    <a href="#" class="btn btn-primary">Continue Learning</a>
+                                                                    <a href="#" class="btn btn-primary">Continue
+                                                                        Learning</a>
                                                                     <div class="progress-circle <#if (user.studyingCourses[index].percent>=50)>over50</#if> p${user.studyingCourses[index].percent}">
                                                                         <span>${user.studyingCourses[index].percent}%</span>
                                                                         <div class="left-half-clipper">
@@ -371,7 +403,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                 <div class="col-sm-6">
                                                     <div class="card curCources-card">
                                                         <div class="card-body">
-                                                            <img src="/files/courses/${user.createdCourses[index].thumbNailPath}"
+                                                            <img src="${coursesPath}${user.createdCourses[index].thumbNailPath}"
                                                                  class="img-fluid rounded" alt="">
                                                             <h4 class="card-title mt-4">${user.createdCourses[index].name}</h4>
                                                             <p class="card-text">${user.createdCourses[index].description!''}</p>
@@ -387,7 +419,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                 <div class="col-sm-6">
                                                     <div class="card curCources-card">
                                                         <div class="card-body">
-                                                            <img src="/files/courses/${c.thumbNailPath}"
+                                                            <img src="${coursesPath}${c.thumbNailPath}"
                                                                  class="img-fluid rounded" alt="">
                                                             <h4 class="card-title mt-4">${c.name}</h4>
                                                             <p class="card-text">${c.description!''}</p>
@@ -401,7 +433,6 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                         </#if>
 
 
-
                                     </div>
                                     <#if (user.createdCourses?size>2) >
                                         <div class="collapse" id="collapse-cources-block">
@@ -411,7 +442,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                     <div class="col-sm-6">
                                                         <div class="card curCources-card">
                                                             <div class="card-body">
-                                                                <img src="/files/courses/${user.createdCourses[index].thumbNailPath}"
+                                                                <img src="${coursesPath}${user.createdCourses[index].thumbNailPath}"
                                                                      class="img-fluid rounded" alt="">
                                                                 <h4 class="card-title mt-4">${user.createdCourses[index].name}</h4>
                                                                 <p class="card-text">${user.createdCourses[index].description!''}</p>

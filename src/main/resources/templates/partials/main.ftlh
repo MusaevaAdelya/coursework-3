@@ -55,10 +55,11 @@ extraScriptAfter="" extraScriptBefore="">
     <script src="/vendor/jquery.js"></script>
     <script src="/vendor/bootstrap5/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/ffe0d7ed97.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <#list scripts as scriptSource>
-        <script src="${scriptSource}"></script>
+        <script src="${scriptSource}" type="application/json"></script>
     </#list>
 
     ${extraScriptAfter}
