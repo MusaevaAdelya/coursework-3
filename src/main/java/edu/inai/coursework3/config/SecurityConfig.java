@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true);
 
         http.authorizeRequests()
-                .antMatchers("/profile/**","/course/content/**")
+                .antMatchers("/profile/**","/course/**/content/**","/course/create/**")
                 .authenticated();
 
         http.authorizeRequests()

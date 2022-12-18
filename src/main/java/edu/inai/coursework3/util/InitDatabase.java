@@ -56,6 +56,8 @@ public class InitDatabase {
                         .username("Adelya Musaeva")
                         .avatar(defaultAvatar)
                         .role(UserRoles.ADMIN)
+                        .createdCourses(new ArrayList<>())
+                        .studyingCourses(new ArrayList<>())
                         .about("Hey")
                         .build();
                 userRepository.save(user1);
@@ -67,6 +69,8 @@ public class InitDatabase {
                         .username("Dylan O'Brien")
                         .avatar(defaultAvatar)
                         .about("I am handsome")
+                        .createdCourses(new ArrayList<>())
+                        .studyingCourses(new ArrayList<>())
                         .build();
                 userRepository.save(user2);
             }
@@ -77,6 +81,8 @@ public class InitDatabase {
                         .password(passwordEncoder.encode("12345678"))
                         .username("Ilya Ugai")
                         .avatar(defaultAvatar)
+                        .createdCourses(new ArrayList<>())
+                        .studyingCourses(new ArrayList<>())
                         .about("I am Ilya. I can teach you UX/UI design")
                         .build();
                 userRepository.save(user3);

@@ -3,9 +3,8 @@ package edu.inai.coursework3.services;
 import edu.inai.coursework3.dto.CatalogForm;
 import edu.inai.coursework3.dto.CourseDto;
 import edu.inai.coursework3.dto.CourseReviewForm;
-import edu.inai.coursework3.entities.Course;
-import edu.inai.coursework3.entities.CourseRating;
-import edu.inai.coursework3.entities.User;
+import edu.inai.coursework3.dto.CreateCourseForm;
+import edu.inai.coursework3.entities.*;
 import edu.inai.coursework3.enums.CourseLevel;
 import edu.inai.coursework3.enums.CourseStatus;
 import edu.inai.coursework3.exceptions.CourseNotFoundException;
@@ -22,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +35,9 @@ public class CourseService {
     private final UserRepository userRepository;
     private final CourseRatingRepository courseRatingRepository;
     private final CompletedTaskRepository completedTaskRepository;
+    private final CourseSectionRepository courseSectionRepository;
+    private final ImageService imageService;
+
 
 
     public List<CourseDto> getCourses(Pageable pageable) {
@@ -161,5 +164,54 @@ public class CourseService {
     }
 
 
+    public void createCourse(String email, CreateCourseForm form) {
+        User user=userRepository.findByEmail(email).orElseThrow();
 
+        List<String> modulesString=form.getModule();
+        List<String> lessonsString=form.getLesson();
+
+        List<CourseSection> courseSectionList=new ArrayList<>();
+
+        modulesString.forEach(module->{
+            String[] arrModule=module.split("#");
+            CourseSection section=CourseSection.builder()
+                    .title(arrModule[1])
+                    .chapters(new ArrayList<>())
+                    .build();
+
+            lessonsString.forEach(lesson->{
+                String[] arrLesson=lesson.split("#");
+                if(arrLesson[0].equals(arrModule[0])){
+                    section.getChapters().add(CourseChapter.builder()
+                                    .title(arrLesson[1])
+                            .build());
+                }
+            });
+
+            courseSectionList.add(section);
+
+        });
+
+        Course course=Course.builder()
+                .teacher(user)
+                .name(form.getName())
+                .category(categoryRepository.findById(form.getCategory()).orElseThrow())
+                .level(CourseLevel.valueOf(form.getLevel()))
+                .description(form.getDescription())
+                .skills(Arrays.asList(form.getSkills().split("\n")))
+                .requirements(Arrays.asList(form.getReq().split("\n")))
+                .status(CourseStatus.ACCEPTED)
+                .build();
+
+        if(form.getImage().getOriginalFilename().isBlank()){
+            course.setThumbNailPath("DEFAULT.png");
+        }else{
+            course.setThumbNailPath(imageService.saveImage("files/courses",form.getImage()));
+        }
+
+        user.getCreatedCourses().add(course);
+        userRepository.save(user);
+
+
+    }
 }

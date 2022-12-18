@@ -47,11 +47,11 @@ public class User {
     @NotBlank
     private String avatar;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @Column(name="created_courses")
     private List<Course> createdCourses=new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "users_courses",
             joinColumns = {
                     @JoinColumn(name = "user_id", referencedColumnName = "id",

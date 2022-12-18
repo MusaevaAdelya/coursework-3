@@ -540,3 +540,7 @@ a{
 .auth-user .username:hover{
     color:var(--Accent)
 }
+
+.hide {
+    display: none !important;
+}

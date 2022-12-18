@@ -27,6 +27,12 @@ public class ImageService {
         return imageStorageName;
     }
 
+    @SneakyThrows
+    public String saveImage(String path ,MultipartFile image){
+        String imageStorageName=fileStorage.save(image.getInputStream(),image.getOriginalFilename(), path);
+        return imageStorageName;
+    }
+
     public void deleteImage(String imageName) throws IOException {
         try {
             fileStorage.delete(imageName);

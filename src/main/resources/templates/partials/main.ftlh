@@ -53,7 +53,8 @@ extraScriptAfter="" extraScriptBefore="">
 
     ${extraScriptBefore}
     <script src="/vendor/jquery.js"></script>
-    <script src="/vendor/bootstrap5/js/bootstrap.min.js"></script>
+<#--    <script src="/vendor/bootstrap5/js/bootstrap.min.js"></script>-->
+    <script src="/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
     <script src="https://use.fontawesome.com/ffe0d7ed97.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

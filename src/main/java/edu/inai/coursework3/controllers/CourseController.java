@@ -1,35 +1,27 @@
 package edu.inai.coursework3.controllers;
 
-import edu.inai.coursework3.dto.CatalogForm;
-import edu.inai.coursework3.entities.Course;
+import edu.inai.coursework3.dto.CourseReviewForm;
+import edu.inai.coursework3.dto.CreateCourseForm;
 import edu.inai.coursework3.services.CategoryService;
 import edu.inai.coursework3.services.CourseService;
 import edu.inai.coursework3.services.PropertiesService;
 import edu.inai.coursework3.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/course/{courseId}/content")
-public class CourseContentController {
+@RequestMapping("/course")
+public class CourseController {
     private final UserService userService;
     private final CourseService courseService;
     private final PropertiesService propertiesService;
     private final CategoryService categoryService;
 
-    @GetMapping("/{chapterId}")
+    @GetMapping("/{courseId}/content/{chapterId}")
     public String getCourseContent(Model model, Authentication authentication,
                                    @PathVariable Long courseId,@PathVariable Long chapterId){
         model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
@@ -41,4 +33,26 @@ public class CourseContentController {
         return "course_content";
 
     }
+
+    @GetMapping("/create")
+    public String getCourseCreatePage(Model model, Authentication authentication){
+
+        model.addAttribute("categories", categoryService.getCatalogCategories());
+
+        return "create_course";
+
+    }
+
+    @PostMapping("/create")
+    public String createCourse(Model model, Authentication authentication,
+                               @ModelAttribute("createCourseData") CreateCourseForm form ){
+
+        courseService.createCourse(authentication.getName(),form);
+
+        return "redirect:/profile";
+
+    }
+
+
+
 }

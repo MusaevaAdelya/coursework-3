@@ -33,6 +33,21 @@ public class FileStorageImpl implements FileStorage {
         return key;
     }
 
+    public String save(InputStream inputStream, String fileOriginalName, String path) throws IOException {
+        String key = String.format("%s.%s",generateKey(),fileOriginalName);
+        File file = new File(String.format("%s/%s", path, key));
+
+        try (FileOutputStream outputStream = new FileOutputStream(file, false)) {
+            int read;
+            byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        }
+
+        return key;
+    }
+
 
     @Override
     public void rewrite(InputStream inputStream, String identificator)  throws IOException{
