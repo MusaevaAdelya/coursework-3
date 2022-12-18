@@ -23,7 +23,6 @@ public class CourseChapter {
     private Long id;
 
     @NotBlank
-    @Size(min=10)
     private String text;
 
     @NotBlank

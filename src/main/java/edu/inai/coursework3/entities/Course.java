@@ -25,7 +25,6 @@ public class Course {
     private Long id;
 
     @NotBlank
-    @Size(min=3)
     private String name;
 
     @NotBlank
