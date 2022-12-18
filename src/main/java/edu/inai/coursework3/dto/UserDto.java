@@ -5,14 +5,13 @@ import edu.inai.coursework3.entities.User;
 import edu.inai.coursework3.enums.UserRoles;
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
+@Slf4j
 @Builder
 public class UserDto {
     public static UserDto from(User user){
@@ -24,8 +23,8 @@ public class UserDto {
                 .avatar(user.getAvatar())
                 .coins(user.getCoins())
                 .about(user.getAbout())
-                .createdCourses(user.getCreatedCourses().stream().map(CourseDto::from).collect(Collectors.toList()))
-                .studyingCourses(user.getStudyingCourses().stream().map(CourseDto::from).collect(Collectors.toList()))
+                .createdCourses(user.getCreatedCourses().stream().map(ProfileCourseDto::from).collect(Collectors.toList()))
+                .studyingCourses(user.getStudyingCourses().stream().map(ProfileCourseDto::from).collect(Collectors.toList()))
                 .build();
     }
 
@@ -36,8 +35,8 @@ public class UserDto {
     private Boolean enabled;
     private String password;
     private String avatar;
-    private List<CourseDto> createdCourses;
-    private List<CourseDto> studyingCourses;
+    private List<ProfileCourseDto> createdCourses;
+    private List<ProfileCourseDto> studyingCourses;
     private Double coins;
     String about;
 }

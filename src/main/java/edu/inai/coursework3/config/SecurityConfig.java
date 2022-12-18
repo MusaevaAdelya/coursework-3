@@ -47,6 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .invalidateHttpSession(true);
 
+//        http.authorizeRequests()
+//                .antMatchers("/profile/**")
+//                .authenticated();
+
         http.authorizeRequests()
                 .anyRequest()
                 .permitAll();
