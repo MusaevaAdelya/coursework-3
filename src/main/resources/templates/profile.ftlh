@@ -197,13 +197,11 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                             </div>
                             <div class="mb-3">
                                 <label for="newPass" class="form-label">New Password</label>
-                                <input name="newPassword" type="password" class="form-control" id="newPass"
-                                       minlength="8">
+                                <input name="newPassword" type="password" class="form-control" id="newPass">
                             </div>
                             <div class="mb-3">
                                 <label for="renewPass" class="form-label">Repeat Password</label>
-                                <input name="newPasswordRepeat" type="password" class="form-control" id="renewPass"
-                                       minlength="8">
+                                <input name="newPasswordRepeat" type="password" class="form-control" id="renewPass">
                             </div>
                         </div>
                     </div>
