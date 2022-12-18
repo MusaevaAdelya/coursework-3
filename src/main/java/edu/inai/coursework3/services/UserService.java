@@ -1,10 +1,7 @@
 package edu.inai.coursework3.services;
 
 import edu.inai.coursework3.config.SecurityConfig;
-import edu.inai.coursework3.dto.CourseDto;
-import edu.inai.coursework3.dto.ProfileEditForm;
-import edu.inai.coursework3.dto.RegisterForm;
-import edu.inai.coursework3.dto.UserDto;
+import edu.inai.coursework3.dto.*;
 import edu.inai.coursework3.entities.Course;
 import edu.inai.coursework3.entities.CourseChapter;
 import edu.inai.coursework3.entities.CourseSection;
@@ -72,6 +69,7 @@ public class UserService {
 
     }
 
+
     private Integer calcLearningPercent(Long userId, Long courseId ){
         List<Long> courseChapterIds=getCourseChapterIds(courseId);
 
@@ -100,7 +98,7 @@ public class UserService {
 
         if(!form.getNewUsername().equals(user.getUsername())){
             if(form.getNewUsername().isBlank()){
-                ra.addAttribute("invalidDataMessage","username cannot be blank");
+                ra.addAttribute("message","username cannot be blank");
                 return;
             }else{
                 user.setUsername(form.getNewUsername());
@@ -109,11 +107,11 @@ public class UserService {
 
         if(form.getNewPassword().length()!=0){
             if(form.getNewPassword().length()<8){
-                ra.addAttribute("invalidDataMessage","password must contain 8 or more letters");
+                ra.addAttribute("message","password must contain 8 or more letters");
                 return;
             }
             if(!form.getNewPassword().equals(form.getNewPasswordRepeat())){
-                ra.addAttribute("invalidDataMessage","passwords do not match");
+                ra.addAttribute("message","passwords do not match");
                 return;
             }
             user.setPassword(passwordEncoder.encode(form.getNewPassword()));
@@ -126,5 +124,18 @@ public class UserService {
 
 
         userRepository.save(user);
+    }
+
+    public Integer getStudentProgress(Long courseId, String name) {
+        Course course=courseRepository.findById(courseId).orElseThrow(
+                ()-> new CourseNotFoundException("course with id "+courseId+ " not found"));
+        User user=userRepository.findByEmail(name).orElseThrow(()->new UserNotFoundException(name));
+
+        if(course.getUsers().contains(user)){
+            return calcLearningPercent(user.getId(),course.getId());
+        }else{
+            return null;
+        }
+
     }
 }

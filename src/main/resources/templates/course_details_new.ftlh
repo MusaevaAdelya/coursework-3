@@ -3,88 +3,23 @@
 <#assign extraScriptAfterMarkup>
     <script>
         $(document).ready(function () {
-            $('.seeallcourcesbut').html('See all course');
-            $('.seeallcourcesbut').click(function () {
-                if ($(this).text() == 'See all course') {
-                    $(this).html('Hide all course');
-                } else {
-                    $(this).html('See all course');
-                }
-            })
-        });
+            <#if review??>
+                <#if review="success">
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'your review was successfully added to the course "${course.name}"',
+                    })
+                </#if>
+            </#if>
 
-        $(document).ready(function () {
-            $('.seeallreviewsbut').html('See all reviews');
-            $('.seeallreviewsbut').click(function () {
-                if ($(this).text() == 'See all reviews') {
-                    $(this).html('Hide all reviews');
-                } else {
-                    $(this).html('See all reviews');
-                }
-            })
         })
 
-
-        var header = $(".course-card");
-        var scrollChange = $(".course-header").height();
-        console.log(scrollChange)
-        $(window).scroll(function () {
-            var scroll = $(window).scrollTop();
-
-            if (scroll >= scrollChange) {
-                header.addClass('shadow-cat');
-            } else {
-                header.removeClass("shadow-cat");
-            }
-        });
-
-
-        const allStars = document.querySelectorAll(".star-btn"),
-            currentRating = document.querySelector(".current-rating");
-        let commentStartsInput=document.getElementById("commentStars")
-
-
-        allStars.forEach((star, i) => {
-            star.onclick = function () {
-                let current_star_level = i + 1;
-                commentStartsInput.value=current_star_level;
-
-                allStars.forEach((star, j) => {
-                    if (current_star_level >= j + 1) {
-                        star.innerHTML = '&#9733';
-                        currentRating.innerText = current_star_level + 'of 5'
-                    } else {
-                        star.innerHTML = '&#9734';
-                    }
-                })
-            }
-        });
-
-
-        function RollIn() {
-            var prog = document.getElementById("progress")
-            var prog_block = document.getElementById("progress-t")
-            var comments = document.getElementById("add-reviews")
-            var roll = document.getElementById("roll-in")
-            var width = prog.style.width
-            var width_int = Number(width.replace("%", ""))
-
-            roll.style.display = "none"
-            prog_block.style.display = "block"
-            if (width_int < 10) {
-                comments.style.display = "none"
-                prog.innerHTML = width
-            } else {
-                comments.style.display = "block"
-                prog.innerHTML = width
-            }
-
-        }
     </script>
 </#assign>
 
 <@main.renderWith title="Calopsia | Course"
-scripts=["/js/script.js"]
+scripts=["/js/script.js","/js/course.js"]
 styles=["/css/style.css","/css/course.css"]
 extraScriptAfter=extraScriptAfterMarkup>
     <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
@@ -270,7 +205,8 @@ extraScriptAfter=extraScriptAfterMarkup>
                                                             <hr>
                                                             <div class="row">
                                                                 <div class="col">
-                                                                    <a href="#" class="fw-bold purp-text h5">${ratings[index].user.username}</a>
+                                                                    <a href="#"
+                                                                       class="fw-bold purp-text h5">${ratings[index].user.username}</a>
                                                                     <br>
                                                                     <i class="star">${ratings[index].rating}</i>
                                                                     <#list 1..(ratings[index].rating) as star>
@@ -284,7 +220,8 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                                                                 </div>
                                                                 <div class="col">
-                                                                    <p class="text-end">${ratings[index].dateOn}</p></div>
+                                                                    <p class="text-end">${ratings[index].dateOn}</p>
+                                                                </div>
                                                             </div>
                                                             <p>${ratings[index].comment}</p>
                                                         </div>
@@ -297,7 +234,8 @@ extraScriptAfter=extraScriptAfterMarkup>
                                                             <hr>
                                                             <div class="row">
                                                                 <div class="col">
-                                                                    <a href="#" class="fw-bold purp-text h5">${c.user.username}</a>
+                                                                    <a href="#"
+                                                                       class="fw-bold purp-text h5">${c.user.username}</a>
                                                                     <br>
                                                                     <i class="star">${c.rating}</i>
                                                                     <#list 1..(c.rating) as star>
@@ -328,7 +266,8 @@ extraScriptAfter=extraScriptAfterMarkup>
                                                                 <hr>
                                                                 <div class="row">
                                                                     <div class="col">
-                                                                        <a href="#" class="fw-bold purp-text h5">${ratings[index].user.username}</a>
+                                                                        <a href="#"
+                                                                           class="fw-bold purp-text h5">${ratings[index].user.username}</a>
                                                                         <br>
                                                                         <i class="star">${ratings[index].rating}</i>
                                                                         <#list 1..(ratings[index].rating) as star>
@@ -342,15 +281,13 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                                                                     </div>
                                                                     <div class="col">
-                                                                        <p class="text-end">${ratings[index].dateOn}</p></div>
+                                                                        <p class="text-end">${ratings[index].dateOn}</p>
+                                                                    </div>
                                                                 </div>
                                                                 <p>${ratings[index].comment}</p>
                                                             </div>
                                                         </div>
                                                     </#list>
-
-
-
                                                 </div>
                                             </div>
                                             <a class="btn btn-primary seeallreviewsbut" data-bs-toggle="collapse"
@@ -365,22 +302,34 @@ extraScriptAfter=extraScriptAfterMarkup>
                             </div>
                         </div>
 
-                        <div class="add-reviews" id="add-reviews">
-                            <form>
-                                <input type="text" class="comments-input" placeholder="Comment...">
-                                <input hidden id="commentStars">
-                                <button type="submit" class="comments-btn"><i class="bi bi-send"></i></button>
-                            </form>
-                            <div class="star-rating text-center">
-                                <p class="text-center text-secondary fw-bolder fs-5 mb-0">Rating</p>
-                                <button class="star-btn">&#9734</button>
-                                <button class="star-btn">&#9734</button>
-                                <button class="star-btn">&#9734</button>
-                                <button class="star-btn">&#9734</button>
-                                <button class="star-btn">&#9734</button>
-                                <p class="current-rating text-center fw-bold">0 of 5</p>
-                            </div>
-                        </div>
+                        <#if studentProgress??>
+                            <#if (studentProgress>=10)>
+                                <div class="add-reviews" id="add-reviews">
+                                    <form method="POST" action="/course/review" modelAttribute="reviewForm">
+                                        <input name="comment" required type="text" class="comments-input"
+                                               placeholder="Comment...">
+                                        <input name="stars" required hidden id="commentStars">
+                                        <input name="userId" hidden value="${user.id}">
+                                        <input name="courseId" hidden value="${course.id}">
+                                        <#if _csrf??>
+                                            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                                                   value="${(_csrf.token)!'--no-token--'}"/>
+                                        </#if>
+                                        <button type="submit" class="comments-btn"><i class="bi bi-send"></i></button>
+                                    </form>
+                                    <div class="star-rating text-center">
+                                        <p class="text-center text-secondary fw-bolder fs-5 mb-0">Rating</p>
+                                        <button class="star-btn">&#9734</button>
+                                        <button class="star-btn">&#9734</button>
+                                        <button class="star-btn">&#9734</button>
+                                        <button class="star-btn">&#9734</button>
+                                        <button class="star-btn">&#9734</button>
+                                        <p class="current-rating text-center fw-bold">0 of 5</p>
+                                    </div>
+                                </div>
+                            </#if>
+                        </#if>
+
 
                         <div class="more-course mt-3 mb-5">
                             <hr>
@@ -399,13 +348,18 @@ extraScriptAfter=extraScriptAfterMarkup>
                                                             <img class="rounded"
                                                                  src="${coursesPath}${moreCourses[index].thumbNailPath}"
                                                                  alt="">
-                                                            <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">${moreCourses[index].category.name}</a></div>
+                                                            <div class="py-3"><a
+                                                                        class="prog-btn my-3 rounded  px-2 py-1"
+                                                                        href="#">${moreCourses[index].category.name}</a>
+                                                            </div>
                                                             <h4 class="text-black fw-bold">${moreCourses[index].name}</h4>
 
-                                                            <p class="text-secondary fw-bolder">${moreCourses[index].users?size} Students</p>
+                                                            <p class="text-secondary fw-bolder">${moreCourses[index].users?size}
+                                                                Students</p>
 
                                                             <div class="btn-price d-flex justify-content-between">
-                                                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
+                                                                <a class="purp_button rounded text-white fw-bolder p-2"
+                                                                   href="#">Start
                                                                     learning</a>
                                                                 <span class="fw-bolder purp-text  text-center">Free $0</span>
                                                             </div>
@@ -420,13 +374,17 @@ extraScriptAfter=extraScriptAfterMarkup>
                                                             <img class="rounded"
                                                                  src="${coursesPath}${mc.thumbNailPath}"
                                                                  alt="">
-                                                            <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">${mc.category.name}</a></div>
+                                                            <div class="py-3"><a
+                                                                        class="prog-btn my-3 rounded  px-2 py-1"
+                                                                        href="#">${mc.category.name}</a></div>
                                                             <h4 class="text-black fw-bold">${mc.name}</h4>
 
-                                                            <p class="text-secondary fw-bolder">${mc.users?size} Students</p>
+                                                            <p class="text-secondary fw-bolder">${mc.users?size}
+                                                                Students</p>
 
                                                             <div class="btn-price d-flex justify-content-between">
-                                                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
+                                                                <a class="purp_button rounded text-white fw-bolder p-2"
+                                                                   href="#">Start
                                                                     learning</a>
                                                                 <span class="fw-bolder purp-text  text-center">Free $0</span>
                                                             </div>
@@ -445,13 +403,18 @@ extraScriptAfter=extraScriptAfterMarkup>
                                                                 <img class="rounded"
                                                                      src="${coursesPath}${moreCourses[index].thumbNailPath}"
                                                                      alt="">
-                                                                <div class="py-3"><a class="prog-btn my-3 rounded  px-2 py-1" href="#">${moreCourses[index].category.name}</a></div>
+                                                                <div class="py-3"><a
+                                                                            class="prog-btn my-3 rounded  px-2 py-1"
+                                                                            href="#">${moreCourses[index].category.name}</a>
+                                                                </div>
                                                                 <h4 class="text-black fw-bold">${moreCourses[index].name}</h4>
 
-                                                                <p class="text-secondary fw-bolder">${moreCourses[index].users?size} Students</p>
+                                                                <p class="text-secondary fw-bolder">${moreCourses[index].users?size}
+                                                                    Students</p>
 
                                                                 <div class="btn-price d-flex justify-content-between">
-                                                                    <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
+                                                                    <a class="purp_button rounded text-white fw-bolder p-2"
+                                                                       href="#">Start
                                                                         learning</a>
                                                                     <span class="fw-bolder purp-text  text-center">Free $0</span>
                                                                 </div>
@@ -489,12 +452,18 @@ extraScriptAfter=extraScriptAfterMarkup>
                                 </#list>
                             </#if>
                         </div>
-                        <div class="progress mt-3 mb-3" id="progress-t">
-                            <div class="progress-bar" id="progress" role="progressbar" style="width: 19%;"
-                                 aria-valuemax="100"></div>
-                        </div>
-                        <button type="submit" class="roll-in-btn mx-auto" id="roll-in" onclick="RollIn()">Roll in
-                        </button>
+                        <#if studentProgress??>
+                            <div class="progress mt-3 mb-3" id="progress-t">
+                                <div class="progress-bar" id="progress" role="progressbar"
+                                     style="width: ${studentProgress}%;"
+                                     aria-valuemax="100">${studentProgress}%
+                                </div>
+                            </div>
+                        <#else>
+                            <button type="submit" class="roll-in-btn mx-auto" id="roll-in">Roll in</button>
+                        </#if>
+
+
                         <div class="card-info">
                             <p>The course includes</p>
                             <ul>

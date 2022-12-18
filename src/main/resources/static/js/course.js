@@ -37,17 +37,19 @@ $(window).scroll(function() {
 
 const allStars = document.querySelectorAll(".star-btn"),
     currentRating = document.querySelector(".current-rating");
+let commentStartsInput = document.getElementById("commentStars")
 
 
-allStars.forEach((star , i) =>{
-    star.onclick = function (){
-        let current_star_level = i+1;
+allStars.forEach((star, i) => {
+    star.onclick = function () {
+        let current_star_level = i + 1;
+        commentStartsInput.value = current_star_level;
 
-        allStars.forEach( (star , j) =>{
-            if (current_star_level >= j+1){
+        allStars.forEach((star, j) => {
+            if (current_star_level >= j + 1) {
                 star.innerHTML = '&#9733';
-                currentRating.innerText = `${current_star_level} of 5`
-            }else {
+                currentRating.innerText = current_star_level + 'of 5'
+            } else {
                 star.innerHTML = '&#9734';
             }
         })

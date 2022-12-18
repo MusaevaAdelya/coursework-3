@@ -1,13 +1,8 @@
 <#import "partials/main.ftlh" as main />
 
-<#assign extraStyleMarkup>
-
-</#assign>
-
 <@main.renderWith title="Calopsia | Catalog"
 scripts=["/js/script.js","/js/catalog.js"]
-styles=["/css/style.css","/css/catalog.css"]
-extrastyle=extraStyleMarkup>
+styles=["/css/style.css","/css/catalog.css"]>
     <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 
     <header>

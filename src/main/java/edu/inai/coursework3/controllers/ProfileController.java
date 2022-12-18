@@ -27,7 +27,7 @@ public class ProfileController {
     @GetMapping()
     public String getProfilePage(Model model,
                                  Authentication authentication,
-                                 @RequestParam(required = false, name = "invalidDataMessage") String invalidDataMessage) {
+                                 @RequestParam(required = false, name = "message") String invalidDataMessage) {
         model.addAttribute("user", userService.getProfileUserDtoByEmail(authentication.getName()));
         model.addAttribute("invalidData", invalidDataMessage);
 

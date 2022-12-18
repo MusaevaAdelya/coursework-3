@@ -59,7 +59,7 @@ extraScriptAfter="" extraScriptBefore="">
 
 
     <#list scripts as scriptSource>
-        <script src="${scriptSource}" type="application/json"></script>
+        <script src="${scriptSource}"></script>
     </#list>
 
     ${extraScriptAfter}

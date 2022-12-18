@@ -80,11 +80,3 @@ allStars.forEach((star , i) =>{
         })
     }
 });
-
-
-
-
-
-
-
-

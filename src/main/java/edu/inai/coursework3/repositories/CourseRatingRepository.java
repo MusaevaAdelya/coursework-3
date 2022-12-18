@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CourseRatingRepository extends JpaRepository<CourseRating,Long> {
-    @Query("select cr from CourseRating cr where cr.course.id=:courseId ")
+    @Query("select cr from CourseRating cr where cr.course.id=:courseId order by cr.dateOn desc")
     List<CourseRating> findByCourseId(Long courseId);
 }

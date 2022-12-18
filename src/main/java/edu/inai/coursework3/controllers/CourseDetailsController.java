@@ -1,14 +1,15 @@
 package edu.inai.coursework3.controllers;
 
+import edu.inai.coursework3.dto.CourseReviewForm;
+import edu.inai.coursework3.dto.ProfileEditForm;
 import edu.inai.coursework3.services.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -22,11 +23,15 @@ public class CourseDetailsController {
 
     @GetMapping("/{id}")
     public String getCourseDetails(Model model, Authentication authentication,
-                                   @PathVariable("id")Long courseId){
+                                   @PathVariable("id")Long courseId,
+                                   @RequestParam(required = false, name="review") String review){
 
         if(authentication!=null){
             model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
+            model.addAttribute("studentProgress",userService.getStudentProgress(courseId,authentication.getName()));
         }
+
+        model.addAttribute("review",review);
 
         model.addAttribute("course", courseService.getCourseById(courseId));
         model.addAttribute("ratings",courseRatingService.getRatingsByCourseId(courseId));
@@ -37,4 +42,15 @@ public class CourseDetailsController {
         return "course_details_new";
 
     }
+
+    @PostMapping("/review")
+    public String editProfileInfo(@ModelAttribute("reviewForm") CourseReviewForm form,
+                                  Authentication authentication, RedirectAttributes ra) {
+        courseService.addReview(form,ra);
+
+        return String.format("redirect:/course/%s",form.getCourseId());
+    }
+
+
+
 }
