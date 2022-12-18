@@ -442,7 +442,7 @@ extraScriptAfter=extraScriptAfterMarkup>
                         <p class="course-price mb-0">Free 0$</p>
                         <hr>
                         <div class="course-rating text-center mt-2 mb-3">
-                            <i class="star">${course.ratingScore}</i>
+                            <i class="star">${course.ratingScore?string["0.#"]}</i>
                             <#list 1..(course.ratingScore?floor) as star>
                                 <i class="bi bi-star-fill star"></i>
                             </#list>

@@ -44,4 +44,7 @@ public class CourseChapter {
     @OneToOne(cascade = CascadeType.ALL)
     private CourseTest test;
 
+    @Column(name="video_link")
+    private String videoLink;
+
 }

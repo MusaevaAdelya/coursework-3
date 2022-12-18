@@ -7,7 +7,6 @@ import edu.inai.coursework3.services.CourseService;
 import edu.inai.coursework3.services.PropertiesService;
 import edu.inai.coursework3.services.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -22,29 +21,22 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/courses")
-public class CatalogController {
+@RequestMapping("/course/content")
+public class CourseContentController {
     private final UserService userService;
     private final CourseService courseService;
     private final PropertiesService propertiesService;
     private final CategoryService categoryService;
 
-    @GetMapping()
-    public String getMainPage(Model model, Authentication authentication,
+    @GetMapping("/{chapterId}")
+    public String getCourseContent(Model model, Authentication authentication,
                               @ModelAttribute CatalogForm catalogForm, @PageableDefault(size=9) Pageable pageable,
                               HttpServletRequest httpServletRequest){
         if(authentication!=null){
             model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
         }
 
-        Page<Course> courses = courseService.getFilteredCourses(catalogForm, pageable);
-        String uri = PropertiesService.getFullURL(httpServletRequest);
-        propertiesService.fillPaginationDataModel(model, courses, "courses", uri);
-
-        model.addAttribute("categories", categoryService.getCatalogCategories());
-        model.addAttribute("levels",courseService.getStringCourseLevels());
         return "catalog";
 
     }
-
 }
