@@ -1,6 +1,7 @@
 package edu.inai.coursework3.services;
 
 import edu.inai.coursework3.util.FileStorageImpl;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,8 +16,7 @@ import java.io.IOException;
 public class ImageService {
     private final FileStorageImpl fileStorage;
 
-    @Value("courses.default.image")
-    String defaultAvatar;
+    private String defaultAvatar="DEFAULT.png";
 
     @SneakyThrows
     public String saveImage(MultipartFile image, String oldImageName){
