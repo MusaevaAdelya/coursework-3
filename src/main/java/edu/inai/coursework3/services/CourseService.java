@@ -145,7 +145,20 @@ public class CourseService {
                 .build());
 
 
+        refreshCourseRating(form.getCourseId());
 
         ra.addAttribute("review","success");
+    }
+
+    private void refreshCourseRating(Long courseId){
+        Course course=courseRepository.findById(courseId).orElseThrow(
+                ()-> new CourseNotFoundException("course with id "+courseId+ " not found"));
+
+        List<CourseRating> ratings=courseRatingRepository.findByCourseId(courseId);
+        Double averageRating=ratings.stream().mapToDouble(CourseRating::getRating).average().orElseThrow();
+
+        course.setRatingScore(averageRating);
+        courseRepository.save(course);
+
     }
 }
