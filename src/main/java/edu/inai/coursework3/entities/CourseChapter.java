@@ -22,7 +22,6 @@ public class CourseChapter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     private String text;
 
     @NotBlank
@@ -39,7 +38,6 @@ public class CourseChapter {
     @Column(name="date_on")
     private LocalDateTime dateOn=LocalDateTime.now();
 
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private CourseTest test;
 

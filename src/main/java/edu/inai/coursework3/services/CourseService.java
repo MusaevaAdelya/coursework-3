@@ -1,9 +1,6 @@
 package edu.inai.coursework3.services;
 
-import edu.inai.coursework3.dto.CatalogForm;
-import edu.inai.coursework3.dto.CourseDto;
-import edu.inai.coursework3.dto.CourseReviewForm;
-import edu.inai.coursework3.dto.CreateCourseForm;
+import edu.inai.coursework3.dto.*;
 import edu.inai.coursework3.entities.*;
 import edu.inai.coursework3.enums.CourseLevel;
 import edu.inai.coursework3.enums.CourseStatus;
@@ -37,6 +34,7 @@ public class CourseService {
     private final CompletedTaskRepository completedTaskRepository;
     private final CourseSectionRepository courseSectionRepository;
     private final ImageService imageService;
+    private final CourseChapterRepository courseChapterRepository;
 
 
 
@@ -164,7 +162,7 @@ public class CourseService {
     }
 
 
-    public void createCourse(String email, CreateCourseForm form) {
+    public Course createCourse(String email, CreateCourseForm form) {
         User user=userRepository.findByEmail(email).orElseThrow();
 
         List<String> modulesString=form.getModule();
@@ -201,6 +199,7 @@ public class CourseService {
                 .skills(Arrays.asList(form.getSkills().split("\n")))
                 .requirements(Arrays.asList(form.getReq().split("\n")))
                 .status(CourseStatus.ACCEPTED)
+                .courseSections(courseSectionList)
                 .build();
 
         if(form.getImage().getOriginalFilename().isBlank()){
@@ -209,9 +208,47 @@ public class CourseService {
             course.setThumbNailPath(imageService.saveImage("files/courses",form.getImage()));
         }
 
-        user.getCreatedCourses().add(course);
-        userRepository.save(user);
 
+        user.getCreatedCourses().add(course);
+        User savedUser=userRepository.save(user);
+
+        Course savedCourse=savedUser.getCreatedCourses()
+                .get(savedUser.getCreatedCourses().size()-1);
+
+        return savedCourse;
+
+
+    }
+
+    public CourseChapterDto getCourseChpaterById(Long chapterId) {
+        return CourseChapterDto.from(courseChapterRepository.findById(chapterId).orElseThrow());
+    }
+
+    public void editChapter(EditChapterForm form) {
+        CourseChapter chapter=courseChapterRepository.findById(form.getChapterId()).orElseThrow();
+
+        List<TestAnswer> answers=new ArrayList<>();
+        form.getAnswer().forEach(answer->{
+            TestAnswer a= TestAnswer.builder()
+                    .text(answer)
+                    .build();
+
+            if(answer.equals(form.getCorrect())){
+                a.setCorrect(true);
+            }
+
+            answers.add(a);
+        });
+
+        CourseTest test=CourseTest.builder()
+                .answers(answers)
+                .question(form.getQuestion())
+                .build();
+
+        chapter.setText(form.getText());
+        chapter.setTest(test);
+
+        courseChapterRepository.save(chapter);
 
     }
 }

@@ -1,0 +1,214 @@
+main {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.b-example-divider {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.bi {
+    vertical-align: -.125em;
+    pointer-events: none;
+    fill: currentColor;
+}
+
+.dropdown-toggle { outline: 0; }
+
+.nav-flush .nav-link {
+    border-radius: 0;
+}
+
+.btn-toggle {
+    display: inline-flex;
+    align-items: center;
+    padding: .25rem .5rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, .65);
+    background-color: transparent;
+    border: 0;
+}
+.btn-toggle:hover,
+.btn-toggle:focus {
+    color: rgba(0, 0, 0, .85);
+    background-color: #d2daf4;
+}
+
+.btn-toggle::before {
+    width: 1.25em;
+    line-height: 0;
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    transition: transform .35s ease;
+    transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"] {
+    color: rgba(0, 0, 0, .85);
+}
+.btn-toggle[aria-expanded="true"]::before {
+    transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+    display: inline-flex;
+    padding: .1875rem .5rem;
+    margin-top: .125rem;
+    margin-left: 1.25rem;
+    text-decoration: none;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+    background-color: #d2e2f4;
+}
+
+.scrollarea {
+    overflow-y: auto;
+}
+
+.fw-semibold { font-weight: 600; }
+.lh-tight { line-height: 1.25; }
+
+hr.white {
+    background-color: #fff;
+    border: 5px solid #fff;
+}
+
+.pt-nav {
+    margin-top: 4.5rem;
+}
+
+
+.bg-gray {
+    background-color: #eeeeee;
+}
+.img-course {
+    height: 10rem;
+    object-fit: cover
+}
+
+
+.status-course {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: .9rem !important;
+}
+.status-course.success {
+    background-color:#E0FFDD ;
+    color: var(--ProgButton);
+}
+
+.status-course.gray {
+    background-color:#c4c4c4 ;
+    color: #505050;
+}
+.status-course.alert {
+    background-color:#ffdddd ;
+    color: #ff2e2e;
+}
+
+.categories-create {
+    position: sticky;
+    max-height: calc(100vh - 4.5rem);
+    overflow-y: auto;
+}
+
+.min-vh-100-minus-header {
+    max-height: calc(100vh - 4.5rem);
+}
+
+
+.image-upload {
+    position: relative;
+}
+.image-upload * {
+    max-width: 10rem !important;
+    max-height: 10rem;
+}
+.image-upload > input {
+    display: none;
+}
+.image-upload label img {
+    border-radius: 1rem;
+    min-width: 10rem;
+    object-fit: cover
+}
+
+
+.image-upload label:hover::before {
+    content: '';
+    text-align: center;
+    color: white;
+    line-height: 10rem;
+    font-size: 1.5rem;
+    position: absolute;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-pencil-fill" viewBox="0 0 16 16"> <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/> </svg>');
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+    background-position: 50% 50%;
+    color: #fff;
+    background-color: #1a1e2160;
+    cursor: pointer;
+    width: 10rem;
+    height: 10rem;
+    z-index: 3232;
+    border-radius: 1rem;
+}
+
+
+.save-btn{
+    color:var(--White);
+    background: var(--Accent);
+    border: 1px solid var(--Accent);
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.LessonNameText{
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    border-radius: 8px;
+    border:none;
+    font-size: 20px;
+}
+
+
+.question{
+    width: 50%;
+    height: 50px;
+    padding: 10px;
+    border-radius: 8px;
+    border:1px solid black;
+    font-size: 16px;
+}
+
+.test{
+    border: 1px solid black;
+    border-radius: 8px;
+    height: 50px;
+    padding-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.test-input{
+    border: none;
+    height: 100%;
+    width: 69rem !important;
+}
+
+.test-input:focus-visible {
+    border: none;
+    outline: none;
+}
