@@ -136,7 +136,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                     <@security.authorize access="isAuthenticated()">
                         <p class="menu-separator d-sm-inline ms-auto">.</p>
                         <#if user??>
-                            <a class="auth-user mx-3" href="#">
+                            <a class="auth-user mx-3" href="/profile">
                                 <p class=" username">${user.username}</p>
                                 <img src="${avatarPath}${user.avatar}" alt="user avatar" class=" avatar">
                             </a>

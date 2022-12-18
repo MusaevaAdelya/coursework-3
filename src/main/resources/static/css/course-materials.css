@@ -1,0 +1,202 @@
+.side-menu{
+    background: var(--Back);
+    height: 100%;
+    -webkit-box-shadow: 0px 0px 24px 1px rgba(34, 60, 80, 0.25);
+    -moz-box-shadow: 0px 0px 24px 1px rgba(34, 60, 80, 0.25);
+    box-shadow: 0px 0px 24px 1px rgba(34, 60, 80, 0.25);
+    border-radius: 8px;
+    position: fixed;
+    top:6rem;
+    overflow-y: auto;
+    padding-bottom: 6rem;
+    right: 0;
+}
+
+.side-menu::-webkit-scrollbar{
+    width: 8px;
+    float: left;
+
+
+}
+
+.side-menu::-webkit-scrollbar-track{
+    background: var(--ScrollBar);
+}
+
+
+.side-menu::-webkit-scrollbar-thumb{
+    background: var(--ScrollBarThumb);
+    border-radius: 10px;
+
+}
+
+
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color:black;
+}
+
+
+.course-name{
+    font-size: 20px;
+
+}
+
+.header-course{
+    padding: 10px;
+    background: var(--Accent);
+    position: sticky;
+    top: 0px;
+}
+
+.thumbtack{
+    font-size: 20px;
+    border:none;
+    background: transparent;
+    color:var(--Accent)
+}
+
+
+ul li a{
+    color:var(--Label-level);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+ul li ul li a{
+    font-size: 16px;
+    font-weight: normal;
+}
+
+
+a:hover{
+    color:var(--SpinButton);
+}
+.course-video video{
+    height: 30rem;
+    width: 100%;
+    border: 1px solid black;
+
+}
+
+
+.course h1{
+    color:var(--Accent)
+}
+
+
+
+.test-btn{
+    color:var(--White);
+    background: var(--TestBtn);
+    border: none;
+    border-radius: 5px;
+    padding: 0px 50px 0px 50px;
+    font-size: 20px;
+    float: right;
+    cursor: pointer;
+
+}
+
+
+
+.user-name{
+    color:var(--Label-level);
+    font-weight: bold;
+
+
+}
+.all-comments .first-comments hr{
+    margin:0 !important;
+    color:var(--Accent);
+    border: 2px solid var(--Accent);
+    background: var(--Accent);
+    border-radius: 8px;
+    width: 50%;
+}
+.comment-text{
+    font-size: 14px;
+}
+
+
+
+.test li{
+    padding: 5px 10px 5px 10px;
+    margin-left:10px;
+    border-radius: 8px;
+    display: inline;
+
+
+}
+.header-text{
+    color:var(--Accent);
+    text-align: center;
+}
+
+.test-section{
+    width: 33%;
+}
+.question{
+    color:var(--Label-level);
+    font-size: 22px;
+    font-style: italic;
+}
+
+.test-check{
+    margin-top: 2rem;
+    border-radius: 10px;
+    color:var(--White);
+    background: var(--Accent);
+    font-style: italic;
+    font-size: 20px;
+    padding:5px 8px 5px 8px ;
+}
+
+
+.answers-check-input{
+    text-align: start;
+}
+
+.answers-check-label{
+    color:var(--Accent);
+    font-style: italic;
+    font-size: 18px;
+    text-align: start;
+    width: 50%;
+}
+.shadow-cat{
+    -webkit-box-shadow: 1px 1px 22px 5px rgba(0, 0, 0, 0.14);
+    -moz-box-shadow: 1px 1px 22px 5px rgba(0, 0, 0, 0.14);
+    box-shadow: 1px 1px 22px 5px rgba(0, 0, 0, 0.14);
+    border-radius: 10px;
+    transition: 0.8s  ease-in-out;
+    padding: 20px 40px 10px 50px;
+}
+
+.reviews-btn a{
+    color:var(--Accent);
+    font-style: italic;
+    font-size: 20px;
+    -webkit-box-shadow: 1px 1px 22px 5px rgba(0, 0, 0, 0.14);
+    -moz-box-shadow: 1px 1px 22px 5px rgba(0, 0, 0, 0.14);
+    box-shadow: 1px 1px 22px 5px rgba(0, 0, 0, 0.14);
+    border-radius: 10px;
+    transition: 0.8s  ease-in-out;
+    padding: 5px 10px 5px 10px;
+    background: var(--InputField);
+}
+
+@media screen and (max-width: 992px) {
+    .side-menu{
+        display: none;
+    }
+    .col-10{
+        width: 100% !important;
+    }
+}
+
+
+

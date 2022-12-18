@@ -15,13 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/course/content")
+@RequestMapping("/course/{courseId}/content")
 public class CourseContentController {
     private final UserService userService;
     private final CourseService courseService;
@@ -30,13 +31,14 @@ public class CourseContentController {
 
     @GetMapping("/{chapterId}")
     public String getCourseContent(Model model, Authentication authentication,
-                              @ModelAttribute CatalogForm catalogForm, @PageableDefault(size=9) Pageable pageable,
-                              HttpServletRequest httpServletRequest){
-        if(authentication!=null){
-            model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
-        }
+                                   @PathVariable Long courseId,@PathVariable Long chapterId){
+        model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
+        model.addAttribute("studentProgress",userService.getStudentProgress(courseId,authentication.getName()));
+        model.addAttribute("currentChapterId",chapterId);
+        model.addAttribute("course", courseService.getCourseById(courseId));
+        model.addAttribute("completedChapterIds",userService.getCompletedChaptersIds(authentication.getName(),courseId));
 
-        return "catalog";
+        return "course_content";
 
     }
 }

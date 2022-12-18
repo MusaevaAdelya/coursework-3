@@ -10,10 +10,7 @@ import edu.inai.coursework3.enums.CourseLevel;
 import edu.inai.coursework3.enums.CourseStatus;
 import edu.inai.coursework3.exceptions.CourseNotFoundException;
 import edu.inai.coursework3.exceptions.UserNotFoundException;
-import edu.inai.coursework3.repositories.CategoryRepository;
-import edu.inai.coursework3.repositories.CourseRatingRepository;
-import edu.inai.coursework3.repositories.CourseRepository;
-import edu.inai.coursework3.repositories.UserRepository;
+import edu.inai.coursework3.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
@@ -37,6 +34,7 @@ public class CourseService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final CourseRatingRepository courseRatingRepository;
+    private final CompletedTaskRepository completedTaskRepository;
 
 
     public List<CourseDto> getCourses(Pageable pageable) {
@@ -161,4 +159,7 @@ public class CourseService {
         courseRepository.save(course);
 
     }
+
+
+
 }

@@ -93,6 +93,11 @@ public class UserService {
         return chapters.stream().map(CourseChapter::getId).collect(Collectors.toList());
     }
 
+    public List<Long> getCompletedChaptersIds(String email, Long courseId){
+        User user=userRepository.findByEmail(email).orElseThrow(()->new UserNotFoundException(email));
+        return completedTaskRepository.getCompletedChaptersIds(user.getId(),getCourseChapterIds(courseId));
+    }
+
     public void editProfile(ProfileEditForm form, String userEmail ,RedirectAttributes ra) {
         User user=userRepository.findByEmail(userEmail).orElseThrow(()->new UserNotFoundException(userEmail));
 
