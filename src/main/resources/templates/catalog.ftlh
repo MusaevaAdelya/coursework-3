@@ -40,7 +40,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                     <@security.authorize access="isAuthenticated()">
                         <p class="menu-separator d-sm-inline ms-auto">.</p>
                         <#if user??>
-                            <a class="auth-user mx-3" href="#">
+                            <a class="auth-user mx-3" href="/profile">
                                 <p class=" username">${user.username}</p>
                                 <img src="${avatarPath}${user.avatar}" alt="user avatar" class=" avatar">
                             </a>
@@ -324,7 +324,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                                             <p class="text-secondary fw-bolder">${course.users?size} Students</p>
 
                                             <div class="btn-price d-flex justify-content-between">
-                                                <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
+                                                <a class="purp_button rounded text-white fw-bolder p-2" href="/course/${course.id}">Start
                                                     learning</a>
                                                 <span class="fw-bolder purp-text  text-center"><i
                                                             class="bi bi-star-fill text-warning"></i>${course.ratingScore?string["0.#"]}</span>

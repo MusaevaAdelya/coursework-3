@@ -406,7 +406,13 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <h4 class="card-title mt-4">${user.createdCourses[index].name}</h4>
                                                             <p class="card-text">${user.createdCourses[index].description!''}</p>
                                                             <div class="d-flex justify-content-between">
-                                                                <a href="#" class="btn btn-primary">Read More</a>
+                                                                <a href="/course/${user.createdCourses[index].id}" class="btn btn-primary">View</a>
+                                                                <#if user.createdCourses[index].courseSections??>
+                                                                    <#if user.createdCourses[index].courseSections[0].chapters>
+                                                                        <a href="/course/${user.createdCourses[index].id}/edit/${user.createdCourses[index].courseSections[0].chapters[0].id}" class="btn btn-primary">Edit</a>
+                                                                    </#if>
+                                                                </#if>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -422,7 +428,12 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <h4 class="card-title mt-4">${c.name}</h4>
                                                             <p class="card-text">${c.description!''}</p>
                                                             <div class="d-flex justify-content-between">
-                                                                <a href="#" class="btn btn-primary">Read More</a>
+                                                                <a href="/course/${c.id}" class="btn btn-primary">View</a>
+                                                                <#if c.courseSections??>
+                                                                    <#if c.courseSections[0].chapters>
+                                                                        <a href="/course/${c.id}/edit/${c.courseSections[0].chapters[0].id}" class="btn btn-primary">Edit</a>
+                                                                    </#if>
+                                                                </#if>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -445,7 +456,12 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                                 <h4 class="card-title mt-4">${user.createdCourses[index].name}</h4>
                                                                 <p class="card-text">${user.createdCourses[index].description!''}</p>
                                                                 <div class="d-flex justify-content-between">
-                                                                    <a href="#" class="btn btn-primary">Read More</a>
+                                                                    <a href="/course/${user.createdCourses[index].id}" class="btn btn-primary">View</a>
+                                                                    <#if user.createdCourses[index].courseSections??>
+                                                                        <#if user.createdCourses[index].courseSections[0].chapters>
+                                                                            <a href="/course/${user.createdCourses[index].id}/edit/${user.createdCourses[index].courseSections[0].chapters[0].id}" class="btn btn-primary">Edit</a>
+                                                                        </#if>
+                                                                    </#if>
                                                                 </div>
                                                             </div>
                                                         </div>

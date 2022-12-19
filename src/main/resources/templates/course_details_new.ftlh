@@ -460,7 +460,11 @@ extraScriptAfter=extraScriptAfterMarkup>
                                 </div>
                             </div>
                         <#else>
-                            <button type="submit" class="roll-in-btn mx-auto" id="roll-in">Roll in</button>
+                            <#if course.courseSections??>
+                                <#if (course.courseSections?size!=0)>
+                                    <a href="/course/${course.id}/content/${course.courseSections[0].chapters[0].id}" class="roll-in-btn mx-auto btn btn-success" id="roll-in">Roll in</a>
+                                </#if>
+                            </#if>
                         </#if>
 
 

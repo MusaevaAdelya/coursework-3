@@ -123,7 +123,7 @@ styles=["/css/style.css"]>
                                     <p class="text-secondary fw-bolder">${course.users?size} Students</p>
 
                                     <div class="btn-price d-flex justify-content-between">
-                                        <a class="purp_button rounded text-white fw-bolder p-2" href="#">Start
+                                        <a class="purp_button rounded text-white fw-bolder p-2" href="/course/${course.id}">Start
                                             learning</a>
                                         <span class="fw-bolder purp-text  text-center"><i
                                                     class="bi bi-star-fill text-warning"></i>${course.ratingScore?string["0.#"]}</span>
@@ -135,8 +135,8 @@ styles=["/css/style.css"]>
                     </#if>
                 </div>
             </div>
-            <div class="text-center">
-                <button class="fw-bolder view-all text-center mt-5 mx-auto py-3 px-5" href="#">View All</button>
+            <div class="text-center mt-5">
+                <a class="fw-bolder view-all text-center mt-5 mx-auto py-3 px-5" href="/courses">View All</a>
             </div>
         </div>
         </div>

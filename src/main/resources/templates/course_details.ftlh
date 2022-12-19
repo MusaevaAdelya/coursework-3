@@ -45,7 +45,7 @@ extrastyle=extraStyleMarkup>
                     <@security.authorize access="isAuthenticated()">
                         <p class="menu-separator d-sm-inline ms-auto">.</p>
                         <#if user??>
-                            <a class="auth-user mx-3" href="#">
+                            <a class="auth-user mx-3" href="/profile">
                                 <p class=" username">${user.username}</p>
                                 <img src="${avatarPath}${user.avatar}" alt="user avatar" class=" avatar">
                             </a>
@@ -240,7 +240,8 @@ extrastyle=extraStyleMarkup>
                     <div class="d-sm-block d-md-none sticky-bottom bg-white">
                         <p class="fw-bolder price text-center mt-3 h1">${course.level}</p>
                         <div class="row justify-content-center">
-                            <button class="buy-btn text-center rounded text-white mb-3 fw-bolder py-1" href="#">Roll In
+                            <button class="buy-btn text-center rounded text-white mb-3 fw-bolder py-1"
+                                    href="/course/${course.id}/">Roll In
                             </button>
                         </div>
                     </div>

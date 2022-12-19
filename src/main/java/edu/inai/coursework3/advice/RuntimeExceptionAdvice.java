@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class RuntimeExceptionAdvice {
 
-//    @ExceptionHandler(RuntimeException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public String handleRuntimeException() {
-//
-//        return "error404";
-//    }
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleRuntimeException() {
+
+        return "error404";
+    }
 }

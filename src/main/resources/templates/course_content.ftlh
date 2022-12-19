@@ -1,37 +1,40 @@
 <#import "partials/main.ftlh" as main />
 
-<#assign extraScriptAfterMarkup>
-    <script>
+<#if currentChapter.text??>
+    <#assign extraScriptAfterMarkup>
+        <script>
 
-        var decodeEntities = (function() {
-            // this prevents any overhead from creating the object each time
-            var element = document.createElement('div');
+            var decodeEntities = (function () {
+                // this prevents any overhead from creating the object each time
+                var element = document.createElement('div');
 
-            function decodeHTMLEntities (str) {
-                if(str && typeof str === 'string') {
-                    // strip script/html tags
-                    str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-                    str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-                    element.innerHTML = str;
-                    str = element.textContent;
-                    element.textContent = '';
+                function decodeHTMLEntities(str) {
+                    if (str && typeof str === 'string') {
+                        // strip script/html tags
+                        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+                        str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+                        element.innerHTML = str;
+                        str = element.textContent;
+                        element.textContent = '';
+                    }
+
+                    return str;
                 }
 
-                return str;
-            }
+                return decodeHTMLEntities;
+            })();
 
-            return decodeHTMLEntities;
-        })();
+            $(document).ready(function () {
+                let decodedContent = decodeEntities("${currentChapter.text}")
+                let content = document.createElement("div");
+                content.innerHTML = decodedContent
 
-        $(document).ready(function () {
-            let decodedContent=decodeEntities("${currentChapter.text}")
-            let content = document.createElement("div");
-            content.innerHTML=decodedContent
+                $("#mainContent").append(content)
+            })
+        </script>
+    </#assign>
+</#if>
 
-            $("#mainContent").append(content)
-        })
-    </script>
-</#assign>
 
 
 <@main.renderWith title="Calopsia | Course"
@@ -121,97 +124,37 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
                         </div>
                         <hr>
                         <#if studentProgress??>
-                            <div class="test-section text-center mx-auto">
-                                <#if completedChapterIds?seq_contains(currentChapter.id)>
-                                    <img src="/img/completed.png" style="object-fit: contain; width: 100%;">
-                                <#else>
+                            <#if currentChapter.test??>
+                                <div class="test-section text-center mx-auto">
+                                    <#if completedChapterIds?seq_contains(currentChapter.id)>
+                                        <img src="/img/completed.png" style="object-fit: contain; width: 100%;">
+                                    <#else>
 
 
 
-                                    <h2 class="header-text">Test</h2>
-                                    <div class="question">
-                                        <p>How are you?</p>
-                                    </div>
-                                    <div class="answers  d-flex justify-content-between">
-                                        <div class="column">
-                                            <div class="answers-check">
-                                                <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                       id="exampleRadios1" value="option1" checked>
-                                                <label class="answers-check-label" for="exampleRadios1">
-                                                    Answer1
-                                                </label>
-                                            </div>
-                                            <div class="answers-check">
-                                                <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                       id="exampleRadios2" value="option2" checked>
-                                                <label class="answers-check-label" for="exampleRadios2">
-                                                    Answer2
-                                                </label>
-                                            </div>
-                                            <div class="answers-check">
-                                                <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                       id="exampleRadios3" value="option3">
-                                                <label class="answers-check-label" for="exampleRadios3">
-                                                    Answer3
-                                                </label>
-                                            </div>
-                                            <div class="answers-check">
-                                                <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                       id="exampleRadios4" value="option4" checked>
-                                                <label class="answers-check-label" for="exampleRadios4">
-                                                    Answer4
-                                                </label>
-                                            </div>
-                                            <div class="answers-check">
-                                                <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                       id="exampleRadios5" value="option5">
-                                                <label class="answers-check-label" for="exampleRadios5">
-                                                    Answer5
-                                                </label>
-                                            </div>
+                                        <h2 class="header-text">Test</h2>
+                                        <div class="question">
+                                            <p>${currentChapter.test.question}</p>
                                         </div>
-                                        <div class="column">
-                                            <div class="answers-check">
-                                                <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                       id="exampleRadios6" value="option6" checked>
-                                                <label class="answers-check-label" for="exampleRadios6">
-                                                    Answer6
-                                                </label>
-                                            </div>
-                                            <div class="answers-check">
-                                                <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                       id="exampleRadios7" value="option7">
-                                                <label class="answers-check-label" for="exampleRadios7">
-                                                    Answer7
-                                                </label>
-                                            </div>
-                                            <div class="answers-check">
-                                                <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                       id="exampleRadios8" value="option8" checked>
-                                                <label class="answers-check-label" for="exampleRadios8">
-                                                    Answer8
-                                                </label>
-                                            </div>
-                                            <div class="answers-check">
-                                                <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                       id="exampleRadios9" value="option9">
-                                                <label class="answers-check-label" for="exampleRadios9">
-                                                    Answer9
-                                                </label>
-                                            </div>
-                                            <div class="answers-check">
-                                                <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                       id="exampleRadios10" value="option10">
-                                                <label class="answers-check-label" for="exampleRadios10">
-                                                    Answer10
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <div class="answers  d-flex justify-content-between">
+                                            <div class="column">
+                                                <#list currentChapter.test.answers as answer>
+                                                    <div class="answers-check">
+                                                        <input class="answers-check-input" type="radio" name="exampleRadios"
+                                                               id="exampleRadios1" value="option1" checked>
+                                                        <label class="answers-check-label" for="exampleRadios1">
+                                                            ${answer.text}
+                                                        </label>
+                                                    </div>
+                                                </#list>
 
-                                    <button class="test-check" type="submit">Check</button>
-                                </#if>
-                            </div>
+                                        </div>
+
+                                        <button class="test-check" type="submit">Check</button>
+                                    </#if>
+                                </div>
+                            </#if>
+
                         </#if>
 
 

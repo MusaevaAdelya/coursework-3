@@ -27,6 +27,9 @@ public class CourseController {
     public String getCourseContent(Model model, Authentication authentication,
                                    @PathVariable Long courseId,@PathVariable Long chapterId){
         model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
+
+        courseService.rollIn(authentication.getName(),courseId);
+
         model.addAttribute("studentProgress",userService.getStudentProgress(courseId,authentication.getName()));
         model.addAttribute("currentChapter",courseService.getCourseChpaterById(chapterId));
         model.addAttribute("course", courseService.getCourseById(courseId));

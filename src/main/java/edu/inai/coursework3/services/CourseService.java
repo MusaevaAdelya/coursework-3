@@ -251,4 +251,13 @@ public class CourseService {
         courseChapterRepository.save(chapter);
 
     }
+
+    public void rollIn(String email, Long courseId) {
+        Course course=courseRepository.findById(courseId).orElseThrow();
+        User user=userRepository.findByEmail(email).orElseThrow();
+
+        user.getStudyingCourses().add(course);
+        userRepository.save(user);
+
+    }
 }
