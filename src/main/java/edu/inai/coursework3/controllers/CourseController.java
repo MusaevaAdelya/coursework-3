@@ -28,7 +28,7 @@ public class CourseController {
                                    @PathVariable Long courseId,@PathVariable Long chapterId){
         model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
         model.addAttribute("studentProgress",userService.getStudentProgress(courseId,authentication.getName()));
-        model.addAttribute("currentChapterId",chapterId);
+        model.addAttribute("currentChapter",courseService.getCourseChpaterById(chapterId));
         model.addAttribute("course", courseService.getCourseById(courseId));
         model.addAttribute("completedChapterIds",userService.getCompletedChaptersIds(authentication.getName(),courseId));
 
@@ -78,7 +78,7 @@ public class CourseController {
                              @ModelAttribute("editChapterForm")EditChapterForm form){
         courseService.editChapter(form);
 
-        return "redirect:/course/"+courseId+"/chapter/"+chapterId;
+        return "redirect:/course/"+courseId+"/content/"+chapterId;
 
     }
 
