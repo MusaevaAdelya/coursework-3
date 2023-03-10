@@ -327,8 +327,8 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <div class="d-flex justify-content-between">
                                                                 <a href="#" class="btn btn-primary">Continue
                                                                     Learning</a>
-                                                                <div class="progress-circle <#if (user.studyingCourses[index].percent>=50)>over50</#if> p${user.studyingCourses[index].percent}">
-                                                                    <span>${user.studyingCourses[index].percent}%</span>
+                                                                <div class="progress-circle <#if (c.percent>=50)>over50</#if> p${c.percent}">
+                                                                    <span>${c.percent}%</span>
                                                                     <div class="left-half-clipper">
                                                                         <div class="first50-bar"></div>
                                                                         <div class="value-bar"></div>
