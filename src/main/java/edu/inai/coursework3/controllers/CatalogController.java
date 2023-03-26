@@ -7,7 +7,6 @@ import edu.inai.coursework3.services.CourseService;
 import edu.inai.coursework3.services.PropertiesService;
 import edu.inai.coursework3.services.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -44,7 +43,5 @@ public class CatalogController {
         model.addAttribute("categories", categoryService.getCatalogCategories());
         model.addAttribute("levels",courseService.getStringCourseLevels());
         return "catalog";
-
     }
-
 }

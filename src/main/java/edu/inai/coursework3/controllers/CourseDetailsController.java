@@ -1,10 +1,10 @@
 package edu.inai.coursework3.controllers;
 
 import edu.inai.coursework3.dto.CourseReviewForm;
-import edu.inai.coursework3.dto.ProfileEditForm;
-import edu.inai.coursework3.services.*;
+import edu.inai.coursework3.services.CourseRatingService;
+import edu.inai.coursework3.services.CourseService;
+import edu.inai.coursework3.services.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
-@Slf4j
 @RequestMapping("/course")
 public class CourseDetailsController {
     private final UserService userService;
