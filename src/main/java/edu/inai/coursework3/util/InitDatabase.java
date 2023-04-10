@@ -1,22 +1,22 @@
 package edu.inai.coursework3.util;
 
 
-import edu.inai.coursework3.entities.Category;
-import edu.inai.coursework3.entities.Course;
-import edu.inai.coursework3.entities.User;
+import edu.inai.coursework3.entities.*;
+import edu.inai.coursework3.enums.CourseStatus;
 import edu.inai.coursework3.enums.UserRoles;
 import edu.inai.coursework3.exceptions.CategoryNotFoundException;
+import edu.inai.coursework3.exceptions.CourseNotFoundException;
 import edu.inai.coursework3.exceptions.UserNotFoundException;
-import edu.inai.coursework3.repositories.CategoryRepository;
-import edu.inai.coursework3.repositories.CourseRepository;
-import edu.inai.coursework3.repositories.UserRepository;
+import edu.inai.coursework3.repositories.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Configuration
@@ -41,7 +41,13 @@ public class InitDatabase {
     }
 
     @Bean
-    CommandLineRunner init(UserRepository userRepository, CategoryRepository categoryRepository, CourseRepository courseRepository) {
+    CommandLineRunner init(UserRepository userRepository,
+                           CategoryRepository categoryRepository,
+                           CourseRepository courseRepository,
+                           CourseTestRepository courseTestRepository,
+                           CourseChapterRepository courseChapterRepository,
+                           CourseSectionRepository courseSectionRepository,
+                           CourseRatingRepository courseRatingRepository) {
         return (args) -> {
             if (userRepository.findByEmail("msvadelya@gmail.com").isEmpty()) {
                 User user1=User.builder()
@@ -50,6 +56,9 @@ public class InitDatabase {
                         .username("Adelya Musaeva")
                         .avatar(defaultAvatar)
                         .role(UserRoles.ADMIN)
+                        .createdCourses(new ArrayList<>())
+                        .studyingCourses(new ArrayList<>())
+                        .about("Hey")
                         .build();
                 userRepository.save(user1);
             }
@@ -59,6 +68,9 @@ public class InitDatabase {
                         .password(passwordEncoder.encode("12345678"))
                         .username("Dylan O'Brien")
                         .avatar(defaultAvatar)
+                        .about("I am handsome")
+                        .createdCourses(new ArrayList<>())
+                        .studyingCourses(new ArrayList<>())
                         .build();
                 userRepository.save(user2);
             }
@@ -69,6 +81,9 @@ public class InitDatabase {
                         .password(passwordEncoder.encode("12345678"))
                         .username("Ilya Ugai")
                         .avatar(defaultAvatar)
+                        .createdCourses(new ArrayList<>())
+                        .studyingCourses(new ArrayList<>())
+                        .about("I am Ilya. I can teach you UX/UI design")
                         .build();
                 userRepository.save(user3);
             }
@@ -103,51 +118,104 @@ public class InitDatabase {
             }
 
             List<Course> courses=courseRepository.findAll();
-            if(courses.size()==0){
+            List<CourseTest> tests=courseTestRepository.findAll();
+            List<CourseChapter> chapters=courseChapterRepository.findAll();
+            List<CourseSection> sections=courseSectionRepository.findAll();
+            if(courses.size()==0 && tests.size()==0 && chapters.size()==0 && sections.size()==0){
                 User teacher1= userRepository.findByEmail("ilya.ugai@gmail.com").orElseThrow(
                         ()-> new UserNotFoundException("ilya.ugai@gmail.com")
                 );
                 User teacher2=userRepository.findByEmail("msvadelya@gmail.com").orElseThrow(
                         ()-> new UserNotFoundException("msvadelya@gmail.com")
                 );
+
+                List<User> allUsers=userRepository.findAll();
+
+                CourseTest courseTest= CourseTest.builder()
+                        .question("What is your favorite TV series")
+                        .answers(List.of(TestAnswer.builder()
+                                        .text("Game Of Thrones")
+                                        .correct(true)
+                                        .build(),
+                                TestAnswer.builder()
+                                        .text("House Of The Dragon")
+                                        .build(),
+                                TestAnswer.builder()
+                                        .text("Anne with an E")
+                                        .build(),
+                                TestAnswer.builder()
+                                        .text("Wednesday Addams")
+                                        .build()))
+                        .build();
+
+
+                CourseChapter courseChapter= CourseChapter.builder()
+                        .title("Introduction")
+                        .text("The lesson is over")
+                        .imagePaths(List.of("/img/student1.jpg","/img/student2.jpg"))
+                        .test(courseTest)
+                        .build();
+
+
+                CourseSection courseSection=CourseSection.builder()
+                        .title("Module 1: Spring Boot Fundamentals")
+                        .chapters(List.of(courseChapter))
+                        .build();
+
+
+
                 try{
                     courses=List.of(
                             Course.builder()
                                     .name("Spring Boot")
                                     .coins(100.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher2)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Back-end").orElseThrow(()-> new CategoryNotFoundException("Back-end")))
+                                    .users(allUsers)
+                                    .ratingScore(4.5)
+                                    .description("Become a Java Web Developer: MVC, REST API, OpenAPI Documentation, Testing, Spring Data JPA (SQL), Spring Security (JWT)")
+                                    .requirements(List.of("Java","Object-Oriented Programming"))
+                                    .skills(List.of("Launch an HTTP Server","Field Validation",
+                                            "Unit Testing Business Logic.","REST API",
+                                            "OpenAPI Documentation","Spring Security (Basic)","Model View Controller"))
+                                    .courseSections(List.of(courseSection))
                                     .build(),
                             Course.builder()
                                     .name("Spring Security")
                                     .coins(100.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher2)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Back-end").orElseThrow(()-> new CategoryNotFoundException("Back-end")))
+                                    .users(allUsers)
+                                    .ratingScore(4.7)
                                     .build(),
                             Course.builder()
                                     .name("Spring Data JPA")
                                     .coins(100.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher2)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Back-end").orElseThrow(()-> new CategoryNotFoundException("Back-end")))
+                                    .users(allUsers)
+                                    .ratingScore(3.8)
                                     .build(),
                             Course.builder()
                                     .name("JDBC")
                                     .coins(100.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher2)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Back-end").orElseThrow(()-> new CategoryNotFoundException("Back-end")))
+                                    .users(allUsers)
+                                    .ratingScore(5.0)
                                     .build(),
                             Course.builder()
                                     .name("Bootstrap 5")
                                     .coins(150.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher1)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Front-end").orElseThrow(()-> new CategoryNotFoundException("Front-end")))
@@ -155,7 +223,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("Full HTML/CSS course")
                                     .coins(150.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher1)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Front-end").orElseThrow(()-> new CategoryNotFoundException("Front-end")))
@@ -163,7 +231,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("Introduction to JavaScript")
                                     .coins(150.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher1)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("Front-end").orElseThrow(()-> new CategoryNotFoundException("Front-end")))
@@ -171,7 +239,7 @@ public class InitDatabase {
                             Course.builder()
                                     .name("UX/UI Design with Figma")
                                     .coins(150.0)
-                                    .enabled(true)
+                                    .status(CourseStatus.ACCEPTED)
                                     .teacher(teacher1)
                                     .thumbNailPath(defaultCourseImage)
                                     .category(categoryRepository.findByName("UX/UI Design").orElseThrow(()-> new CategoryNotFoundException("UX/UI Design")))
@@ -184,6 +252,32 @@ public class InitDatabase {
                 courseRepository.saveAll(courses);
 
             }
+
+            List<CourseRating> ratings=courseRatingRepository.findAll();
+
+            if(ratings.size()==0){
+                Course course=courseRepository.findFirstByName("Spring Boot")
+                        .orElseThrow(()->new CourseNotFoundException("course with name Spring Boot not found"));
+
+                User user=userRepository.findByEmail("msvadelya@gmail.com").orElseThrow(()->new UserNotFoundException("msvadelya@gmail.com"));
+
+                courseRatingRepository.saveAll(List.of(
+                        CourseRating.builder()
+                                .user(user)
+                                .course(course)
+                                .rating(4)
+                                .comment("This course is great, I highly recommend it for anyone either completely unfamiliar, or even with some experience, with Spring Boot that wants a comprehensive foundation of knowledge that they can be confident will")
+                                .build(),
+                        CourseRating.builder()
+                                .rating(5)
+                                .user(user)
+                                .course(course)
+                                .comment("Excellent course concept. Very nice explanation for each step. So easy to understand and learn. I just enjoy learning from this course. Best regards to the wonderful lecturers!!!")
+                                .build()
+                ));
+
+            }
+
         };
     }
 }

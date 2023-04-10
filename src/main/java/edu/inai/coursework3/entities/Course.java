@@ -1,5 +1,7 @@
 package edu.inai.coursework3.entities;
 
+import edu.inai.coursework3.enums.CourseLevel;
+import edu.inai.coursework3.enums.CourseStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +25,6 @@ public class Course {
     private Long id;
 
     @NotBlank
-    @Size(min=3)
     private String name;
 
     @NotBlank
@@ -35,7 +36,7 @@ public class Course {
     @Builder.Default
     private List<User> users=new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="course_section_id")
     private List<CourseSection> courseSections=new ArrayList<>();
 
@@ -43,7 +44,8 @@ public class Course {
     private Double coins;
 
     @Builder.Default
-    private Boolean enabled=false;
+    @Enumerated(EnumType.STRING)
+    private CourseStatus status=CourseStatus.MODERATION;
 
     @Builder.Default
     @Column(name="date_on")
@@ -60,5 +62,19 @@ public class Course {
     @PositiveOrZero
     @Builder.Default
     private Double ratingScore=0.0;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private CourseLevel level=CourseLevel.AllLevels;
+
+    @ElementCollection
+    private List<String> requirements=new ArrayList<>();
+
+    @ElementCollection
+    private List<String> skills=new ArrayList<>();
+
+
+    @Size(max=700)
+    String description;
 
 }

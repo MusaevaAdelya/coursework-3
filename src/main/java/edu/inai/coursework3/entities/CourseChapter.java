@@ -22,15 +22,13 @@ public class CourseChapter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(min=10)
     private String text;
 
     @NotBlank
     private String title;
 
     @Builder.Default
-    private Boolean freeTry=false;
+    private Boolean freeTry=true;
 
     @ElementCollection
     @JoinColumn(name="images")
@@ -40,8 +38,10 @@ public class CourseChapter {
     @Column(name="date_on")
     private LocalDateTime dateOn=LocalDateTime.now();
 
-    @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private CourseTest test;
+
+    @Column(name="video_link")
+    private String videoLink;
 
 }

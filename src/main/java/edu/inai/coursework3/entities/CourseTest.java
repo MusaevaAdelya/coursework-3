@@ -25,7 +25,7 @@ public class CourseTest{
     @Size(min=10)
     private String question;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<TestAnswer> answers=new ArrayList<>();
 
 }

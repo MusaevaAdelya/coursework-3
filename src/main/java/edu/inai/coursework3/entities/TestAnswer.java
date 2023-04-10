@@ -23,6 +23,7 @@ public class TestAnswer {
     private String text;
 
     @NotNull
-    private Boolean correct;
+    @Builder.Default
+    private Boolean correct=false;
 
 }

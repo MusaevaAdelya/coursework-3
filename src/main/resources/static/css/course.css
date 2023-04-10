@@ -1,0 +1,202 @@
+.course-header{
+    background: var(--InputField);
+    color:var(--hover-bg);
+    padding: 8rem 10% 0;
+}
+
+
+
+.header-desc{
+    margin-top: 2rem;
+    color:var(--Label-level);
+}
+
+
+.shadow-cat{
+    -webkit-box-shadow: 1px 1px 22px 5px rgba(0, 0, 0, 0.14);
+    -moz-box-shadow: 1px 1px 22px 5px rgba(0, 0, 0, 0.14);
+    box-shadow: 1px 1px 22px 5px rgba(0, 0, 0, 0.14);
+    border-radius: 10px;
+    transition: 0.5s  ease-in-out;
+}
+
+.course-level{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px 5px 10px;
+
+}
+
+.course-level hr{
+    margin-top: 1px !important;
+    border:2px solid var(--Accent);
+    background: var(--Accent);
+    opacity: 1;
+    border-radius: 8px;
+}
+
+.beginner{
+    color:var(--Send);
+}
+
+.intermediate{
+    color:var(--Star);
+}
+
+.expert{
+    color:var(--Danger);
+}
+
+.skills {
+    box-shadow: 0px 4px 21px rgba(77, 131, 192, 0.5);
+}
+.container-block{
+    padding: 1rem 10% 0;
+}
+
+.course-card{
+    padding: 0px 20px 20px 20px;
+    height: min-content;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 8rem;
+    z-index: 1020;
+
+}
+.box-shadow{
+    box-shadow: #1a1e2250 0px 1px 2px;
+}
+
+.course-price{
+    font-size: 24px;
+    text-align: center;
+    color: var(--Accent);
+    font-weight: bold;
+
+
+}
+
+.course-card hr{
+    margin-top: 1px !important;
+    border:2px solid var(--Accent);
+    background: var(--Accent);
+    opacity: 1;
+    border-radius: 8px;
+    width: 25%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.roll-in-btn{
+    width: 50%;
+    border:2px solid var(--Green-btn);
+    border-radius: 8px;
+    background: var(--Green-btn);
+    color:var(--White);
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+    margin-left: 25% !important;
+}
+
+.roll-in-btn:hover{
+    background: var(--Accent);
+    color:var(--Back);
+    border:2px solid transparent;
+    transition: 0.5s ease-in;
+}
+
+.card-info{
+    margin-top: 1rem;
+    text-align: center;
+    box-shadow: #1a1e2250 1px 1px 2px 1px;
+    border-radius: 8px;
+}
+
+.card-info p{
+    margin-top: 1rem;
+    color:var(--Accent);
+    font-weight: bold;
+    font-style: italic;
+    font-size: 20px;
+}
+.card-info ul,
+.skills li{
+    list-style: none;
+}
+
+.card-info ul li:before,
+.skills .col li:before{
+    content: "✔";
+    color:var(--Green-btn);
+    font-size: 18px;
+}
+
+.course-rating{
+    color:var(--Accent);
+}
+
+
+.header-text{
+    color:var(--Accent);
+
+}
+
+.course-program-btn{
+    font-style: italic;
+    font-size: 18px;
+    color:var(--Dark);
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 25%;
+}
+
+.teacher-name{
+    text-decoration: none;
+    color:var(--Accent);
+    font-style: italic;
+    font-size: 22px;
+}
+
+.teacher-btn{
+    background-color: #F2DDFF;
+    color:var(--DesignButton);
+    text-decoration: none;
+    font-weight: bold;
+    width: min-content;
+}
+
+.comments-input{
+    width: 75%;
+    height: 5rem;
+    padding: 20px;
+    border-radius: 8px 0px 0px 8px;
+    border:2px solid var(--Dark);
+}
+
+.comments-btn{
+    position: relative;
+    left: -5px;
+    height: 5rem;
+    border:2px solid var(--Dark);
+    border-radius: 0px 8px 8px 0px;
+    padding: 20px;
+    color:var(--White);
+    font-weight: bold;
+    background: var(--TestBtn);
+
+}
+
+.star-rating{
+    user-select: none;
+
+}
+.star-btn{
+    font-size: 2rem;
+    color: var(--Star);
+    border:none;
+    background: none;
+    padding: 0px;
+
+}
+
