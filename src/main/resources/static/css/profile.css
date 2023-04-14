@@ -13,6 +13,26 @@
 
 }
 
+.header-teacher-activity{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.create-course{
+    color:var(--White);
+    background: var(--Accent);
+    padding: 10px 20px;
+    font-weight: bolder;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.create-course:hover{
+    background: var(--Gray);
+
+}
+
 .profile-info {
     border-radius: 20px;
     padding: 2rem;

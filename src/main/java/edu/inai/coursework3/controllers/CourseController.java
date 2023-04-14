@@ -1,18 +1,18 @@
 package edu.inai.coursework3.controllers;
 
-import edu.inai.coursework3.dto.CourseReviewForm;
 import edu.inai.coursework3.dto.CreateCourseForm;
 import edu.inai.coursework3.dto.EditChapterForm;
 import edu.inai.coursework3.entities.Course;
-import edu.inai.coursework3.services.CategoryService;
-import edu.inai.coursework3.services.CourseService;
-import edu.inai.coursework3.services.PropertiesService;
-import edu.inai.coursework3.services.UserService;
+import edu.inai.coursework3.services.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
@@ -62,6 +62,7 @@ public class CourseController {
         return String.format("redirect:/course/%s/edit/%s",courseId,firstChapterId);
 
     }
+
 
     @GetMapping("/{courseId}/edit/{chapterId}")
     public String getCourseEditPage(Model model, Authentication authentication,

@@ -1,7 +1,7 @@
 <#import "partials/main.ftlh" as main />
 
 <@main.renderWith title="Calopsia | Edit Course"
-scripts=["/js/script.js","/js/edit_course.js"]
+scripts=["/js/script.js","/js/edit_course.js","https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"]
 styles=["/css/style.css","/css/edit-course.css",
 "/css/progress-style.css"]
 footer="false">
@@ -9,7 +9,7 @@ footer="false">
     <div id="element">
         <div class="overflow"></div>
     </div>
-
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <header>
         <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3" id="mainNav">
             <div class="container d-flex justify-content-between">
@@ -127,7 +127,7 @@ footer="false">
                            class="LessonNameText" value="${chapter.title}">
                     <hr>
 
-                    <textarea id="myTextArea"></textarea>
+                    <textarea id="editor"></textarea>
                     <hr>
 
                     <form>
@@ -203,48 +203,47 @@ footer="false">
 
 
         </div>
-
-
         <script>
-            tinymce.init({
-                selector: '#myTextArea',
-                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss image code save autosave',
-                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | code | save | restoredraft',
-                tinycomments_mode: 'embedded',
-                image_title: true,
-                automatic_uploads: true,
-                tinycomments_author: 'Author name',
-                mergetags_list: [
-                    {value: 'First.Name', title: 'First Name'},
-                    {value: 'Email', title: 'Email'},
-                ],
-                file_picker_types: 'image',
-                file_picker_callback: (cb, value, meta) => {
-                    const input = document.createElement('input');
-                    input.setAttribute('type', 'file');
-                    input.setAttribute('accept', 'image/*');
+            CKEDITOR.config.extraPlugins = 'youtube';
+            CKEDITOR.config.youtube_width = '640';
+            CKEDITOR.config.youtube_height = '480';
 
-                    input.addEventListener('change', (e) => {
-                        const file = e.target.files[0];
+            CKEDITOR.config.toolbar = [
+                { name: 'document', items: [ 'Source','-','Save','NewPage','Preview','-','Templates' ] },
+                { name: 'clipboard', items: [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+                { name: 'editing', items: [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
+                { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+                '/',
+                { name: 'basicstyles', items: [ 'Bold','Italic','Underline','Strike','-','RemoveFormat' ] },
+                { name: 'paragraph', items: [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
+                { name: 'links', items: [ 'Link','Unlink','Anchor' ] },
+                { name: 'insert', items: [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
+                '/',
+                { name: 'styles', items: [ 'Styles','Format','Font','FontSize' ] },
+                { name: 'colors', items: [ 'TextColor','BGColor' ] },
+                { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
+                { name: 'about', items: [ 'About' ] }
+            ];
+            CKEDITOR.config.fontSize_sizes = '12/12px;13/13px;14/14px;15/15px;16/16px;17/17px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;30/30px;32/32px;36/36px;40/40px;48/48px;56/56px;64/64px;72/72px;80/80px;88/88px;96/96px;104/104px;112/112px;120/120px';
+            CKEDITOR.config.fontSize_style = { element: 'span', styles: { 'font-size': '#(size)' } };
+            CKEDITOR.config.toolbar.push({ name: 'styles', items: ['FontSize'] });
+            CKEDITOR.config.extraPlugins = 'uploadimage';
+            CKEDITOR.config.filebrowserUploadMethod = 'form';
+            CKEDITOR.config.filebrowserImageUploadUrl = '/courses';
 
-                        const reader = new FileReader();
-                        reader.addEventListener('load', () => {
-                            const id = 'blobid' + (new Date()).getTime();
-                            const blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                            const base64 = reader.result.split(',')[1];
-                            const blobInfo = blobCache.create(id, file, base64);
-                            blobCache.add(blobInfo);
+            CKEDITOR.config.extraPlugins = 'link';
+            CKEDITOR.config.linkShowAdvancedTab = false;
+            CKEDITOR.config.linkShowTargetTab = false;
+            CKEDITOR.config.linkShowTargetCheckbox = true;
 
-                            /* call the callback and populate the Title field with the file name */
-                            cb(blobInfo.blobUri(), {title: file.name});
-                        });
-                        reader.readAsDataURL(file);
-                    });
+            CKEDITOR.config.removePlugins = 'sourcearea';
 
-                    input.click();
-                },
-                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
-            });
+            CKEDITOR.config.title = 'Редактор текста CKEditor';
+            CKEDITOR.config.language = 'ru';
+
+            CKEDITOR.replace( 'editor' );
+
+
         </script>
 
     </main>

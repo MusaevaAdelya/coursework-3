@@ -46,6 +46,7 @@ styles=["/css/style.css"]>
                             </a>
                         </#if>
 
+
                         <form action="/logout" method="post" role="form">
                             <#if _csrf??>
                                 <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"

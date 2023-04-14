@@ -16,6 +16,8 @@
     <properties>
         <java.version>17</java.version>
     </properties>
+
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -71,11 +73,23 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.webjars/ckeditor -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>ckeditor</artifactId>
+            <version>4.4.7</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

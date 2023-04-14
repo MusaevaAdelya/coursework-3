@@ -390,7 +390,10 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                         </div>
                         <div class="tab-pane fade" id="prof-teach-activity" role="tabpanel"
                              aria-labelledby="prof-teach-activity-tab">
-                            <h3>Created Courses</h3>
+                            <div class="header-teacher-activity">
+                                <h3>Created Courses</h3>
+                                <a class="create-course" href="course/create">Create course</a>
+                            </div>
                             <hr>
                             <div class="cources-block">
                                 <#if user.createdCourses?size!=0>
