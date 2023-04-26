@@ -1,6 +1,6 @@
 <#macro renderWith title="Calopsia" scripts=[] styles=[] footer="true" extrastyle=""
 extraScriptAfter="" extraScriptBefore="">
-<#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
+    <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -12,6 +12,8 @@ extraScriptAfter="" extraScriptBefore="">
         <script src="https://cdn.tiny.cloud/1/yqs0bilptzksistq5bm5uxaxxwmyzzt7h072jpwss8hlg70k/tinymce/6/tinymce.min.js"
                 referrerpolicy="origin"></script>
 
+        <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
         <script src="/vendor/anychart/anychart-base.min.js"></script>
         <script src="/vendor/anychart/anychart-ui.min.js"></script>
         <script src="/vendor/anychart/anychart-exports.min.js"></script>
@@ -19,7 +21,6 @@ extraScriptAfter="" extraScriptBefore="">
         <script src="/vendor/anychart/anychart-data-adapter.min.js"></script>
         <link rel="stylesheet" href="/vendor/anychart/anychart-font.min.css">
         <link rel="stylesheet" href="/vendor/anychart/anychart-ui.min.css">
-
         <link href="https://use.fontawesome.com/ffe0d7ed97.css" media="all" rel="stylesheet">
         <link rel="stylesheet" href="/vendor/bootstrap-icons/bootstrap-icons.css">
         <link rel="stylesheet" href="/vendor/bootstrap5/css/bootstrap.min.css">
@@ -55,10 +56,21 @@ extraScriptAfter="" extraScriptBefore="">
 
     ${extraScriptBefore}
     <script src="/vendor/jquery.js"></script>
-<#--    <script src="/vendor/bootstrap5/js/bootstrap.min.js"></script>-->
+    <#--    <script src="/vendor/bootstrap5/js/bootstrap.min.js"></script>-->
     <script src="/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
     <script src="https://use.fontawesome.com/ffe0d7ed97.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+        <!-- Page level plugins -->
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- Page level custom scripts -->
+    <script src="/js/datatables.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
 
 
     <#list scripts as scriptSource>

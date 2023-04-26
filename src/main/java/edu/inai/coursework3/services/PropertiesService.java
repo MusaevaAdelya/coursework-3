@@ -1,6 +1,7 @@
 package edu.inai.coursework3.services;
 
 import edu.inai.coursework3.entities.Course;
+import edu.inai.coursework3.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
@@ -17,6 +18,7 @@ import java.util.List;
 public class PropertiesService {
     private final SpringDataWebProperties pageableDefaultProps;
     private final CourseService courseService;
+    private final UserService userService;
 
     public int getDefaultPageSize() {
         return pageableDefaultProps.getPageable().getDefaultPageSize();
@@ -36,6 +38,21 @@ public class PropertiesService {
         model.addAttribute("hasNext", list.hasNext());
         model.addAttribute("hasPrev", list.hasPrevious());
         model.addAttribute(name, courseService.parseCourseDtoFromList((List<Course>) list.getContent()));
+    }
+
+    public <T> void fillPaginationDataModelUsers(Model model, Page<T> list, String name, String baseUri) {
+        if (list.hasNext()) {
+            model.addAttribute("nextPageLink", constructPageUri(baseUri, list.nextPageable().getPageNumber()));
+        }
+
+        if (list.hasPrevious()) {
+            model.addAttribute("prevPageLink", constructPageUri(baseUri, list.previousPageable().getPageNumber()));
+        }
+
+
+        model.addAttribute("hasNext", list.hasNext());
+        model.addAttribute("hasPrev", list.hasPrevious());
+        model.addAttribute(name, userService.parseUserDtoFromList((List<User>) list.getContent()));
     }
 
     private static String constructPageUri(String uri, int page) {
