@@ -50,15 +50,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/profile/**",
                         "/course/**/content/**",
-                        "/course/create/**","/course/**/edit/**")
+                        "/course/create/**","/course/**/edit/**","/course/uploadImage/**")
                 .authenticated();
 
         http.authorizeRequests()
                 .anyRequest()
                 .permitAll();
 
+        http.csrf().ignoringAntMatchers("/files/courses");
+        http.headers().frameOptions().sameOrigin();
+
+
         http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

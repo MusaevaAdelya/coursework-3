@@ -1,7 +1,7 @@
 <#import "partials/main.ftlh" as main />
 
 <@main.renderWith title="Calopsia | Edit Course"
-scripts=["/js/script.js","/js/edit_course.js","https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"]
+scripts=["/js/script.js","/js/edit_course.js"]
 styles=["/css/style.css","/css/edit-course.css",
 "/css/progress-style.css"]
 footer="false">
@@ -9,7 +9,6 @@ footer="false">
     <div id="element">
         <div class="overflow"></div>
     </div>
-    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <header>
         <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3" id="mainNav">
             <div class="container d-flex justify-content-between">
@@ -72,6 +71,8 @@ footer="false">
         </nav>
     </header>
 
+
+
     <main class="container-fluid min-vh-100-minus-header  pt-nav">
         <div class="categories-create flex-shrink-0 p-3 scrollarea" style="width: 280px;">
             <img src="${coursesPath}${course.thumbNailPath}" class="img-fluid rounded img-course w-100" alt="">
@@ -127,7 +128,10 @@ footer="false">
                            class="LessonNameText" value="${chapter.title}">
                     <hr>
 
-                    <textarea id="editor"></textarea>
+                    <div style="width: 100%;">
+                        <textarea name="editor" id="editor"></textarea>
+                    </div>
+
                     <hr>
 
                     <form>
@@ -204,47 +208,23 @@ footer="false">
 
         </div>
         <script>
-            CKEDITOR.config.extraPlugins = 'youtube';
-            CKEDITOR.config.youtube_width = '640';
-            CKEDITOR.config.youtube_height = '480';
-
-            CKEDITOR.config.toolbar = [
-                { name: 'document', items: [ 'Source','-','Save','NewPage','Preview','-','Templates' ] },
-                { name: 'clipboard', items: [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-                { name: 'editing', items: [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
-                { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
-                '/',
-                { name: 'basicstyles', items: [ 'Bold','Italic','Underline','Strike','-','RemoveFormat' ] },
-                { name: 'paragraph', items: [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
-                { name: 'links', items: [ 'Link','Unlink','Anchor' ] },
-                { name: 'insert', items: [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
-                '/',
-                { name: 'styles', items: [ 'Styles','Format','Font','FontSize' ] },
-                { name: 'colors', items: [ 'TextColor','BGColor' ] },
-                { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
-                { name: 'about', items: [ 'About' ] }
-            ];
-            CKEDITOR.config.fontSize_sizes = '12/12px;13/13px;14/14px;15/15px;16/16px;17/17px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;30/30px;32/32px;36/36px;40/40px;48/48px;56/56px;64/64px;72/72px;80/80px;88/88px;96/96px;104/104px;112/112px;120/120px';
-            CKEDITOR.config.fontSize_style = { element: 'span', styles: { 'font-size': '#(size)' } };
-            CKEDITOR.config.toolbar.push({ name: 'styles', items: ['FontSize'] });
-            CKEDITOR.config.extraPlugins = 'uploadimage';
-            CKEDITOR.config.filebrowserUploadMethod = 'form';
-            CKEDITOR.config.filebrowserImageUploadUrl = '/courses';
-
-            CKEDITOR.config.extraPlugins = 'link';
-            CKEDITOR.config.linkShowAdvancedTab = false;
-            CKEDITOR.config.linkShowTargetTab = false;
-            CKEDITOR.config.linkShowTargetCheckbox = true;
-
-            CKEDITOR.config.removePlugins = 'sourcearea';
-
-            CKEDITOR.config.title = 'Редактор текста CKEditor';
-            CKEDITOR.config.language = 'ru';
-
-            CKEDITOR.replace( 'editor' );
-
+            CKEDITOR.replace('editor', {
+                filebrowserUploadMethod: 'form',
+                filebrowserUploadUrl: '/files/courses',
+                debug: true,
+                filebrowserImageUploadMethod: 'form',
+                filebrowserUploadResponse: function(responseData) {
+                    var response = JSON.parse(responseData);
+                    return {
+                        "url": response.url,
+                        "name": response.name,
+                        "filename": response.name
+                    };
+                }
+            });
 
         </script>
+
 
     </main>
 

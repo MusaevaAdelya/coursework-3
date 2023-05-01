@@ -9,10 +9,7 @@ extraScriptAfter="" extraScriptBefore="">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${title}</title>
-        <script src="https://cdn.tiny.cloud/1/yqs0bilptzksistq5bm5uxaxxwmyzzt7h072jpwss8hlg70k/tinymce/6/tinymce.min.js"
-                referrerpolicy="origin"></script>
-
-        <script src="/vendor/anychart/anychart-base.min.js"></script>
+                <script src="/vendor/anychart/anychart-base.min.js"></script>
         <script src="/vendor/anychart/anychart-ui.min.js"></script>
         <script src="/vendor/anychart/anychart-exports.min.js"></script>
         <script src="/vendor/anychart/anychart-calendar.min.js"></script>
@@ -24,10 +21,10 @@ extraScriptAfter="" extraScriptBefore="">
         <link rel="stylesheet" href="/vendor/bootstrap-icons/bootstrap-icons.css">
         <link rel="stylesheet" href="/vendor/bootstrap5/css/bootstrap.min.css">
         <link rel="stylesheet" href="/fonts/fonts.css">
+        <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
         </style>
-
         <#list styles as styleSource>
             <link rel="stylesheet" href="${styleSource}">
         </#list>
