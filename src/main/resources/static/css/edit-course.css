@@ -173,7 +173,14 @@ hr.white {
     border-radius: 8px;
     font-size: 18px;
 }
-
+.finish-btn{
+    color:var(--White);
+    background: var(--Accent);
+    border: 1px solid var(--Accent);
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 5px 8px;
+}
 .LessonNameText{
     width: 100%;
     height: 50px;
@@ -185,7 +192,7 @@ hr.white {
 
 
 .question{
-    width: 50%;
+    width: 100%;
     height: 50px;
     padding: 10px;
     border-radius: 8px;

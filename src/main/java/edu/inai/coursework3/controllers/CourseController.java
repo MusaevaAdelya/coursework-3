@@ -8,7 +8,6 @@ import edu.inai.coursework3.services.*;
 import edu.inai.coursework3.util.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -18,9 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,7 +27,6 @@ public class CourseController{
     private final PropertiesService propertiesService;
     private final CategoryService categoryService;
 
-    private final FileStorageServiceImpl fileStorageService;
 
     @GetMapping("/{courseId}/content/{chapterId}")
     public String getCourseContent(Model model, Authentication authentication,
@@ -87,14 +82,16 @@ public class CourseController{
     }
 
     @PostMapping ("/{courseId}/edit/{chapterId}")
+
     public String editCourse(Model model, Authentication authentication,
                              @PathVariable Long courseId, @PathVariable Long chapterId,
                              @ModelAttribute("editChapterForm")EditChapterForm form){
         courseService.editChapter(form);
 
-        return "redirect:/course/"+courseId+"/content/"+chapterId;
+        return String.format("redirect:/course/%s/edit/%s",courseId,chapterId);
 
     }
+
 
 
 }
@@ -108,7 +105,6 @@ class FileController {
 
     @PostMapping("/courses")
     public ResponseEntity<String> uploadImage(@RequestParam("upload") MultipartFile file, HttpServletRequest request) throws IOException {
-        System.out.println("gg");
         String fileName = fileStorageService.saveFile(file, "image");
         String fileUrl = request.getRequestURL().toString().replace(request.getRequestURI().substring(1), "") + "files/courses/image/" + fileName;
         String response = "<script>window.parent.CKEDITOR.tools.callFunction(" + request.getParameter("CKEditorFuncNum") + ", '" + fileUrl + "', '');</script>";

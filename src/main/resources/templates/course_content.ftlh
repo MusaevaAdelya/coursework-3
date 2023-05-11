@@ -121,101 +121,105 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
                         <div class="main-course-materials mt-3" id="mainContent">
 
 
+
+
+                            <#noautoesc>
+                                ${currentChapter.text}
+                            </#noautoesc>
+
+
                         </div>
                         <hr>
                         <#if studentProgress??>
-                            <#if currentChapter.test??>
-                                <div class="test-section text-center mx-auto">
-                                    <#if completedChapterIds?seq_contains(currentChapter.id)>
-                                        <img src="/img/completed.png" style="object-fit: contain; width: 100%;">
-                                    <#else>
+                        <#if currentChapter.test??>
+                        <div class="test-section text-center mx-auto">
+                            <#if completedChapterIds?seq_contains(currentChapter.id)>
+                        <img src="/img/completed.png" style="object-fit: contain; width: 100%;">
+                        <#else>
 
 
+                            <h2 class="header-text">Test</h2>
+                            <div class="question">
+                                <p>${currentChapter.test.question}</p>
+                            </div>
+                            <div class="answers d-block">
+                                    <#list currentChapter.test.answers as answer>
+                                        <div class="answers-check">
+                                            <input class="answers-check-input" type="radio" name="exampleRadios"
+                                                   id="exampleRadios1" value="option1" checked>
+                                            <label class="answers-check-label" for="exampleRadios1">
+                                                ${answer.text}
+                                            </label>
+                                    </#list>
 
-                                        <h2 class="header-text">Test</h2>
-                                        <div class="question">
-                                            <p>${currentChapter.test.question}</p>
-                                        </div>
-                                        <div class="answers  d-flex justify-content-between">
-                                            <div class="column">
-                                                <#list currentChapter.test.answers as answer>
-                                                    <div class="answers-check">
-                                                        <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                               id="exampleRadios1" value="option1" checked>
-                                                        <label class="answers-check-label" for="exampleRadios1">
-                                                            ${answer.text}
-                                                        </label>
-                                                    </div>
-                                                </#list>
-
-                                        </div>
-
-                                        <button class="test-check" type="submit">Check</button>
-                                    </#if>
                                 </div>
+
+                                <button class="test-check" type="submit">Check</button>
+                                </#if>
+                            </div>
                             </#if>
 
-                        </#if>
+                            </#if>
+
+
+                        </div>
 
 
                     </div>
+                    <!--      Конец основной страницы-->
+
+                    <!--        ______________________________-->
+
+                    <!--        Боковое меню-->
+                    <div class="col-2 side-menu ">
+                        <div class="header-side text-center d-flex justify-content-around">
+
+                            <a href="#" class="course-name">${course.name}</a>
+
+                        </div>
+
+                        <div class="reviews-btn text-center mt-3 mb-3" id="reviews-btn">
+                            <a href="/course/${course.id}">Add review</a>
+                        </div>
+
+                        <!--                Прогресс бар -->
+                        <div class="progress mt-3 mb-3">
+                            <div class="progress-bar" id="progress" role="progressbar"
+                                 style="width: ${studentProgress!0}%;"
+                                 aria-valuemax="100"></div>
+                        </div>
+                        <!--                Конец прогресс бар-->
+
+
+                        <!--                Item меню-->
+                        <div class="course-step">
+                            <ul>
+                                <#list course.courseSections as section>
+                                    <li><a href="#">${section.title}</a>
+                                        <ul>
+                                            <#list section.chapters as chapter>
+                                                <li><#if completedChapterIds?seq_contains(chapter.id)>
+                                                        <i class="bi bi-check text-success"></i>
+                                                    </#if>
+                                                    <a <#if chapter.id=(currentChapter.id)>class="fw-bold text-success"</#if>
+                                                       href="/course/${course.id}/content/${chapter.id}">${chapter.title}</a>
+                                                </li>
+                                            </#list>
+                                        </ul>
+                                    </li>
+                                </#list>
+
+                            </ul>
+                        </div>
+                        <!--                Конец item меню-->
+                    </div>
+                    <!--        Конец бокового меню-->
 
 
                 </div>
-                <!--      Конец основной страницы-->
-
-                <!--        ______________________________-->
-
-                <!--        Боковое меню-->
-                <div class="col-2 side-menu ">
-                    <div class="header-side text-center d-flex justify-content-around">
-
-                        <a href="#" class="course-name">${course.name}</a>
-
-                    </div>
-
-                    <div class="reviews-btn text-center mt-3 mb-3" id="reviews-btn">
-                        <a href="/course/${course.id}">Add review</a>
-                    </div>
-
-                    <!--                Прогресс бар -->
-                    <div class="progress mt-3 mb-3">
-                        <div class="progress-bar" id="progress" role="progressbar"
-                             style="width: ${studentProgress!0}%;"
-                             aria-valuemax="100"></div>
-                    </div>
-                    <!--                Конец прогресс бар-->
-
-
-                    <!--                Item меню-->
-                    <div class="course-step">
-                        <ul>
-                            <#list course.courseSections as section>
-                                <li><a href="#">${section.title}</a>
-                                    <ul>
-                                        <#list section.chapters as chapter>
-                                            <li><#if completedChapterIds?seq_contains(chapter.id)>
-                                                    <i class="bi bi-check text-success"></i>
-                                                </#if>
-                                                <a <#if chapter.id=(currentChapter.id)>class="fw-bold text-success"</#if>
-                                                   href="/course/${course.id}/content/${chapter.id}">${chapter.title}</a>
-                                            </li>
-                                        </#list>
-                                    </ul>
-                                </li>
-                            </#list>
-
-                        </ul>
-                    </div>
-                    <!--                Конец item меню-->
-                </div>
-                <!--        Конец бокового меню-->
-
 
             </div>
-
-        </div>
-        <!--    Конец общего класса для материалы курса-->
+        </div>        <!--    Конец общего класса для материалы курса-->
     </main>
 
 

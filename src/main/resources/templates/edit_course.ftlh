@@ -120,7 +120,6 @@ footer="false">
                     <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
                            value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
-                <input hidden id="textHtml" name="text">
                 <input hidden name="chapterId" value="${chapter.id}">
 
                 <div id="content-description" class="content-create">
@@ -129,78 +128,60 @@ footer="false">
                     <hr>
 
                     <div style="width: 100%;">
-                        <textarea name="editor" id="editor"></textarea>
+                        <textarea name="text" id="text">${chapter.text!""}</textarea>
                     </div>
 
                     <hr>
 
-                    <form>
-
-                    </form>
                     <h2 class="mb-5 mt-4">Create test</h2>
 
-                    <div class="test-section mb-5 mt-3">
-                        <input type="text" name="question" id="question" placeholder="Write question" class="question">
-                        <div class="test d-flex justify-content-between">
-                            <div>
-                                <input type="radio" name="correct" id="test1">
-                                <input type="text" name="answer" data-radio="#test1" class="answer-input test-input"
-                                       placeholder="answer">
-                            </div>
-                            <div>
-                                <button class="btn remove-item ">
-                                    <i class="bi bi-trash3 text-danger"></i>
-                                </button>
-
-                            </div>
+                    <#if chapter.test??>
+                        <div class="test-section mb-5 mt-3">
+                            <input type="text" name="question" id="question" placeholder="Write question"
+                                   class="question" value="${chapter.test.question!""}">
+                            <#list chapter.test.answers as answer>
+                                <div class="test d-flex justify-content-between">
+                                    <div>
+                                        <input type="radio" name="correct" id="test${answer.id}"
+                                               <#if answer.correct>checked</#if> value="${answer.text}">
+                                        <input type="text" name="answer" data-radio="#test${answer.id}"
+                                               class="answer-input test-input" placeholder="answer"
+                                               value="${answer.text}">
+                                    </div>
+                                    <div>
+                                        <button class="btn remove-item ">
+                                            <i class="bi bi-trash3 text-danger"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </#list>
+                            <#--                        <div class="test ps-0">-->
+                            <#--                            <input class="add-answer w-100 h-100 bg-transparent border-0 text-start ps-2" type="button" value="Add answer">-->
+                            <#--                        </div>-->
                         </div>
-                        <div class="test d-flex justify-content-between">
-                            <div>
-                                <input type="radio" name="correct" id="test2">
-                                <input type="text" name="answer" data-radio="#test2" class="answer-input test-input"
-                                       placeholder="answer">
-                            </div>
-                            <div>
-                                <button class="btn remove-item ">
-                                    <i class="bi bi-trash3 text-danger"></i>
-                                </button>
-
-                            </div>
+                    <#else>
+                        <div class="test-section mb-5 mt-3">
+                            <input type="text" name="question" id="question" placeholder="Write question" class="question" >
+                            <#list 1..4 as answer>
+                                <div class="test d-flex justify-content-between">
+                                    <div>
+                                        <input type="radio" name="correct" id="test${answer}" value="${answer}">
+                                        <input type="text" name="answer"  data-radio="#test${answer}" class="answer-input test-input" placeholder="answer">
+                                    </div>
+                                    <div>
+                                        <button class="btn remove-item ">
+                                            <i class="bi bi-trash3 text-danger"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </#list>
+                            <#--                        <div class="test ps-0">-->
+                            <#--                            <input class="add-answer w-100 h-100 bg-transparent border-0 text-start ps-2" type="button" value="Add answer">-->
+                            <#--                        </div>-->
                         </div>
-                        <div class="test d-flex justify-content-between">
-                            <div>
-                                <input type="radio" name="correct" id="test3">
-                                <input type="text" name="answer" data-radio="#test3" class="answer-input test-input"
-                                       placeholder="answer">
-                            </div>
-                            <div>
-                                <button class="btn remove-item ">
-                                    <i class="bi bi-trash3 text-danger"></i>
-                                </button>
-
-                            </div>
-                        </div>
-                        <div class="test d-flex justify-content-between">
-                            <div>
-                                <input type="radio" name="correct" id="test4">
-                                <input type="text" name="answer" data-radio="#test4" class="answer-input test-input"
-                                       placeholder="answer">
-                            </div>
-                            <div>
-                                <button class="btn remove-item ">
-                                    <i class="bi bi-trash3 text-danger"></i>
-                                </button>
-
-                            </div>
-                        </div>
-                        <#--                    <div class="test ps-0">-->
-                        <#--                        <input class="add-answer w-100 h-100 bg-transparent border-0 text-start ps-2" type="button"-->
-                        <#--                               value="Add answer">-->
-                        <#--                    </div>-->
-
-                    </div>
-
-                    <button id="saveBtn" class="save-btn" type="submit">Save</button>
+                    </#if>
+                    <button type="submit" name="action" value="save" class="save-btn" id="test">Save</button>
+                    <a href="/course/${course.id}/content/${chapter.id}" class="finish-btn">Finish</a>
                 </div>
 
             </form>
@@ -208,12 +189,15 @@ footer="false">
 
         </div>
         <script>
-            CKEDITOR.replace('editor', {
+
+
+            CKEDITOR.replace('text', {
+                extraPlugins: 'colorbutton,justify',
                 filebrowserUploadMethod: 'form',
                 filebrowserUploadUrl: '/files/courses',
                 debug: true,
                 filebrowserImageUploadMethod: 'form',
-                filebrowserUploadResponse: function(responseData) {
+                filebrowserUploadResponse: function (responseData) {
                     var response = JSON.parse(responseData);
                     return {
                         "url": response.url,
@@ -222,6 +206,7 @@ footer="false">
                     };
                 }
             });
+
 
         </script>
 

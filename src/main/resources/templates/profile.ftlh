@@ -72,11 +72,11 @@
             })
 
             <#if invalidData??>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid Data',
-                    text: '${invalidData}',
-                })
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Data',
+                text: '${invalidData}',
+            })
             </#if>
         });
 
@@ -196,6 +196,12 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                        id="username">
                             </div>
                             <div class="mb-3">
+                                <label for="about" class="form-label">About</label>
+                                <textarea name="newAbout" type="text" class="form-control"
+                                          id="about"><#if user.about??>${user.about}</#if>
+                                </textarea>
+                            </div>
+                            <div class="mb-3">
                                 <label for="newPass" class="form-label">New Password</label>
                                 <input name="newPassword" type="password" class="form-control" id="newPass">
                             </div>
@@ -206,10 +212,10 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <button class="btn btn-secondary btn-close" data-bs-dismiss="modal" aria-label="Close">
                             Discard changes
                         </button>
-                        <button class="btn btn-primary" class="btn-close" type="submit" data-bs-dismiss="modal"
+                        <button class="btn btn-primary btn-close" type="submit" data-bs-dismiss="modal"
                                 aria-label="Close">Save
                         </button>
                     </div>
@@ -409,11 +415,12 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <h4 class="card-title mt-4">${user.createdCourses[index].name}</h4>
                                                             <p class="card-text">${user.createdCourses[index].description!''}</p>
                                                             <div class="d-flex justify-content-between">
-                                                                <a href="/course/${user.createdCourses[index].id}" class="btn btn-primary">View</a>
+                                                                <a href="/course/${user.createdCourses[index].id}"
+                                                                   class="btn btn-primary">View</a>
                                                                 <#if user.createdCourses[index].courseSections??>
-                                                                    <#if user.createdCourses[index].courseSections[0].chapters>
-                                                                        <a href="/course/${user.createdCourses[index].id}/edit/${user.createdCourses[index].courseSections[0].chapters[0].id}" class="btn btn-primary">Edit</a>
-                                                                    </#if>
+
+                                                                    <a href="/course/${user.createdCourses[index].id}/edit/${user.createdCourses[index].courseSections[0].chapters[0].id}"
+                                                                       class="btn btn-primary">Edit</a>
                                                                 </#if>
 
                                                             </div>
@@ -431,10 +438,12 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <h4 class="card-title mt-4">${c.name}</h4>
                                                             <p class="card-text">${c.description!''}</p>
                                                             <div class="d-flex justify-content-between">
-                                                                <a href="/course/${c.id}" class="btn btn-primary">View</a>
+                                                                <a href="/course/${c.id}"
+                                                                   class="btn btn-primary">View</a>
                                                                 <#if c.courseSections??>
-                                                                    <#if c.courseSections[0].chapters>
-                                                                        <a href="/course/${c.id}/edit/${c.courseSections[0].chapters[0].id}" class="btn btn-primary">Edit</a>
+                                                                    <#if !c.courseSections[0].chapters.isEmpty()>
+                                                                        <a href="/course/${c.id}/edit/${c.courseSections[0].chapters[0].id}"
+                                                                           class="btn btn-primary">Edit</a>
                                                                     </#if>
                                                                 </#if>
                                                             </div>
@@ -459,11 +468,13 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                                 <h4 class="card-title mt-4">${user.createdCourses[index].name}</h4>
                                                                 <p class="card-text">${user.createdCourses[index].description!''}</p>
                                                                 <div class="d-flex justify-content-between">
-                                                                    <a href="/course/${user.createdCourses[index].id}" class="btn btn-primary">View</a>
+                                                                    <a href="/course/${user.createdCourses[index].id}"
+                                                                       class="btn btn-primary">View</a>
                                                                     <#if user.createdCourses[index].courseSections??>
-                                                                        <#if user.createdCourses[index].courseSections[0].chapters>
-                                                                            <a href="/course/${user.createdCourses[index].id}/edit/${user.createdCourses[index].courseSections[0].chapters[0].id}" class="btn btn-primary">Edit</a>
-                                                                        </#if>
+
+                                                                        <a href="/course/${user.createdCourses[index].id}/edit/${user.createdCourses[index].courseSections[0].chapters[0].id}"
+                                                                           class="btn btn-primary">Edit</a>
+
                                                                     </#if>
                                                                 </div>
                                                             </div>

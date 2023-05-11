@@ -110,6 +110,8 @@ public class UserService {
             }
         }
 
+        user.setAbout(form.getNewAbout());
+
         if(form.getNewPassword().length()!=0){
             if(form.getNewPassword().length()<8){
                 ra.addAttribute("message","password must contain 8 or more letters");

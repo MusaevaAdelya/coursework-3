@@ -182,7 +182,12 @@ extraScriptAfter=extraScriptAfterMarkup>
                                 <div class="col-lg-8">
                                     <a href="#" class="teacher-name">${course.teacher.username}</a>
                                     <p class="teacher-btn rounded px-2 py-1 mt-2">Teacher</p>
-                                    <p>${course.teacher.about}</p>
+                                    <#if course.teacher.about??>
+                                        <p>${course.teacher.about}</p>
+                                    <#else>
+                                        <p>No information available</p>
+
+                                    </#if>
                                 </div>
                                 <div class="col-lg-4">
                                     <img src="${avatarPath}${course.teacher.avatar}" class="img-fluid rounded">
@@ -459,6 +464,7 @@ extraScriptAfter=extraScriptAfterMarkup>
                                      aria-valuemax="100">${studentProgress}%
                                 </div>
                             </div>
+                            <a href="/course/${course.id}/content/${course.courseSections[0].chapters[0].id}" class="roll-in-btn mx-auto btn btn-success" id="roll-in">Continue</a>
                         <#else>
                             <#if course.courseSections??>
                                 <#if (course.courseSections?size!=0)>

@@ -33,6 +33,7 @@ public class CourseService {
     private final CourseRatingRepository courseRatingRepository;
     private final CompletedTaskRepository completedTaskRepository;
     private final CourseSectionRepository courseSectionRepository;
+    private final CourseTestRepository courseTestRepository;
     private final ImageService imageService;
     private final CourseChapterRepository courseChapterRepository;
 
@@ -225,6 +226,7 @@ public class CourseService {
     }
 
     public void editChapter(EditChapterForm form) {
+
         CourseChapter chapter=courseChapterRepository.findById(form.getChapterId()).orElseThrow();
 
         List<TestAnswer> answers=new ArrayList<>();
@@ -240,13 +242,29 @@ public class CourseService {
             answers.add(a);
         });
 
-        CourseTest test=CourseTest.builder()
-                .answers(answers)
-                .question(form.getQuestion())
-                .build();
+        CourseTest test = chapter.getTest();
+        if (test == null) {
+            test = CourseTest.builder()
+                    .question(form.getQuestion())
+                    .answers(answers)
+                    .build();
+        }
+
+        List<TestAnswer> existingAnswers = test.getAnswers();
+
+        if (existingAnswers != null) {
+            for (int i = 0; i < form.getAnswer().size(); i++) {
+                TestAnswer newAnswer = existingAnswers.get(i);
+                newAnswer.setText(form.getAnswer().get(i));
+                newAnswer.setCorrect(form.getCorrect().equals(form.getAnswer().get(i)));
+            }
+        }
+
+        courseTestRepository.save(test);
 
         chapter.setText(form.getText());
         chapter.setTest(test);
+
 
         courseChapterRepository.save(chapter);
 

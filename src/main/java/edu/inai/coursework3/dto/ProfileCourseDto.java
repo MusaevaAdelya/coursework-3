@@ -21,6 +21,7 @@ public class ProfileCourseDto {
     private LocalDateTime dateOn;
     private String description;
     private Integer percent;
+    private List<CourseSection> courseSections;
 
     public static ProfileCourseDto from(Course course){
         return ProfileCourseDto.builder()
@@ -30,6 +31,7 @@ public class ProfileCourseDto {
                 .status(course.getStatus().toString())
                 .dateOn(course.getDateOn())
                 .description(course.getDescription())
+                .courseSections(course.getCourseSections())
                 .build();
     }
 
