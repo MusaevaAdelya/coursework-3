@@ -259,6 +259,10 @@ styles=["/css/admin.css", "/css/style.css"]>
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <form id="userForm" method="POST" action="/admin/userUpdate" modelAttribute="newUserData" enctype="multipart/form-data">
+                        <#if _csrf??>
+                            <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                                   value="${(_csrf.token)!'--no-token--'}"/>
+                        </#if>
                     <div class="modal-header">
                         <h5 class="modal-title" id="profile-modal-title">User Settings</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -281,7 +285,6 @@ styles=["/css/admin.css", "/css/style.css"]>
                             <div class="tab-content pt-4">
                                 <!-- Вкладка "Профиль" -->
                                 <div class="tab-pane fade show active" id="profile">
-                                    <form method="post">
                                         <div class="row">
                                             <div class="col-6 form-group">
                                                 <label for="username">Username</label>
@@ -292,13 +295,15 @@ styles=["/css/admin.css", "/css/style.css"]>
                                                 <label for="email">Email</label>
                                                 <input type="email" class="form-control text-dark font-weight-bolder" name="newEmail"
                                                        id="email" value="${user.email}" placeholder="Email">
+                                                <input type="hidden" id="originalEmail" name="originalEmail" value="${user.email}">
+
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="role">Role</label>
                                             <select class="form-control text-dark font-weight-bolder" id="role" name="newRole">
-                                                <option>Admin</option>
-                                                <option>User</option>
+                                                <option value="ADMIN">Admin</option>
+                                                <option value="USER">User</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -309,11 +314,10 @@ styles=["/css/admin.css", "/css/style.css"]>
                                         <div class="form-group">
                                             <label for="status">Status</label>
                                             <select class="form-control text-dark font-weight-bolder" id="status" name="newStatus">
-                                                <option>Active</option>
-                                                <option selected>Blocked</option>
+                                                <option value="Active" type="text">Active</option>
+                                                <option value="Blocked" type="text">Blocked</option>
                                             </select>
                                         </div>
-                                    </form>
                                 </div>
 
                                 <!-- Вкладка "Созданные курсы" -->
@@ -437,7 +441,7 @@ styles=["/css/admin.css", "/css/style.css"]>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
-                        <button type="button" class="btn saveUserBtn btn-primary " type="submit"  data-bs-dismiss="modal" data-user-email="${user.email}">Save</button>
+                        <button class="btn saveUserBtn btn-primary" type="submit"  data-bs-dismiss="modal" data-user-email="${user.email}">Save</button>
                     </div>
                     </form>
                 </div>

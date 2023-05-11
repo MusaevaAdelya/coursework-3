@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class AdminUserEditForm {
     String newUsername;
     String newEmail;
-    UserRoles newRole;
-    Double newBalance;
-    Boolean newStatus;
+    String newRole;
+    String newBalance;
+    String newStatus;
 }

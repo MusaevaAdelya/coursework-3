@@ -12,10 +12,10 @@ $('.openModalBtn').on("click", function() {
             console.log(response);
             $("#userForm #username").val(response.username);
             $("#userForm #email").val(response.email);
+            $("#userForm #originalEmail").val(response.email);
             // $("#userForm #role").val(response.role);
             $("#userForm #balance").val(response.coins.toString());
             var role = response.role;
-            role = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
             $("#userForm #role").val(role);
 
             var enabled = response.enabled;
@@ -24,6 +24,9 @@ $('.openModalBtn').on("click", function() {
             } else {
                 $("#userForm #status").val("Blocked");
             }
+
+            $('.saveUserBtn').attr('data-user-email', response.email);
+
 
 
 
@@ -36,22 +39,29 @@ $('.openModalBtn').on("click", function() {
     });
 });
 
-$('.saveUserBtn').on('click', function() {
-    var formData = $('#userForm').serialize(); // Получение данных формы
-    console.log(formData);
-
-    $.ajax({
-        url: '/admin/userUpdate',
-        type: 'POST',
-        data: formData,
-        success: function(response) {
-            // Обработка успешного ответ
-            // Обработка успешного ответа от сервера
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            // Обработка ошибки
-            console.error('Ошибка при сохранении изменений пользователя: ' + error.toString());
-        }
-    });
-});
+// $('.saveUserBtn').on('click', function() {
+//     var formData = $('#userForm').serialize(); // Получение данных формы
+//
+//     var userEmail = $(this).data("user-email");
+//     console.log(formData);
+//     console.log(userEmail);
+//
+//     $.ajax({
+//         url: '/admin/userUpdate',
+//         type: 'POST',
+//         data: {
+//             userForm: formData,
+//             userEmail: userEmail
+//             // newRole: $('#userForm')
+//         },
+//         success: function(response) {
+//             // Обработка успешного ответ
+//             // Обработка успешного ответа от сервера
+//             console.log("gg");
+//         },
+//         error: function(xhr, status, error) {
+//             // Обработка ошибки
+//             console.error('Ошибка при сохранении изменений пользователя: ' + error.toString());
+//         }
+//     });
+// });

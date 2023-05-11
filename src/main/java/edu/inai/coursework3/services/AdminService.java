@@ -3,6 +3,7 @@ package edu.inai.coursework3.services;
 import edu.inai.coursework3.dto.AdminUserEditForm;
 import edu.inai.coursework3.dto.UserDto;
 import edu.inai.coursework3.entities.User;
+import edu.inai.coursework3.enums.UserRoles;
 import edu.inai.coursework3.exceptions.UserNotFoundException;
 import edu.inai.coursework3.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +32,14 @@ public class AdminService {
 
         user.setEmail(form.getNewEmail());
         user.setUsername(form.getNewUsername());
-        user.setCoins(form.getNewBalance());
-        user.setRole(form.getNewRole());
-        user.setEnabled(form.getNewStatus());
+        user.setCoins(Double.parseDouble(form.getNewBalance()));
+        if(form.getNewRole().equals("ADMIN")){
+            user.setRole(UserRoles.ADMIN);
+        } else {
+            user.setRole(UserRoles.USER);
+        }
+
+        user.setEnabled(form.getNewStatus().equals("Active"));
 
         userRepository.save(user);
     }
