@@ -145,13 +145,13 @@ public class UserService {
     }
 
     public Page<User> getUsers(Pageable pageable) {
-        Page<User> courses = userRepository.getUsers(pageable);
-        return courses;
+        return userRepository.getUsers(pageable);
 
     }
 
     public List<UserDto> parseUserDtoFromList(List<User> page) {
         return page.stream().map(UserDto::from).collect(Collectors.toList());
     }
+
 
 }

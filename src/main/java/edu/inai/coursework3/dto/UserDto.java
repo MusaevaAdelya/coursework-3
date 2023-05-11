@@ -23,6 +23,7 @@ public class UserDto {
                 .avatar(user.getAvatar())
                 .coins(user.getCoins())
                 .about(user.getAbout())
+                .enabled(user.getEnabled())
                 .createdCourses(user.getCreatedCourses().stream().map(ProfileCourseDto::from).collect(Collectors.toList()))
                 .studyingCourses(user.getStudyingCourses().stream().map(ProfileCourseDto::from).collect(Collectors.toList()))
                 .build();

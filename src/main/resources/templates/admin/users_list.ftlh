@@ -8,7 +8,7 @@ scripts=["/js/script.js", "/js/admin.js"]
 styles=["/css/admin.css", "/css/style.css"]>
     <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 
-    <main id="page-top">
+    <main id="page-top" xmlns="http://www.w3.org/1999/html">
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -201,12 +201,16 @@ styles=["/css/admin.css", "/css/style.css"]>
                                                         <td>0</td>
                                                     </#if>
                                                     <td>${user.coins}$</td>
-                                                    <td class="text-success">Active</td>
+                                                    <#if user.enabled>
+                                                        <td class="text-success">Active</td>
+                                                    <#else>
+                                                        <td class="text-danger">Blocked</td>
+                                                    </#if>
                                                     <td>
-                                                        <button id="openModalBtn" type="button" data-bs-toggle="modal"
+                                                        <button type="button" data-bs-toggle="modal"
                                                                 data-user-email="${user.email}"
                                                                 data-bs-target="#profile-modal"
-                                                                class="btn btn-primary btn-icon-split btn-sm">
+                                                                class="openModalBtn btn btn-primary btn-icon-split btn-sm">
                                                 <span class="icon text-white-50">
                                                     <i class="bi-pen"></i>
                                                 </span>
@@ -254,6 +258,7 @@ styles=["/css/admin.css", "/css/style.css"]>
              aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
+                    <form id="userForm" method="POST" action="/admin/userUpdate" modelAttribute="newUserData" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title" id="profile-modal-title">User Settings</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -272,7 +277,6 @@ styles=["/css/admin.css", "/css/style.css"]>
                                 <a class="nav-link" data-toggle="tab" href="#studying-courses">Learning Courses</a>
                             </li>
                         </ul>
-                        <form id="userForm" method="POST" action="/userUpdate">
                             <!-- Содержимое вкладок -->
                             <div class="tab-content pt-4">
                                 <!-- Вкладка "Профиль" -->
@@ -282,29 +286,29 @@ styles=["/css/admin.css", "/css/style.css"]>
                                             <div class="col-6 form-group">
                                                 <label for="username">Username</label>
                                                 <input type="text" class="form-control text-dark font-weight-bolder"
-                                                       id="username" value="${user.username}" placeholder="Username">
+                                                       id="username" value="${user.username}" placeholder="Username" name="newUsername">
                                             </div>
                                             <div class="col-6 form-group">
                                                 <label for="email">Email</label>
-                                                <input type="email" class="form-control text-dark font-weight-bolder"
+                                                <input type="email" class="form-control text-dark font-weight-bolder" name="newEmail"
                                                        id="email" value="${user.email}" placeholder="Email">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="role">Role</label>
-                                            <select class="form-control text-dark font-weight-bolder" id="role">
+                                            <select class="form-control text-dark font-weight-bolder" id="role" name="newRole">
                                                 <option>Admin</option>
                                                 <option>User</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="balance">Balance</label>
-                                            <input type="text" class="form-control  text-dark font-weight-bolder"
+                                            <input type="text" class="form-control  text-dark font-weight-bolder" name="newBalance"
                                                    id="balance" placeholder="0" value="600$">
                                         </div>
                                         <div class="form-group">
                                             <label for="status">Status</label>
-                                            <select class="form-control text-dark font-weight-bolder" id="status">
+                                            <select class="form-control text-dark font-weight-bolder" id="status" name="newStatus">
                                                 <option>Active</option>
                                                 <option selected>Blocked</option>
                                             </select>
@@ -429,12 +433,13 @@ styles=["/css/admin.css", "/css/style.css"]>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+                        <button type="button" class="btn saveUserBtn btn-primary " type="submit"  data-bs-dismiss="modal" data-user-email="${user.email}">Save</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
