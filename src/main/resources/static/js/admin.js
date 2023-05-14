@@ -10,6 +10,7 @@ $('.openModalBtn').on("click", function() {
             // Обработка успешного ответа от сервера
             // Отображение полученных данных пользователя в форме
             console.log(response);
+            $("#created-courses-filter").val('ALL');
             $("#userForm #username").val(response.username);
             $("#userForm #email").val(response.email);
             $("#userForm #originalEmail").val(response.email);
@@ -27,6 +28,47 @@ $('.openModalBtn').on("click", function() {
 
             $('.saveUserBtn').attr('data-user-email', response.email);
 
+            var courseList = $('#created_course-list');
+            courseList.empty();
+            $.each(response.createdCourses, function(index, course) {
+                var courseItem = $('<div>').addClass('col-md-4');
+                var courseLink = $('<a>').attr('href', '#').addClass('text-decoration-none');
+                var courseContainer = $('<div>').addClass('course');
+                var courseImage = $('<div>').addClass('course-image');
+                var courseImageSrc = $('<img>').attr('src', '/files/courses/' + course.thumbNailPath).attr('alt', course.name);
+                var courseInfo = $('<div>').addClass('course-info');
+                var courseTitle = $('<h3>').text(course.name);
+                var courseStatus = $('<p>').text('Status: ' + course.status.toLowerCase());
+                courseImage.append(courseImageSrc);
+                courseInfo.append(courseTitle).append(courseStatus);
+                courseContainer.append(courseImage).append(courseInfo);
+                courseLink.append(courseContainer);
+                courseItem.append(courseLink);
+                courseList.append(courseItem);
+            });
+
+            var courseList = $('#studying_course-list');
+            courseList.empty();
+            $.each(response.studyingCourses, function(index, course) {
+                var courseItem = $('<div>').addClass('col-md-4');
+                var courseLink = $('<a>').attr('href', '#').addClass('text-decoration-none');
+                var courseContainer = $('<div>').addClass('course');
+                var courseImage = $('<div>').addClass('course-image');
+                var courseImageSrc = $('<img>').attr('src', '/files/courses/' + course.thumbNailPath).attr('alt', course.name);
+                var courseInfo = $('<div>').addClass('course-info');
+                var courseTitle = $('<h3>').text(course.name);
+                if(course.percent === 100){
+                    var courseStatus = $('<p>').text("Status: Finished");
+                } else {
+                    var courseStatus = $('<p>').text("Status: Learning");
+                }
+                courseImage.append(courseImageSrc);
+                courseInfo.append(courseTitle).append(courseStatus);
+                courseContainer.append(courseImage).append(courseInfo);
+                courseLink.append(courseContainer);
+                courseItem.append(courseLink);
+                courseList.append(courseItem);
+            });
 
 
 
@@ -39,29 +81,75 @@ $('.openModalBtn').on("click", function() {
     });
 });
 
-// $('.saveUserBtn').on('click', function() {
-//     var formData = $('#userForm').serialize(); // Получение данных формы
-//
-//     var userEmail = $(this).data("user-email");
-//     console.log(formData);
-//     console.log(userEmail);
-//
-//     $.ajax({
-//         url: '/admin/userUpdate',
-//         type: 'POST',
-//         data: {
-//             userForm: formData,
-//             userEmail: userEmail
-//             // newRole: $('#userForm')
-//         },
-//         success: function(response) {
-//             // Обработка успешного ответ
-//             // Обработка успешного ответа от сервера
-//             console.log("gg");
-//         },
-//         error: function(xhr, status, error) {
-//             // Обработка ошибки
-//             console.error('Ошибка при сохранении изменений пользователя: ' + error.toString());
-//         }
-//     });
-// });
+$('#created-courses-filter').on('change', function() {
+    var selectedStatus = $(this).val(); // получаем выбранный статус
+    // отправляем AJAX запрос на сервер с выбранным статусом
+    $.ajax({
+        url: '/admin/createdUserCourses', // замените на вашу URL для получения курсов
+        method: 'GET',
+        data: { status: selectedStatus, userEmail: $('#originalEmail').val() }, // передаем выбранный статус
+        success: function(response) {
+            // обновляем список курсов на странице с помощью шаблонизатора, например, Handlebars
+            var courseList = $('#created_course-list');
+            courseList.empty();
+            $.each(response, function(index, course) {
+                var courseItem = $('<div>').addClass('col-md-4');
+                var courseLink = $('<a>').attr('href', '#').addClass('text-decoration-none');
+                var courseContainer = $('<div>').addClass('course');
+                var courseImage = $('<div>').addClass('course-image');
+                var courseImageSrc = $('<img>').attr('src', '/files/courses/' + course.thumbNailPath).attr('alt', course.name);
+                var courseInfo = $('<div>').addClass('course-info');
+                var courseTitle = $('<h3>').text(course.name);
+                var courseStatus = $('<p>').text("Status: " + course.status.toLowerCase());
+                courseImage.append(courseImageSrc);
+                courseInfo.append(courseTitle).append(courseStatus);
+                courseContainer.append(courseImage).append(courseInfo);
+                courseLink.append(courseContainer);
+                courseItem.append(courseLink);
+                courseList.append(courseItem);
+            });
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+$('#studying-courses-filter').on('change', function() {
+    var selectedStatus = $(this).val(); // получаем выбранный статус
+    // отправляем AJAX запрос на сервер с выбранным статусом
+    $.ajax({
+        url: '/admin/studyingUserCourses', // замените на вашу URL для получения курсов
+        method: 'GET',
+        data: { status: selectedStatus, userEmail: $('#originalEmail').val() }, // передаем выбранный статус
+        success: function(response) {
+            // обновляем список курсов на странице с помощью шаблонизатора, например, Handlebars
+            var courseList = $('#studying_course-list');
+            courseList.empty();
+            $.each(response, function(index, course) {
+                var courseItem = $('<div>').addClass('col-md-4');
+                var courseLink = $('<a>').attr('href', '#').addClass('text-decoration-none');
+                var courseContainer = $('<div>').addClass('course');
+                var courseImage = $('<div>').addClass('course-image');
+                var courseImageSrc = $('<img>').attr('src', '/files/courses/' + course.thumbNailPath).attr('alt', course.name);
+                var courseInfo = $('<div>').addClass('course-info');
+                var courseTitle = $('<h3>').text(course.name);
+                if(course.percent === 100){
+                    var courseStatus = $('<p>').text("Status: Finished");
+                } else {
+                    var courseStatus = $('<p>').text("Status: Learning");
+                }
+                courseImage.append(courseImageSrc);
+                courseInfo.append(courseTitle).append(courseStatus);
+                courseContainer.append(courseImage).append(courseInfo);
+                courseLink.append(courseContainer);
+                courseItem.append(courseLink);
+                courseList.append(courseItem);
+            });
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+

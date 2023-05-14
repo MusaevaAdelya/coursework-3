@@ -258,66 +258,74 @@ styles=["/css/admin.css", "/css/style.css"]>
              aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form id="userForm" method="POST" action="/admin/userUpdate" modelAttribute="newUserData" enctype="multipart/form-data">
+                    <form id="userForm" method="POST" action="/admin/userUpdate" modelAttribute="newUserData"
+                          enctype="multipart/form-data">
                         <#if _csrf??>
                             <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
                                    value="${(_csrf.token)!'--no-token--'}"/>
                         </#if>
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="profile-modal-title">User Settings</h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="user_settings_tabs nav nav-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#profile">Settings</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#created-courses">Created Courses</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#studying-courses">Learning Courses</a>
-                            </li>
-                        </ul>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="profile-modal-title">User Settings</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="user_settings_tabs nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#profile">Settings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#created-courses">Created Courses</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#studying-courses">Learning
+                                        Courses</a>
+                                </li>
+                            </ul>
                             <!-- Содержимое вкладок -->
                             <div class="tab-content pt-4">
                                 <!-- Вкладка "Профиль" -->
                                 <div class="tab-pane fade show active" id="profile">
-                                        <div class="row">
-                                            <div class="col-6 form-group">
-                                                <label for="username">Username</label>
-                                                <input type="text" class="form-control text-dark font-weight-bolder"
-                                                       id="username" value="${user.username}" placeholder="Username" name="newUsername">
-                                            </div>
-                                            <div class="col-6 form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control text-dark font-weight-bolder" name="newEmail"
-                                                       id="email" value="${user.email}" placeholder="Email">
-                                                <input type="hidden" id="originalEmail" name="originalEmail" value="${user.email}">
+                                    <div class="row">
+                                        <div class="col-6 form-group">
+                                            <label for="username">Username</label>
+                                            <input type="text" class="form-control text-dark font-weight-bolder"
+                                                   id="username" value="${user.username}" placeholder="Username"
+                                                   name="newUsername">
+                                        </div>
+                                        <div class="col-6 form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control text-dark font-weight-bolder"
+                                                   name="newEmail"
+                                                   id="email" value="${user.email}" placeholder="Email">
+                                            <input type="hidden" id="originalEmail" name="originalEmail"
+                                                   value="${user.email}">
 
-                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="role">Role</label>
-                                            <select class="form-control text-dark font-weight-bolder" id="role" name="newRole">
-                                                <option value="ADMIN">Admin</option>
-                                                <option value="USER">User</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="balance">Balance</label>
-                                            <input type="text" class="form-control  text-dark font-weight-bolder" name="newBalance"
-                                                   id="balance" placeholder="0" value="600$">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="status">Status</label>
-                                            <select class="form-control text-dark font-weight-bolder" id="status" name="newStatus">
-                                                <option value="Active" type="text">Active</option>
-                                                <option value="Blocked" type="text">Blocked</option>
-                                            </select>
-                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="role">Role</label>
+                                        <select class="form-control text-dark font-weight-bolder" id="role"
+                                                name="newRole">
+                                            <option value="ADMIN">Admin</option>
+                                            <option value="USER">User</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="balance">Balance</label>
+                                        <input type="text" class="form-control  text-dark font-weight-bolder"
+                                               name="newBalance"
+                                               id="balance" placeholder="0" value="600$">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select class="form-control text-dark font-weight-bolder" id="status"
+                                                name="newStatus">
+                                            <option value="Active" type="text">Active</option>
+                                            <option value="Blocked" type="text">Blocked</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <!-- Вкладка "Созданные курсы" -->
@@ -325,56 +333,32 @@ styles=["/css/admin.css", "/css/style.css"]>
                                     <div class="filter-bar mb-4">
                                         <label for="created-courses-filter">Filter:</label>
                                         <select class="form-control" id="created-courses-filter">
-                                            <option value="all">All</option>
-                                            <option value="active">Active</option>
-                                            <option value="moderation">Moderation</option>
-                                            <option value="archive">Archive</option>
+                                            <option value="ALL">All</option>
+                                            <option value="ACCEPTED">Active</option>
+                                            <option value="MODERATION">Moderation</option>
+                                            <option value="DECLINED">Declined</option>
                                         </select>
                                     </div>
                                     <div class="course-list">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <a href="#" class="text-decoration-none">
-                                                    <div class="course">
-                                                        <div class="course-image">
-                                                            <img src="https://picsum.photos/200/150?random=1"
-                                                                 alt="Курс 1">
+                                        <div class="row" id="created_course-list">
+                                            <#if user.createdCourses??>
+                                            <#list user.createdCourses as courses>
+                                                <div class="col-md-4">
+                                                    <a href="#" class="text-decoration-none">
+                                                        <div class="course">
+                                                            <div class="course-image">
+                                                                <img src="${coursesPath}${courses.thumbNailPath}"
+                                                                     alt="Курс 1">
+                                                            </div>
+                                                            <div class="course-info">
+                                                                <h3>${courses.name}</h3>
+                                                                <p>${courses.status}</p>
+                                                            </div>
                                                         </div>
-                                                        <div class="course-info">
-                                                            <h3>Cource 1</h3>
-                                                            <p>Status: Active</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#" class="text-decoration-none">
-                                                    <div class="course">
-                                                        <div class="course-image">
-                                                            <img src="https://picsum.photos/200/150?random=2"
-                                                                 alt="Курс 2">
-                                                        </div>
-                                                        <div class="course-info">
-                                                            <h3>Cource 2</h3>
-                                                            <p>Status: Moderation</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#" class="text-decoration-none">
-                                                    <div class="course">
-                                                        <div class="course-image">
-                                                            <img src="https://picsum.photos/200/150?random=3"
-                                                                 alt="Курс 3">
-                                                        </div>
-                                                        <div class="course-info">
-                                                            <h3>Cource 3</h3>
-                                                            <p>Status: Archive</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
+                                                    </a>
+                                                </div>
+                                            </#list>
+                                            </#if>
                                         </div>
                                     </div>
                                 </div>
@@ -384,65 +368,43 @@ styles=["/css/admin.css", "/css/style.css"]>
                                     <div class="filter-bar mb-4">
                                         <label for="studying-courses-filter">Filter:</label>
                                         <select class="form-control" id="studying-courses-filter">
-                                            <option value="all">All</option>
+                                            <option value="ALL">All</option>
                                             <option value="learning">Learning</option>
                                             <option value="finished">Finished</option>
                                         </select>
                                     </div>
                                     <div class="course-list">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <a href="#" class="text-decoration-none">
-                                                    <div class="course">
-                                                        <div class="course-image">
-                                                            <img src="https://picsum.photos/200/150?random=4"
-                                                                 alt="Курс 4">
-                                                        </div>
-                                                        <div class="course-info">
-                                                            <h3>Cource 1</h3>
-                                                            <p>Status: Learning</p>
-                                                        </div>
+                                        <div class="row" id="studying_course-list">
+                                            <#if user.studyingCourses??>
+                                                <#list user.studyingCourses as courses>
+                                                    <div class="col-md-4">
+                                                        <a href="#" class="text-decoration-none">
+                                                            <div class="course">
+                                                                <div class="course-image">
+                                                                    <img src="${coursesPath}${courses.thumbNailPath}"
+                                                                         alt="Курс 1">
+                                                                </div>
+                                                                <div class="course-info">
+                                                                    <h3>${courses.name}</h3>
+                                                                    <p>${courses.status}</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
                                                     </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#" class="text-decoration-none">
-                                                    <div class="course">
-                                                        <div class="course-image">
-                                                            <img src="https://picsum.photos/200/150?random=5"
-                                                                 alt="Курс 5">
-                                                        </div>
-                                                        <div class="course-info">
-                                                            <h3>Cource 2</h3>
-                                                            <p>Status: Finished</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <a href="#" class="text-decoration-none">
-                                                    <div class="course">
-                                                        <div class="course-image">
-                                                            <img src="https://picsum.photos/200/150?random=6"
-                                                                 alt="Курс 6">
-                                                        </div>
-                                                        <div class="course-info">
-                                                            <h3>Cource 3</h3>
-                                                            <p>Status: Learning</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
+                                                </#list>
+                                            </#if>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
-                        <button class="btn saveUserBtn btn-primary" type="submit"  data-bs-dismiss="modal" data-user-email="${user.email}">Save</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button class="btn saveUserBtn btn-primary" type="submit" data-bs-dismiss="modal"
+                                    data-user-email="${user.email}">Save
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
