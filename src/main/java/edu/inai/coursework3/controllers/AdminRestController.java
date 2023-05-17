@@ -3,19 +3,23 @@ package edu.inai.coursework3.controllers;
 import edu.inai.coursework3.dto.CourseDto;
 import edu.inai.coursework3.dto.ProfileCourseDto;
 import edu.inai.coursework3.dto.UserDto;
+import edu.inai.coursework3.enums.CourseStatus;
 import edu.inai.coursework3.services.AdminService;
+import edu.inai.coursework3.services.CourseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminRestController {
     private final AdminService adminService;
+    private final CourseService courseService;
+
 
 
     @GetMapping("/userDetail")
@@ -29,30 +33,43 @@ public class AdminRestController {
     public ResponseEntity<List<ProfileCourseDto>> getCreatedCoursesByStatus(@RequestParam String status,
                                                                             @RequestParam("userEmail") String userEmail
     ) {
-        UserDto user = adminService.getUserDtoByEmail(userEmail);
-        if (status.equals("ALL")) {
-            return ResponseEntity.ok().body(user.getCreatedCourses());
-        }
-        List<ProfileCourseDto> courses = user.getCreatedCourses().stream().filter(course -> course.getStatus().equals(status)).collect(Collectors.toList());
-        ;
-        return ResponseEntity.ok().body(courses);
+        return ResponseEntity.ok().body(adminService.getUserCreatedCoursesByStatus(status, userEmail));
     }
 
     @GetMapping("/studyingUserCourses")
     public ResponseEntity<List<ProfileCourseDto>> getStudyingCoursesByStatus(@RequestParam String status,
                                                                              @RequestParam("userEmail") String userEmail
     ) {
-        UserDto user = adminService.getProfileUserDtoByEmail(userEmail);
-        System.out.println(user.toString());
-        List<ProfileCourseDto> courses;
-        if (status.equals("ALL")) {
-            return ResponseEntity.ok().body(user.getStudyingCourses());
-        } else if (status.equals("finished")) {
-            courses = user.getStudyingCourses().stream().filter(course -> course.getPercent().equals(100)).toList();
-        } else {
-            courses = user.getStudyingCourses().stream().filter(course -> !course.getPercent().equals(100)).toList();
-        }
-        return ResponseEntity.ok().body(courses);
+        return ResponseEntity.ok().body(adminService.getUserStudyingCoursesByStatus(status, userEmail));
     }
+
+
+    @GetMapping("/courseDetail")
+    @ResponseBody
+    public CourseDto getCourseById(@RequestParam("courseId") Long courseId) {
+
+        return courseService.getCourseById(courseId);
+    }
+
+    @DeleteMapping("/users/{userId}/courses/{courseId}")
+    public List<UserDto> deleteUserFromCourse(@PathVariable("userId") Long userId,
+                                              @PathVariable("courseId") Long courseId) {
+        // Логика удаления пользователя из курса
+        // userId - идентификатор пользователя
+        System.out.println(userId);
+        System.out.println(courseId);
+        adminService.deleteUserFromCourse(userId, courseId);
+        return courseService.getCourseById(courseId).getUsers();
+
+    }
+
+    @GetMapping("/getCoursesByStatus")
+    public List<CourseDto> getCoursesByStatus(@RequestParam("status") CourseStatus status) {
+        return adminService.getCoursesByStatus(status, Pageable.unpaged());
+    }
+
+
+
+
 
 }

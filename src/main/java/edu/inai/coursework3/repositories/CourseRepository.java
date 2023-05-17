@@ -6,6 +6,7 @@ import edu.inai.coursework3.enums.CourseStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -54,5 +55,12 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
     @Query(value="select c from Course c where c.teacher.id=:teacherId and c.id<>:courseId and c.status=:status " +
             "order by size(c.users) desc, c.ratingScore desc, c.dateOn desc")
     List<Course> getMoreCoursesFromTeacher(Long teacherId, Long courseId, CourseStatus status);
+
+    @Modifying
+    @Query(value = "DELETE FROM users_courses WHERE user_id = :userId AND course_id = :courseId", nativeQuery = true)
+    void deleteUserFromCourse(Long userId, Long courseId);
+
+//    @Query(value = "update Course set status = :status where id = :courseId")
+//    void updateCourseStatus(Long courseId, CourseStatus status);
 
 }

@@ -43,14 +43,14 @@ styles=["/css/admin.css", "/css/style.css"]>
 
                 <!-- Nav Item - Pages Menu -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="users.html">
+                    <a class="nav-link" href="/admin/users">
                         <i class="fas fa-fw fa-user"></i>
                         <span>Users</span></a>
                 </li>
 
                 <!-- Nav Item - Pages Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="courses.html">
+                    <a class="nav-link" href="/admin/courses">
                         <i class="fas fa-fw fa-layer-group"></i>
                         <span>Courses</span></a>
                 </li>
@@ -210,7 +210,7 @@ styles=["/css/admin.css", "/css/style.css"]>
                                                         <button type="button" data-bs-toggle="modal"
                                                                 data-user-email="${user.email}"
                                                                 data-bs-target="#profile-modal"
-                                                                class="openModalBtn btn btn-primary btn-icon-split btn-sm">
+                                                                class="openUserModalBtn btn btn-primary btn-icon-split btn-sm">
                                                 <span class="icon text-white-50">
                                                     <i class="bi-pen"></i>
                                                 </span>
@@ -342,22 +342,22 @@ styles=["/css/admin.css", "/css/style.css"]>
                                     <div class="course-list">
                                         <div class="row" id="created_course-list">
                                             <#if user.createdCourses??>
-                                            <#list user.createdCourses as courses>
-                                                <div class="col-md-4">
-                                                    <a href="#" class="text-decoration-none">
-                                                        <div class="course">
-                                                            <div class="course-image">
-                                                                <img src="${coursesPath}${courses.thumbNailPath}"
-                                                                     alt="Курс 1">
+                                                <#list user.createdCourses as courses>
+                                                    <div class="col-md-4">
+                                                        <a href="#" class="text-decoration-none">
+                                                            <div class="course">
+                                                                <div class="course-image">
+                                                                    <img src="${coursesPath}${courses.thumbNailPath}"
+                                                                         alt="Курс 1">
+                                                                </div>
+                                                                <div class="course-info">
+                                                                    <h3>${courses.name}</h3>
+                                                                    <p>${courses.status}</p>
+                                                                </div>
                                                             </div>
-                                                            <div class="course-info">
-                                                                <h3>${courses.name}</h3>
-                                                                <p>${courses.status}</p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </#list>
+                                                        </a>
+                                                    </div>
+                                                </#list>
                                             </#if>
                                         </div>
                                     </div>

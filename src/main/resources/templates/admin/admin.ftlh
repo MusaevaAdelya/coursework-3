@@ -48,7 +48,7 @@ styles=["/css/style.css","/css/admin.css"]>
 
                 <!-- Nav Item - Pages Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="courses.html">
+                    <a class="nav-link" href="/admin/courses">
                         <i class="fas fa-fw fa-layer-group"></i>
                         <span>Courses</span></a>
                 </li>
