@@ -1,9 +1,6 @@
 package edu.inai.coursework3.services;
 
-import edu.inai.coursework3.dto.AdminUserEditForm;
-import edu.inai.coursework3.dto.CourseDto;
-import edu.inai.coursework3.dto.ProfileCourseDto;
-import edu.inai.coursework3.dto.UserDto;
+import edu.inai.coursework3.dto.*;
 import edu.inai.coursework3.entities.Course;
 import edu.inai.coursework3.entities.CourseChapter;
 import edu.inai.coursework3.entities.CourseSection;
@@ -12,6 +9,7 @@ import edu.inai.coursework3.enums.CourseStatus;
 import edu.inai.coursework3.enums.UserRoles;
 import edu.inai.coursework3.exceptions.CourseNotFoundException;
 import edu.inai.coursework3.exceptions.UserNotFoundException;
+import edu.inai.coursework3.repositories.CategoryRepository;
 import edu.inai.coursework3.repositories.CompletedTaskRepository;
 import edu.inai.coursework3.repositories.CourseRepository;
 import edu.inai.coursework3.repositories.UserRepository;

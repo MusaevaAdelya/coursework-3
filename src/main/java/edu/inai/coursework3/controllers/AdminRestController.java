@@ -1,10 +1,12 @@
 package edu.inai.coursework3.controllers;
 
+import edu.inai.coursework3.dto.CatalogCategoryDto;
 import edu.inai.coursework3.dto.CourseDto;
 import edu.inai.coursework3.dto.ProfileCourseDto;
 import edu.inai.coursework3.dto.UserDto;
 import edu.inai.coursework3.enums.CourseStatus;
 import edu.inai.coursework3.services.AdminService;
+import edu.inai.coursework3.services.CategoryService;
 import edu.inai.coursework3.services.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +21,7 @@ import java.util.List;
 public class AdminRestController {
     private final AdminService adminService;
     private final CourseService courseService;
+    private final CategoryService categoryService;
 
 
 
@@ -67,6 +70,26 @@ public class AdminRestController {
     public List<CourseDto> getCoursesByStatus(@RequestParam("status") CourseStatus status) {
         return adminService.getCoursesByStatus(status, Pageable.unpaged());
     }
+
+    @PostMapping("/updateCategory")
+    public void updateCategory(@RequestParam("categoryId") Long categoryId,
+                               @RequestParam("parentId") Long parentId){
+        categoryService.updateCategoryParent(categoryId, parentId);
+    }
+
+    @PostMapping("/addNewCategory")
+    public Long addCategory(@RequestParam("name") String name){
+        return categoryService.addCategory(name);
+    }
+
+    @PostMapping("/updateCategoryName")
+    public List<CatalogCategoryDto> updateCategoryName(@RequestParam("categoryId") Long categoryId,
+                                                       @RequestParam("name") String name){
+        categoryService.updateCategoryName(categoryId, name);
+        return categoryService.getCatalogCategories();
+    }
+
+
 
 
 

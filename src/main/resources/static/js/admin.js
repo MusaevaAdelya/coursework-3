@@ -573,3 +573,126 @@ function getFormattedDate(date) {
     return formattedDate;
 }
 
+
+$('#nestable').on('change', function() {
+    var newOrder = $('.dd').nestable('serialize');
+    console.log(newOrder);
+    traverseCategories(newOrder)
+});
+
+
+// [
+//     {
+//         "categoryId": 1,
+//         "children": [
+//             {
+//                 "categoryId": 2,
+//                 "children": [
+//                     {
+//                         "categoryId": 5
+//                     },
+//                     {
+//                         "categoryId": 6
+//                     }
+//                 ]
+//             }
+//         ]
+//     },
+//     {
+//         "categoryId": 7,
+//         "children": [
+//             {
+//                 "categoryId": 4
+//             },
+//             {
+//                 "categoryId": 3
+//             }
+//         ]
+//     }
+// ]
+
+function traverseCategories(categories, parentPosition) {
+    for (var i = 0; i < categories.length; i++) {
+        var category = categories[i];
+        var categoryId = category.categoryId;
+        var newPosition = parentPosition ? parentPosition.toString() : 0;
+        $.ajax({
+            type: 'POST',
+            url: '/admin/updateCategory',
+            data: {'categoryId': categoryId, 'parentId': newPosition},
+            success: function (response) {
+
+            },
+            error: function (xhr, status, error) {
+                // Обработка ошибки удаления пользователя из курса
+                console.error('Error deleting user from course:', error);
+            }
+        });
+        // Выполнение AJAX-запроса с использованием categoryId и newPosition
+        if (category.children && category.children.length > 0) {
+            traverseCategories(category.children, categoryId);
+        }
+    }
+}
+
+// добавление категории
+$("#add-item").click(function (e) {
+    e.preventDefault(); // отменяем действие по умолчанию при клике на кнопку
+    var name = $("#categoryName").val(); // получаем значение поля "Name"
+    if (name !== '') { // проверяем, что поле "Name" не пустое
+        $.ajax({
+            type: 'POST',
+            url: '/admin/addNewCategory',
+            data: {'name': name},
+            success: function (response) {
+                var newItem = '<li class="dd-item" data-category-id="'+ response +'"><div class="dd-handle"><div class="dd-handle-container d-flex"><span>' + name + '</span><span class="buttons"><button class="btn dd-btn btn-danger btn-sm ml-2" data-bs-toggle="modal" data-bs-target="#deleteModal" data-category-id="'+ response +'"><i class="bi bi-trash"></i></button><button class="editCategoryNameBtn btn dd-btn btn-info btn-sm ml-2" data-bs-toggle="modal" data-bs-target="#editModal" data-category-id="'+ response +'"><i class="bi bi-pen"></i></button></span></div></div></li>'; // создаем новый элемент списка
+                $("#nestable ol:first-child").append(newItem); // добавляем новый элемент в список
+                $("#categoryName").val(''); // очищаем поле "Name"
+            },
+            error: function (xhr, status, error) {
+                // Обработка ошибки удаления пользователя из курса
+                console.error('Error deleting user from course:', error);
+            }
+        });
+
+    }
+});
+
+$('.editCategoryNameBtn').on('click', function () {
+    var categoryId = $(this).data("category-id");
+    $('.saveNewCategoryNameBtn').attr('data-category-id', categoryId)
+});
+
+$('.saveNewCategoryNameBtn').on('click', function (e) {
+    e.stopPropagation();
+    var categoryId = $(this).data("category-id");
+    var name = $('#editCategoryName').val()
+    if (name !== '') { // проверяем, что поле "Name" не пустое
+        $.ajax({
+            type: 'POST',
+            url: '/admin/updateCategoryName',
+            data: {'categoryId': categoryId, 'name': name},
+            success: function (response) {
+                location.reload()
+
+            },
+            error: function (xhr, status, error) {
+                // Обработка ошибки удаления пользователя из курса
+                console.error('Error deleting user from course:', error);
+            }
+        });
+        var listItem = $('li[data-category-id="' + categoryId + '"]');
+
+        // Обновляем значение спана внутри найденного <li> элемента
+        listItem.find('span').text(name);
+    }
+})
+
+
+var categories = [/* Ваш массив категорий */];
+var nestable = $('#nestable');
+
+categories.forEach(function(category) {
+    var categoryItem = renderCategory(category);
+    nestable.find('.dd-list').append(categoryItem);
+});

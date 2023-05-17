@@ -12,7 +12,7 @@ extraScriptAfter="" extraScriptBefore="">
         <script src="https://cdn.tiny.cloud/1/yqs0bilptzksistq5bm5uxaxxwmyzzt7h072jpwss8hlg70k/tinymce/6/tinymce.min.js"
                 referrerpolicy="origin"></script>
 
-        <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
         <script src="/vendor/anychart/anychart-base.min.js"></script>
         <script src="/vendor/anychart/anychart-ui.min.js"></script>
@@ -28,6 +28,9 @@ extraScriptAfter="" extraScriptBefore="">
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
         </style>
+
+        <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/vendor/nestable/jquery.nestable.min.css">
 
         <#list styles as styleSource>
             <link rel="stylesheet" href="${styleSource}">
@@ -48,7 +51,7 @@ extraScriptAfter="" extraScriptBefore="">
         <div class="container-fluid bg-blue">
             <footer class="container d-flex flex-wrap justify-content-between align-items-center py-3">
                 <a href="#"><img class="logo-header" src="/img/White_logo.svg" alt=""></a>
-                <p class="mb-0 text-white"><i class="bi bi-c-circle"></i> 2022 Calopsia, Inc</p>
+                <p class="mb-0 text-white"><i class="bi bi-c-circle"></i> 2023 Calopsia, Inc</p>
             </footer>
         </div>
     </#if>
@@ -64,7 +67,7 @@ extraScriptAfter="" extraScriptBefore="">
 
 
 
-
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- Page level plugins -->
     <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
@@ -72,6 +75,9 @@ extraScriptAfter="" extraScriptBefore="">
     <script src="/js/datatables.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
+
+    <script src="/vendor/nestable/jquery.nestable.min.js"></script>
+
 
 
     <#list scripts as scriptSource>

@@ -5,10 +5,7 @@ import edu.inai.coursework3.dto.CourseDto;
 import edu.inai.coursework3.entities.Course;
 import edu.inai.coursework3.entities.User;
 import edu.inai.coursework3.enums.CourseStatus;
-import edu.inai.coursework3.services.AdminService;
-import edu.inai.coursework3.services.CourseService;
-import edu.inai.coursework3.services.PropertiesService;
-import edu.inai.coursework3.services.UserService;
+import edu.inai.coursework3.services.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -29,6 +26,7 @@ import java.util.List;
 public class AdminController {
     private final AdminService adminService;
     private final PropertiesService propertiesService;
+    private final CategoryService categoryService;
 
     @GetMapping()
     public String getAdminPage(Model model, Authentication authentication,
@@ -87,9 +85,21 @@ public class AdminController {
     public String updateCourseStatus(@RequestParam("courseId") Long courseId,
                              @RequestParam("status") String status) {
 
-        System.out.println(courseId + status);
         adminService.updateCourseStatus(courseId, status);
         return "redirect:/admin/courses"; // Перенаправление на список пользователей
     }
+
+    @GetMapping("/categories")
+    public String getCategoriesPage(Model model, Authentication authentication) {
+
+        if (authentication != null) {
+            model.addAttribute("user", adminService.getUserDtoByEmail(authentication.getName()));
+        }
+        model.addAttribute("categories", categoryService.getCatalogCategories());
+        System.out.println(categoryService.getCatalogCategories());
+        return "admin/category";
+
+    }
+
 
 }

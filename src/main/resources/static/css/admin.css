@@ -11348,9 +11348,9 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 
-.dd-placeholder {
-  display: none;
-}
+/*.dd-placeholder {*/
+/*  display: none;*/
+/*}*/
 
 .dd-item > .dd-handle {
   display: block;

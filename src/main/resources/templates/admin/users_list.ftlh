@@ -57,7 +57,7 @@ styles=["/css/admin.css", "/css/style.css"]>
 
                 <!-- Nav Item - Pages Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="categories.html">
+                    <a class="nav-link" href="/admin/categories">
                         <i class="fas fa-fw fa-bars"></i>
                         <span>Categories</span></a>
                 </li>
