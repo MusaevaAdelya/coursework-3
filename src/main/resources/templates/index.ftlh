@@ -25,7 +25,7 @@ styles=["/css/style.css"]>
                         <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
                         <@security.authorize access="isAuthenticated()">
                             <#if user.role == "ADMIN">
-                                <li class="nav-item"><a class="nav-link text-black" href="/admin">Admin panel</a></li>
+                                <li class="nav-item"><a class="nav-link text-black" href="/admin/users">Admin panel</a></li>
                             </#if>
                         </@security.authorize>
                     </ul>

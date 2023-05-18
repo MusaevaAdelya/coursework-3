@@ -15,7 +15,7 @@ styles=["/css/style.css","/css/admin.css"]>
 
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-<#--                    <img class="fas fa-fw" src="/img/calopsia_logo_c.svg"></img>-->
+                    <#--                    <img class="bis bi-fw" src="/img/calopsia_logo_c.svg"></img>-->
                     <img class="fas fa-fw" src="/img/calopsia_logo_c.svg" alt="">
 
                     <div class="sidebar-brand-text mx-3">Calopsia</div>
@@ -27,7 +27,7 @@ styles=["/css/style.css","/css/admin.css"]>
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
                     <a class="nav-link" href="/admin">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <i class="bi bi-speedometer2"></i>
                         <span>Dashboard</span></a>
                 </li>
 
@@ -42,21 +42,21 @@ styles=["/css/style.css","/css/admin.css"]>
                 <!-- Nav Item - Pages Menu -->
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/users">
-                        <i class="fas fa-fw fa-user"></i>
+                        <i class="bis bi bi-people"></i>
                         <span>Users</span></a>
                 </li>
 
                 <!-- Nav Item - Pages Menu -->
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/courses">
-                        <i class="fas fa-fw fa-layer-group"></i>
+                        <i class="bi bi-stack"></i>
                         <span>Courses</span></a>
                 </li>
 
                 <!-- Nav Item - Pages Menu -->
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/categories">
-                        <i class="fas fa-fw fa-bars"></i>
+                        <i class="bi bi-bar-chart-steps"></i>
                         <span>Categories</span></a>
                 </li>
 
@@ -92,7 +92,7 @@ styles=["/css/style.css","/css/admin.css"]>
                             <li class="nav-item dropdown no-arrow d-sm-none">
                                 <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-search fa-fw"></i>
+                                    <i class="bis bi-search fa-fw"></i>
                                 </a>
                                 <!-- Dropdown - Messages -->
                                 <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
@@ -104,7 +104,7 @@ styles=["/css/style.css","/css/admin.css"]>
                                                    aria-describedby="basic-addon2">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary" type="button">
-                                                    <i class="fas fa-search fa-sm"></i>
+                                                    <i class="bis bi-search fa-sm"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -127,12 +127,12 @@ styles=["/css/style.css","/css/admin.css"]>
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="#">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        <i class="bis bi-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        <i class="bis bi-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
                                     </a>
                                 </div>
@@ -166,7 +166,7 @@ styles=["/css/style.css","/css/admin.css"]>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">1,000</div>
                                             </div>
                                             <div class="col-auto">
-                                                <i class="fas fa-user fa-2x text-gray-300"></i>
+                                                <i class="bis bi-user fa-2x text-gray-300"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +185,7 @@ styles=["/css/style.css","/css/admin.css"]>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">1,212</div>
                                             </div>
                                             <div class="col-auto">
-                                                <i class="fas fa-layer-group fa-2x text-gray-300"></i>
+                                                <i class="bis bi-layer-group fa-2x text-gray-300"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -204,7 +204,7 @@ styles=["/css/style.css","/css/admin.css"]>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">$1,540.30</div>
                                             </div>
                                             <div class="col-auto">
-                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                <i class="bis bi-dollar-sign fa-2x text-gray-300"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -226,7 +226,7 @@ styles=["/css/style.css","/css/admin.css"]>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                <i class="bis bi-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                  aria-labelledby="dropdownMenuLink">
@@ -280,7 +280,7 @@ styles=["/css/style.css","/css/admin.css"]>
 
         <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
+            <i class="bis bi-angle-up"></i>
         </a>
 
         <!-- Logout Modal-->

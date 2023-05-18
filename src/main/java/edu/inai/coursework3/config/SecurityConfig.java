@@ -1,5 +1,6 @@
 package edu.inai.coursework3.config;
 
+import edu.inai.coursework3.enums.UserRoles;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
@@ -54,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();
 
         http.authorizeRequests()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .permitAll();
 
