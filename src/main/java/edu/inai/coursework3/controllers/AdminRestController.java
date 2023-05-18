@@ -86,7 +86,13 @@ public class AdminRestController {
     public List<CatalogCategoryDto> updateCategoryName(@RequestParam("categoryId") Long categoryId,
                                                        @RequestParam("name") String name){
         categoryService.updateCategoryName(categoryId, name);
-        return categoryService.getCatalogCategories();
+        return categoryService.getAllCategories();
+    }
+
+    @PostMapping("/deleteCategory")
+    public List<CatalogCategoryDto> deleteCategory(@RequestParam("categoryId") Long categoryId){
+        adminService.deleteCategory(categoryId);
+        return categoryService.getAllCategories();
     }
 
 

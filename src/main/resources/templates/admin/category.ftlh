@@ -197,17 +197,18 @@ styles=["/css/style.css","/css/admin.css"] extraScriptAfter=extraScriptAfterMark
                                                         <div class="dd-handle-container d-flex">
                                                             <span>${category.categoryDto.name}</span>
                                                             <span class="buttons">
-                                                                <#if category.categoryDto.id != 1>
-                                                                    <button class="btn dd-btn btn-danger btn-sm ml-2"
-                                                                            data-bs-toggle="modal"
-                                                                            data-category-id=${category.categoryDto.id}
-                                                                            data-bs-target="#deleteModal">
+                    <#if category.categoryDto.id != 1>
+                        <button class="deleteCategoryBtn btn dd-btn btn-danger btn-sm ml-2"
+                                data-bs-toggle="modal"
+                                data-category-id=${category.categoryDto.id}
+                                data-bs-target="#deleteModal">
                             <i class="bi bi-trash"></i>
                         </button>
-                                                                </#if>
-
-                    <button class="editCategoryNameBtn btn dd-btn btn-info btn-sm ml-2" data-bs-toggle="modal"
-                            data-category-id=${category.categoryDto.id} data-bs-target="#editModal">
+                    </#if>
+                    <button class="editCategoryNameBtn btn dd-btn btn-info btn-sm ml-2"
+                            data-bs-toggle="modal"
+                            data-category-id=${category.categoryDto.id}
+                            data-bs-target="#editModal">
                         <i class="bi bi-pen"></i>
                     </button>
                 </span>
@@ -223,11 +224,15 @@ styles=["/css/style.css","/css/admin.css"] extraScriptAfter=extraScriptAfterMark
                                                 </li>
                                             </#macro>
 
+                                            <#macro renderCategories categories>
+                                                <#list categories as category>
+                                                    <@renderCategory category=category />
+                                                </#list>
+                                            </#macro>
+
                                             <div class="dd" id="nestable">
                                                 <ol class="dd-list">
-                                                    <#list categories as category>
-                                                        <@renderCategory category=category />
-                                                    </#list>
+                                                    <@renderCategories categories=categories />
                                                 </ol>
                                             </div>
                                         </div>
@@ -279,7 +284,7 @@ styles=["/css/style.css","/css/admin.css"] extraScriptAfter=extraScriptAfterMark
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                        <button type="button" class="deleteConfirmBtn btn btn-sm btn-danger">Delete</button>
                     </div>
                 </div>
             </div>

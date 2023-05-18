@@ -1,10 +1,7 @@
 package edu.inai.coursework3.services;
 
 import edu.inai.coursework3.dto.*;
-import edu.inai.coursework3.entities.Course;
-import edu.inai.coursework3.entities.CourseChapter;
-import edu.inai.coursework3.entities.CourseSection;
-import edu.inai.coursework3.entities.User;
+import edu.inai.coursework3.entities.*;
 import edu.inai.coursework3.enums.CourseStatus;
 import edu.inai.coursework3.enums.UserRoles;
 import edu.inai.coursework3.exceptions.CourseNotFoundException;
@@ -23,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +31,7 @@ public class AdminService {
     private final UserRepository userRepository;
     private final CompletedTaskRepository completedTaskRepository;
     private final CourseRepository courseRepository;
+    private final CategoryRepository categoryRepository;
 
 
     public UserDto getUserDtoByEmail(String email) {
@@ -140,6 +139,38 @@ public class AdminService {
             course.setStatus(CourseStatus.ACCEPTED);
             courseRepository.save(course);
         }
+    }
+
+    public void deleteCategory(Long categoryId){
+        List<Course> courses = courseRepository.getCoursesByCategoryId(categoryId);
+        Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
+        if (optionalCategory.isPresent()) {
+            // Модель категории найдена
+            Category category = optionalCategory.get();
+            // Ваш код для обработки найденной категории
+            Category parentCategory = null;
+            if (category.getParent() != null) {
+                parentCategory = category.getParent();
+            } else {
+                Optional<Category> parentOptionalCategory = categoryRepository.findById(1L);
+                if(parentOptionalCategory.isPresent()) {
+
+                    parentCategory = parentOptionalCategory.get(); // Здесь предполагается, что у вас есть метод для получения первой категории
+                }
+            }
+            for (Course course : courses) {
+                course.setCategory(parentCategory);
+                courseRepository.save(course);
+            }
+            List<Category> children = categoryRepository.findByParentId(categoryId);
+            for (Category child : children) {
+                child.setParent(parentCategory);
+                categoryRepository.save(child);
+            }
+            categoryRepository.delete(category);
+        }
+
+
     }
 
 }

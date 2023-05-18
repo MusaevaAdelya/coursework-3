@@ -60,7 +60,6 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
     @Query(value = "DELETE FROM users_courses WHERE user_id = :userId AND course_id = :courseId", nativeQuery = true)
     void deleteUserFromCourse(Long userId, Long courseId);
 
-//    @Query(value = "update Course set status = :status where id = :courseId")
-//    void updateCourseStatus(Long courseId, CourseStatus status);
-
+    @Query(value="select c from Course c where c.category.id = :categoryId")
+    List<Course> getCoursesByCategoryId(@Param("categoryId") Long categoryId);
 }

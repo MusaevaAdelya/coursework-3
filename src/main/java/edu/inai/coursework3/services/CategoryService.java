@@ -44,6 +44,33 @@ public class CategoryService {
         }).collect(Collectors.toList());
     }
 
+    public List<CatalogCategoryDto> getAllCategories() {
+        List<Category> rootCategories = categoryRepository.getFirstLevelCategories();
+        List<CatalogCategoryDto> catalogCategories = new ArrayList<>();
+
+        for (Category rootCategory : rootCategories) {
+            CatalogCategoryDto catalogCategoryDto = buildCatalogCategoryDto(rootCategory);
+            catalogCategories.add(catalogCategoryDto);
+        }
+
+        return catalogCategories;
+    }
+
+    private CatalogCategoryDto buildCatalogCategoryDto(Category category) {
+        List<Category> children = categoryRepository.findByParentId(category.getId());
+        List<CatalogCategoryDto> childDtos = new ArrayList<>();
+
+        for (Category child : children) {
+            CatalogCategoryDto childDto = buildCatalogCategoryDto(child);
+            childDtos.add(childDto);
+        }
+
+        return CatalogCategoryDto.builder()
+                .categoryDto(CategoryDto.from(category))
+                .children(childDtos)
+                .build();
+    }
+
     public void updateCategoryParent(Long categoryId, Long parentId){
         System.out.println(parentId + "gg");
         Category category = categoryRepository.findById(categoryId)
@@ -77,4 +104,6 @@ public class CategoryService {
         category.setName(name);
         categoryRepository.save(category);
     }
+
+
 }

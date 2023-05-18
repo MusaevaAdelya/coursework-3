@@ -645,9 +645,10 @@ $("#add-item").click(function (e) {
             url: '/admin/addNewCategory',
             data: {'name': name},
             success: function (response) {
-                var newItem = '<li class="dd-item" data-category-id="'+ response +'"><div class="dd-handle"><div class="dd-handle-container d-flex"><span>' + name + '</span><span class="buttons"><button class="btn dd-btn btn-danger btn-sm ml-2" data-bs-toggle="modal" data-bs-target="#deleteModal" data-category-id="'+ response +'"><i class="bi bi-trash"></i></button><button class="editCategoryNameBtn btn dd-btn btn-info btn-sm ml-2" data-bs-toggle="modal" data-bs-target="#editModal" data-category-id="'+ response +'"><i class="bi bi-pen"></i></button></span></div></div></li>'; // создаем новый элемент списка
+                var newItem = '<li class="dd-item" data-category-id="'+ response +'"><div class="dd-handle"><div class="dd-handle-container d-flex"><span>' + name + '</span><span class="buttons"><button class="deleteCategoryBtn btn dd-btn btn-danger btn-sm ml-2" data-bs-toggle="modal" data-bs-target="#deleteModal" data-category-id="'+ response +'"><i class="bi bi-trash"></i></button><button class="editCategoryNameBtn btn dd-btn btn-info btn-sm ml-2" data-bs-toggle="modal" data-bs-target="#editModal" data-category-id="'+ response +'"><i class="bi bi-pen"></i></button></span></div></div></li>'; // создаем новый элемент списка
                 $("#nestable ol:first-child").append(newItem); // добавляем новый элемент в список
                 $("#categoryName").val(''); // очищаем поле "Name"
+                location.reload()
             },
             error: function (xhr, status, error) {
                 // Обработка ошибки удаления пользователя из курса
@@ -689,10 +690,27 @@ $('.saveNewCategoryNameBtn').on('click', function (e) {
 })
 
 
-var categories = [/* Ваш массив категорий */];
-var nestable = $('#nestable');
+$('.deleteCategoryBtn').on('click', function () {
+    var categoryId = $(this).data("category-id");
+    $('.deleteConfirmBtn').attr('data-category-id', categoryId)
+});
 
-categories.forEach(function(category) {
-    var categoryItem = renderCategory(category);
-    nestable.find('.dd-list').append(categoryItem);
+$('.deleteConfirmBtn').on('click', function (e) {
+    e.stopPropagation();
+    var categoryId = $(this).data("category-id");
+    $.ajax({
+        type: 'POST',
+        url: '/admin/deleteCategory',
+        data: {'categoryId': categoryId},
+        success: function (response) {
+            location.reload()
+
+        },
+        error: function (xhr, status, error) {
+            // Обработка ошибки удаления пользователя из курса
+            console.error('Error deleting user from course:', error);
+        }
+    });
+    var listItem = $('li[data-category-id="' + categoryId + '"]');
+    listItem.remove()
 });

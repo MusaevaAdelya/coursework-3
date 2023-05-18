@@ -95,8 +95,8 @@ public class AdminController {
         if (authentication != null) {
             model.addAttribute("user", adminService.getUserDtoByEmail(authentication.getName()));
         }
-        model.addAttribute("categories", categoryService.getCatalogCategories());
-        System.out.println(categoryService.getCatalogCategories());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        System.out.println(categoryService.getAllCategories());
         return "admin/category";
 
     }
