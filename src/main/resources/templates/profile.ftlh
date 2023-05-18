@@ -441,7 +441,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                                 <a href="/course/${c.id}"
                                                                    class="btn btn-primary">View</a>
                                                                 <#if c.courseSections??>
-                                                                    <#if c.courseSections[0].chapters?has_content>
+                                                                    <#if !c.courseSections[0].chapters.isEmpty()>
                                                                         <a href="/course/${c.id}/edit/${c.courseSections[0].chapters[0].id}"
                                                                            class="btn btn-primary">Edit</a>
                                                                     </#if>

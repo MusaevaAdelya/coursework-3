@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .permitAll();
 
-        http.csrf().ignoringAntMatchers("/files/courses").ignoringAntMatchers("/rollIn");
+        http.csrf().ignoringAntMatchers("/files/courses");
         http.headers().frameOptions().sameOrigin();
 
 
