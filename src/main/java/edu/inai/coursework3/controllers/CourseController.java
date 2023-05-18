@@ -1,35 +1,37 @@
 package edu.inai.coursework3.controllers;
 
-import edu.inai.coursework3.dto.CourseReviewForm;
+
 import edu.inai.coursework3.dto.CreateCourseForm;
 import edu.inai.coursework3.dto.EditChapterForm;
 import edu.inai.coursework3.entities.Course;
-import edu.inai.coursework3.services.CategoryService;
-import edu.inai.coursework3.services.CourseService;
-import edu.inai.coursework3.services.PropertiesService;
-import edu.inai.coursework3.services.UserService;
+import edu.inai.coursework3.services.*;
+import edu.inai.coursework3.util.FileStorageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/course")
-public class CourseController {
+public class CourseController{
     private final UserService userService;
     private final CourseService courseService;
     private final PropertiesService propertiesService;
     private final CategoryService categoryService;
 
+
     @GetMapping("/{courseId}/content/{chapterId}")
     public String getCourseContent(Model model, Authentication authentication,
                                    @PathVariable Long courseId,@PathVariable Long chapterId){
         model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
-
-        courseService.rollIn(authentication.getName(),courseId);
-
         model.addAttribute("studentProgress",userService.getStudentProgress(courseId,authentication.getName()));
         model.addAttribute("currentChapter",courseService.getCourseChpaterById(chapterId));
         model.addAttribute("course", courseService.getCourseById(courseId));
@@ -63,6 +65,7 @@ public class CourseController {
 
     }
 
+
     @GetMapping("/{courseId}/edit/{chapterId}")
     public String getCourseEditPage(Model model, Authentication authentication,
                                     @PathVariable Long courseId, @PathVariable Long chapterId){
@@ -76,14 +79,35 @@ public class CourseController {
     }
 
     @PostMapping ("/{courseId}/edit/{chapterId}")
+
     public String editCourse(Model model, Authentication authentication,
                              @PathVariable Long courseId, @PathVariable Long chapterId,
                              @ModelAttribute("editChapterForm")EditChapterForm form){
         courseService.editChapter(form);
 
-        return "redirect:/course/"+courseId+"/content/"+chapterId;
+        return String.format("redirect:/course/%s/edit/%s",courseId,chapterId);
 
     }
 
+
+
+
+
+}
+
+@RestController
+@RequestMapping("/files")
+class FileController {
+    @Autowired
+    private FileStorageService fileStorageService;
+
+
+    @PostMapping("/courses")
+    public ResponseEntity<String> uploadImage(@RequestParam("upload") MultipartFile file, HttpServletRequest request) throws IOException {
+        String fileName = fileStorageService.saveFile(file, "image");
+        String fileUrl = request.getRequestURL().toString().replace(request.getRequestURI().substring(1), "") + "files/courses/image/" + fileName;
+        String response = "<script>window.parent.CKEDITOR.tools.callFunction(" + request.getParameter("CKEditorFuncNum") + ", '" + fileUrl + "', '');</script>";
+        return ResponseEntity.ok(response);
+    }
 
 }

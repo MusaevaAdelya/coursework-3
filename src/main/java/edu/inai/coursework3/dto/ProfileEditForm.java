@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class ProfileEditForm {
     private String newUsername;
+    private String newAbout;
     private MultipartFile newAvatar;
     private String newPassword;
     private String newPasswordRepeat;

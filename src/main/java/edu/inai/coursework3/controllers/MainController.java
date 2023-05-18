@@ -1,10 +1,12 @@
 package edu.inai.coursework3.controllers;
 
 import edu.inai.coursework3.entities.Course;
+import edu.inai.coursework3.enums.UserRoles;
 import edu.inai.coursework3.repositories.CourseRepository;
 import edu.inai.coursework3.services.CourseService;
 import edu.inai.coursework3.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
@@ -26,7 +28,6 @@ public class MainController {
         if(authentication!=null){
             model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
         }
-
         model.addAttribute("courses",courseService.getCourses(pageable));
 
 

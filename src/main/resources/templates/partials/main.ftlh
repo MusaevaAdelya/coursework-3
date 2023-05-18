@@ -1,6 +1,6 @@
 <#macro renderWith title="Calopsia" scripts=[] styles=[] footer="true" extrastyle=""
 extraScriptAfter="" extraScriptBefore="">
-    <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -25,6 +25,7 @@ extraScriptAfter="" extraScriptBefore="">
         <link rel="stylesheet" href="/vendor/bootstrap-icons/bootstrap-icons.css">
         <link rel="stylesheet" href="/vendor/bootstrap5/css/bootstrap.min.css">
         <link rel="stylesheet" href="/fonts/fonts.css">
+        <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
         </style>

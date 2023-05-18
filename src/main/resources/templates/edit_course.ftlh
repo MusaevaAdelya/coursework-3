@@ -9,7 +9,6 @@ footer="false">
     <div id="element">
         <div class="overflow"></div>
     </div>
-
     <header>
         <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3" id="mainNav">
             <div class="container d-flex justify-content-between">
@@ -72,6 +71,8 @@ footer="false">
         </nav>
     </header>
 
+
+
     <main class="container-fluid min-vh-100-minus-header  pt-nav">
         <div class="categories-create flex-shrink-0 p-3 scrollarea" style="width: 280px;">
             <img src="${coursesPath}${course.thumbNailPath}" class="img-fluid rounded img-course w-100" alt="">
@@ -119,7 +120,6 @@ footer="false">
                     <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
                            value="${(_csrf.token)!'--no-token--'}"/>
                 </#if>
-                <input hidden id="textHtml" name="text">
                 <input hidden name="chapterId" value="${chapter.id}">
 
                 <div id="content-description" class="content-create">
@@ -127,125 +127,89 @@ footer="false">
                            class="LessonNameText" value="${chapter.title}">
                     <hr>
 
-                    <textarea id="myTextArea"></textarea>
-                    <hr>
-
-                    <form>
-
-                    </form>
-                    <h2 class="mb-5 mt-4">Create test</h2>
-
-                    <div class="test-section mb-5 mt-3">
-                        <input type="text" name="question" id="question" placeholder="Write question" class="question">
-                        <div class="test d-flex justify-content-between">
-                            <div>
-                                <input type="radio" name="correct" id="test1">
-                                <input type="text" name="answer" data-radio="#test1" class="answer-input test-input"
-                                       placeholder="answer">
-                            </div>
-                            <div>
-                                <button class="btn remove-item ">
-                                    <i class="bi bi-trash3 text-danger"></i>
-                                </button>
-
-                            </div>
-                        </div>
-                        <div class="test d-flex justify-content-between">
-                            <div>
-                                <input type="radio" name="correct" id="test2">
-                                <input type="text" name="answer" data-radio="#test2" class="answer-input test-input"
-                                       placeholder="answer">
-                            </div>
-                            <div>
-                                <button class="btn remove-item ">
-                                    <i class="bi bi-trash3 text-danger"></i>
-                                </button>
-
-                            </div>
-                        </div>
-                        <div class="test d-flex justify-content-between">
-                            <div>
-                                <input type="radio" name="correct" id="test3">
-                                <input type="text" name="answer" data-radio="#test3" class="answer-input test-input"
-                                       placeholder="answer">
-                            </div>
-                            <div>
-                                <button class="btn remove-item ">
-                                    <i class="bi bi-trash3 text-danger"></i>
-                                </button>
-
-                            </div>
-                        </div>
-                        <div class="test d-flex justify-content-between">
-                            <div>
-                                <input type="radio" name="correct" id="test4">
-                                <input type="text" name="answer" data-radio="#test4" class="answer-input test-input"
-                                       placeholder="answer">
-                            </div>
-                            <div>
-                                <button class="btn remove-item ">
-                                    <i class="bi bi-trash3 text-danger"></i>
-                                </button>
-
-                            </div>
-                        </div>
-                        <#--                    <div class="test ps-0">-->
-                        <#--                        <input class="add-answer w-100 h-100 bg-transparent border-0 text-start ps-2" type="button"-->
-                        <#--                               value="Add answer">-->
-                        <#--                    </div>-->
-
+                    <div style="width: 100%;">
+                        <textarea name="text" id="text">${chapter.text!""}</textarea>
                     </div>
 
-                    <button id="saveBtn" class="save-btn" type="submit">Save</button>
+                    <hr>
+
+                    <h2 class="mb-5 mt-4">Create test</h2>
+
+                    <#if chapter.test??>
+                        <div class="test-section mb-5 mt-3">
+                            <input type="text" name="question" id="question" placeholder="Write question"
+                                   class="question" value="${chapter.test.question!""}">
+                            <#list chapter.test.answers as answer>
+                                <div class="test d-flex justify-content-between">
+                                    <div>
+                                        <input type="radio" name="correct" id="test${answer.id}"
+                                               <#if answer.correct>checked</#if> value="${answer.text}">
+                                        <input type="text" name="answer" data-radio="#test${answer.id}"
+                                               class="answer-input test-input" placeholder="answer"
+                                               value="${answer.text}">
+                                    </div>
+                                    <div>
+                                        <button class="btn remove-item ">
+                                            <i class="bi bi-trash3 text-danger"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </#list>
+                            <#--                        <div class="test ps-0">-->
+                            <#--                            <input class="add-answer w-100 h-100 bg-transparent border-0 text-start ps-2" type="button" value="Add answer">-->
+                            <#--                        </div>-->
+                        </div>
+                    <#else>
+                        <div class="test-section mb-5 mt-3">
+                            <input type="text" name="question" id="question" placeholder="Write question" class="question" >
+                            <#list 1..4 as answer>
+                                <div class="test d-flex justify-content-between">
+                                    <div>
+                                        <input type="radio" name="correct" id="test${answer}" value="${answer}">
+                                        <input type="text" name="answer"  data-radio="#test${answer}" class="answer-input test-input" placeholder="answer">
+                                    </div>
+                                    <div>
+                                        <button class="btn remove-item ">
+                                            <i class="bi bi-trash3 text-danger"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </#list>
+                            <#--                        <div class="test ps-0">-->
+                            <#--                            <input class="add-answer w-100 h-100 bg-transparent border-0 text-start ps-2" type="button" value="Add answer">-->
+                            <#--                        </div>-->
+                        </div>
+                    </#if>
+                    <button type="submit" name="action" value="save" class="save-btn" id="test">Save</button>
+                    <a href="/course/${course.id}/content/${chapter.id}" class="finish-btn">Finish</a>
                 </div>
 
             </form>
 
 
         </div>
-
-
         <script>
-            tinymce.init({
-                selector: '#myTextArea',
-                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss image code save autosave',
-                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | code | save | restoredraft',
-                tinycomments_mode: 'embedded',
-                image_title: true,
-                automatic_uploads: true,
-                tinycomments_author: 'Author name',
-                mergetags_list: [
-                    {value: 'First.Name', title: 'First Name'},
-                    {value: 'Email', title: 'Email'},
-                ],
-                file_picker_types: 'image',
-                file_picker_callback: (cb, value, meta) => {
-                    const input = document.createElement('input');
-                    input.setAttribute('type', 'file');
-                    input.setAttribute('accept', 'image/*');
 
-                    input.addEventListener('change', (e) => {
-                        const file = e.target.files[0];
 
-                        const reader = new FileReader();
-                        reader.addEventListener('load', () => {
-                            const id = 'blobid' + (new Date()).getTime();
-                            const blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                            const base64 = reader.result.split(',')[1];
-                            const blobInfo = blobCache.create(id, file, base64);
-                            blobCache.add(blobInfo);
-
-                            /* call the callback and populate the Title field with the file name */
-                            cb(blobInfo.blobUri(), {title: file.name});
-                        });
-                        reader.readAsDataURL(file);
-                    });
-
-                    input.click();
-                },
-                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+            CKEDITOR.replace('text', {
+                extraPlugins: 'colorbutton,justify',
+                filebrowserUploadMethod: 'form',
+                filebrowserUploadUrl: '/files/courses',
+                debug: true,
+                filebrowserImageUploadMethod: 'form',
+                filebrowserUploadResponse: function (responseData) {
+                    var response = JSON.parse(responseData);
+                    return {
+                        "url": response.url,
+                        "name": response.name,
+                        "filename": response.name
+                    };
+                }
             });
+
+
         </script>
+
 
     </main>
 
