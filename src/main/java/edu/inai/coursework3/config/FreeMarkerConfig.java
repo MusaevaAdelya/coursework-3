@@ -9,6 +9,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @Configuration
 public class FreeMarkerConfig implements BeanPostProcessor {
 

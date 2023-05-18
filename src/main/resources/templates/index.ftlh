@@ -23,6 +23,11 @@ styles=["/css/style.css"]>
                         <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>
                         <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
+                        <@security.authorize access="isAuthenticated()">
+                            <#if user.role == "ADMIN">
+                                <li class="nav-item"><a class="nav-link text-black" href="/admin/users">Admin panel</a></li>
+                            </#if>
+                        </@security.authorize>
                     </ul>
                     <@security.authorize access="! isAuthenticated()">
                         <ul class="navbar-nav ms-auto d-sm-inline py-4 py-lg-0 second">
@@ -78,7 +83,8 @@ styles=["/css/style.css"]>
                         from any device <br>
                     </h1>
                     <div class="w-75">
-                        <p class="hero-sub-text text-start fs-5 mt-3">“Yesterday is history, tomorrow is a mystery, but today is a gift. That is why it is called the present.”</p>
+                        <p class="hero-sub-text text-start fs-5 mt-3">“Yesterday is history, tomorrow is a mystery, but
+                            today is a gift. That is why it is called the present.”</p>
                         <p class="hero-sub-text text-end italic fs-6">- Master Oogway</p>
                     </div>
 
@@ -124,7 +130,8 @@ styles=["/css/style.css"]>
                                     <p class="text-secondary fw-bolder">${course.users?size} Students</p>
 
                                     <div class="btn-price d-flex justify-content-between">
-                                        <a class="purp_button rounded text-white fw-bolder p-2" href="/course/${course.id}">Start
+                                        <a class="purp_button rounded text-white fw-bolder p-2"
+                                           href="/course/${course.id}">Start
                                             learning</a>
                                         <span class="fw-bolder purp-text  text-center"><i
                                                     class="bi bi-star-fill text-warning"></i>${course.ratingScore?string["0.#"]}</span>
@@ -169,9 +176,11 @@ styles=["/css/style.css"]>
                                         with...”</p>
 
 
-                                    <p class="text-white mb-5 fs-5">Excellent progression of material with clear examples.
+                                    <p class="text-white mb-5 fs-5">Excellent progression of material with clear
+                                        examples.
                                         <br>
-                                        Format allows for replay and review for topics that require greater reinforcement.
+                                        Format allows for replay and review for topics that require greater
+                                        reinforcement.
                                         <br>
                                         Chapter sections are sized about right to learning and testing purpouses.</p>
 
@@ -199,9 +208,11 @@ styles=["/css/style.css"]>
                                         with...”</p>
 
 
-                                    <p class="text-white mb-5 fs-5">Excellent progression of material with clear examples.
+                                    <p class="text-white mb-5 fs-5">Excellent progression of material with clear
+                                        examples.
                                         <br>
-                                        Format allows for replay and review for topics that require greater reinforcement.
+                                        Format allows for replay and review for topics that require greater
+                                        reinforcement.
                                         <br>
                                         Chapter sections are sized about right to learning and testing purpouses.</p>
 
@@ -229,9 +240,11 @@ styles=["/css/style.css"]>
                                         with...”</p>
 
 
-                                    <p class="text-white mb-5 fs-5">Excellent progression of material with clear examples.
+                                    <p class="text-white mb-5 fs-5">Excellent progression of material with clear
+                                        examples.
                                         <br>
-                                        Format allows for replay and review for topics that require greater reinforcement.
+                                        Format allows for replay and review for topics that require greater
+                                        reinforcement.
                                         <br>
                                         Chapter sections are sized about right to learning and testing purpouses.</p>
 

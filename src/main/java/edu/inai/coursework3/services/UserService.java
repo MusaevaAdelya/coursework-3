@@ -14,6 +14,8 @@ import edu.inai.coursework3.repositories.CourseRepository;
 import edu.inai.coursework3.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -41,11 +43,11 @@ public class UserService {
 
 
     public UserDto getUserDtoByEmail(String email) {
-        return UserDto.from(userRepository.findByEmail(email).orElseThrow(()-> new UserNotFoundException(email)));
+        return UserDto.from(userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email)));
     }
 
 
-    public void register(RegisterForm user){
+    public void register(RegisterForm user) {
         HttpServletRequest request =
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                         .getRequest();
@@ -54,16 +56,16 @@ public class UserService {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .password(SecurityConfig.encoder().encode(user.getPassword()))
-                        .avatar(defaultAvatar)
+                .avatar(defaultAvatar)
                 .build());
 
         SecurityConfig.authWithHttpServletRequest(request, user.getEmail(), user.getPassword());
     }
 
     public UserDto getProfileUserDtoByEmail(String name) {
-        UserDto user =getUserDtoByEmail(name);
-        user.getStudyingCourses().forEach(c->{
-            c.setPercent(calcLearningPercent(user.getId(),c.getId()));
+        UserDto user = getUserDtoByEmail(name);
+        user.getStudyingCourses().forEach(c -> {
+            c.setPercent(calcLearningPercent(user.getId(), c.getId()));
         });
         return user;
 
@@ -145,4 +147,15 @@ public class UserService {
         }
 
     }
+
+    public Page<User> getUsers(Pageable pageable) {
+        return userRepository.getUsers(pageable);
+
+    }
+
+    public List<UserDto> parseUserDtoFromList(List<User> page) {
+        return page.stream().map(UserDto::from).collect(Collectors.toList());
+    }
+
+
 }
