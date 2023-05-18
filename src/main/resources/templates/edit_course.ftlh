@@ -141,7 +141,7 @@ footer="false">
                                    class="question" value="${chapter.test.question!""}">
                             <#list chapter.test.answers as answer>
                                 <div class="test d-flex justify-content-between">
-                                    <div>
+                                    <div style="flex-grow: 1">
                                         <input type="radio" name="correct" id="test${answer.id}"
                                                <#if answer.correct>checked</#if> value="${answer.text}">
                                         <input type="text" name="answer" data-radio="#test${answer.id}"
@@ -164,7 +164,7 @@ footer="false">
                             <input type="text" name="question" id="question" placeholder="Write question" class="question" >
                             <#list 1..4 as answer>
                                 <div class="test d-flex justify-content-between">
-                                    <div>
+                                    <div style="flex-grow: 1">
                                         <input type="radio" name="correct" id="test${answer}" value="${answer}">
                                         <input type="text" name="answer"  data-radio="#test${answer}" class="answer-input test-input" placeholder="answer">
                                     </div>

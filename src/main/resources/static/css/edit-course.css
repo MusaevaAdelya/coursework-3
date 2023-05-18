@@ -212,7 +212,7 @@ hr.white {
 .test-input{
     border: none;
     height: 100%;
-    width: 69rem !important;
+    width: 90% !important;
 }
 
 .test-input:focus-visible {

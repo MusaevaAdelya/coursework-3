@@ -21,7 +21,9 @@ extraScriptAfter="" extraScriptBefore="">
         <link rel="stylesheet" href="/vendor/bootstrap-icons/bootstrap-icons.css">
         <link rel="stylesheet" href="/vendor/bootstrap5/css/bootstrap.min.css">
         <link rel="stylesheet" href="/fonts/fonts.css">
+        <link rel="stylesheet" href="fonts/fontawesome-all.min.css">
         <script src="https://cdn.ckeditor.com/4.16.2/full-all/ckeditor.js"></script>
+
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
         </style>
@@ -32,6 +34,7 @@ extraScriptAfter="" extraScriptBefore="">
         ${extrastyle}
 
         <script src="//code.jivo.ru/widget/e7qXj0lhXn" async></script>
+        <script src="/vendor/gumshoe/gumshoe.polyfills.min.js"></script>
 
 
     </head>
@@ -54,8 +57,13 @@ extraScriptAfter="" extraScriptBefore="">
     <script src="/vendor/jquery.js"></script>
 <#--    <script src="/vendor/bootstrap5/js/bootstrap.min.js"></script>-->
     <script src="/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/jquery.js"></script>
+    <script src="/vendor/popper.min.js"></script>
+    <script src="/vendor/smoothscroll.min.js"></script>
     <script src="https://use.fontawesome.com/ffe0d7ed97.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="/vendor/highlight-custom.js"></script>
 
 
     <#list scripts as scriptSource>

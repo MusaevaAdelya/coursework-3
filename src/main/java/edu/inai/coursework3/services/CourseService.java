@@ -33,6 +33,7 @@ public class CourseService {
     private final CourseRatingRepository courseRatingRepository;
     private final CompletedTaskRepository completedTaskRepository;
     private final CourseSectionRepository courseSectionRepository;
+    private final UserService userService;
     private final CourseTestRepository courseTestRepository;
     private final ImageService imageService;
     private final CourseChapterRepository courseChapterRepository;
@@ -278,4 +279,7 @@ public class CourseService {
         userRepository.save(user);
 
     }
+
+
+
 }

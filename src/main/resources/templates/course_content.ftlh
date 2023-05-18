@@ -43,9 +43,15 @@ styles=["/css/style.css","/css/course-materials.css"]
 extraScriptAfter=extraScriptAfterMarkup footer="false">
     <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 
-    <header>
-        <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3" id="mainNav">
+    <header class="sticky-top">
+        <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3 full" id="mainNav">
             <div class="container d-flex justify-content-between">
+                <button style="margin-bottom: 0.5rem" id="docs-sidebar-toggler"
+                        class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <a href="#"><img class="logo-header" src="/img/Black_logo.svg" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarResponsive"
@@ -106,120 +112,111 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
     </header>
     <main>
         <!--        Общий класс для материалы курса-->
-        <div class="course-materials container pt-5 mt-5">
-
-            <div class="row pb-5">
-                <!--        Начало основной страницы-->
-
-                <div class="col-10">
-                    <div class="course text-start ">
-
-                        <div class="course-header text-center">
-                            <h1 class="mt-3">${currentChapter.title}</h1>
-                        </div>
-
-                        <div class="main-course-materials mt-3" id="mainContent">
-
-
-
-
-                            <#noautoesc>
-                                ${currentChapter.text}
-                            </#noautoesc>
-
-
-                        </div>
-                        <hr>
-                        <#if studentProgress??>
-                        <#if currentChapter.test??>
-                        <div class="test-section text-center mx-auto">
-                            <#if completedChapterIds?seq_contains(currentChapter.id)>
-                        <img src="/img/completed.png" style="object-fit: contain; width: 100%;">
-                        <#else>
-
-
-                            <h2 class="header-text">Test</h2>
-                            <div class="question">
-                                <p>${currentChapter.test.question}</p>
-                            </div>
-                            <div class="answers d-block">
-                                    <#list currentChapter.test.answers as answer>
-                                        <div class="answers-check">
-                                            <input class="answers-check-input" type="radio" name="exampleRadios"
-                                                   id="exampleRadios1" value="option1" checked>
-                                            <label class="answers-check-label" for="exampleRadios1">
-                                                ${answer.text}
-                                            </label>
-                                    </#list>
-
-                                </div>
-
-                                <button class="test-check" type="submit">Check</button>
-                                </#if>
-                            </div>
-                            </#if>
-
-                            </#if>
-
-
-                        </div>
-
-
+        <div class="docs-wrapper">
+            <div id="docs-sidebar" class="docs-sidebar">
+                <div class="p-3">
+                    <h5>${course.name!''}</h5>
+<#--                    <p>Progress: ${studentProgress!"0"}/${course.s}</p>-->
+                    <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar" style="width: ${studentProgress!"0"}%"></div>
                     </div>
-                    <!--      Конец основной страницы-->
+                    <hr>
+                </div>
+                <nav id="docs-nav" class="docs-nav navbar">
 
-                    <!--        ______________________________-->
-
-                    <!--        Боковое меню-->
-                    <div class="col-2 side-menu ">
-                        <div class="header-side text-center d-flex justify-content-around">
-
-                            <a href="#" class="course-name">${course.name}</a>
-
-                        </div>
-
-                        <div class="reviews-btn text-center mt-3 mb-3" id="reviews-btn">
-                            <a href="/course/${course.id}">Add review</a>
-                        </div>
-
-                        <!--                Прогресс бар -->
-                        <div class="progress mt-3 mb-3">
-                            <div class="progress-bar" id="progress" role="progressbar"
-                                 style="width: ${studentProgress!0}%;"
-                                 aria-valuemax="100"></div>
-                        </div>
-                        <!--                Конец прогресс бар-->
-
-
-                        <!--                Item меню-->
-                        <div class="course-step">
-                            <ul>
-                                <#list course.courseSections as section>
-                                    <li><a href="#">${section.title}</a>
-                                        <ul>
-                                            <#list section.chapters as chapter>
-                                                <li><#if completedChapterIds?seq_contains(chapter.id)>
-                                                        <i class="bi bi-check text-success"></i>
-                                                    </#if>
-                                                    <a <#if chapter.id=(currentChapter.id)>class="fw-bold text-success"</#if>
-                                                       href="/course/${course.id}/content/${chapter.id}">${chapter.title}</a>
-                                                </li>
-                                            </#list>
-                                        </ul>
+                    <#list course.courseSections as chapter>
+                        <ul class="section-items list-unstyled nav flex-column pb-3">
+                            <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-${chapter.id}"><span
+                                            class="theme-icon-holder me-2"><b>${chapter_index +1 }</b></span>${chapter.title}
+                                </a></li>
+                            <#if chapter.chapters??>
+                                <#list chapter.chapters as c>
+                                    <li class="nav-item section-item <#if false>passed</#if>"><a class="nav-link scrollto"
+                                                                         href="#item-${chapter_index!""}-${c.id!""}">${c.title!""}</a>
                                     </li>
+                                    <li class="nav-item section-item test"><i class="fa fa-file-pen"></i><a
+                                                class="nav-link scrollto"
+                                                href="#test-${c.test.id}"><i
+                                                    class="bi bi-file-text w-100"></i>Lesson Test</a></li>
+                                </#list>
+                            </#if>
+                        </ul>
+                    </#list>
+
+
+                </nav><!--//docs-nav-->
+            </div><!--//docs-sidebar-->
+            <div class="docs-content">
+                <div class="container">
+                    <#if course.courseSections??>
+                    <#list course.courseSections as chapter>
+                    <article class="docs-article" id="section-${chapter.id}">
+                                                <header class="docs-header">
+                                                    <h1 class="docs-heading">${chapter.title!""} <span class="docs-time">Last updated: ${course.dateOn}</span></h1>
+                                                </header>
+
+
+                                <#list chapter.chapters as c>
+                                    <section class="docs-section" id="item-${chapter_index!""}-${c.id!""}">
+                                        <h2 class="section-heading">${c.title!''}</h2>
+
+                                        <#noautoesc>
+                                            ${c.text!""}
+                                        </#noautoesc>
+                                    </section><!--//section-->
+
+                                    <section class="docs-section" id="test-${c.test.id}">
+                                        <h2 class="section-heading">Test</h2>
+                                        <div class="container border p-4 mb-5">
+                                            <form action="" method="post">
+                                                <div class="row">
+                                                    <#if c.test??>
+                                                        <div class="col-12"><p class="fw-bold">${c.test.question!""}</p>
+                                                            <div>
+                                                                <input type="radio" name="box" id="${c.test.answers[0].id}" value="${c.test.answers[0].id}">
+                                                                <input type="radio" name="box" id="${c.test.answers[1].id}" value="${c.test.answers[1].id}">
+                                                                <input type="radio" name="box" id="${c.test.answers[2].id}" value="${c.test.answers[2].id}">
+                                                                <input type="radio" name="box" id="${c.test.answers[3].id}" value="${c.test.answers[3].id}">
+                                                                <label for="${c.test.answers[0].id}" class="box first">
+                                                                    <div class="course"><span class="circle"></span> <span
+                                                                                class="subject"> ${c.test.answers[0].text}</span>
+                                                                    </div>
+                                                                </label> <label for="${c.test.answers[1].id}" class="box second">
+                                                                    <div class="course"><span class="circle"></span> <span
+                                                                                class="subject">  ${c.test.answers[1].text} </span>
+                                                                    </div>
+                                                                </label> <label for="${c.test.answers[2].id}" class="box third">
+                                                                    <div class="course"><span class="circle"></span> <span
+                                                                                class="subject">  ${c.test.answers[2].text} </span>
+                                                                    </div>
+                                                                </label> <label for="${c.test.answers[3].id}" class="box forth">
+                                                                    <div class="course"><span class="circle"></span> <span
+                                                                                class="subject">  ${c.test.answers[3].text} </span>
+                                                                    </div>
+                                                                </label></div>
+                                                        </div>
+                                                    </#if>
+                                                    <div class="col-12 mt-4">
+                                                        <div class="d-flex justify-content-end">
+                                                            <button class="btn btn-primary px-4 py-2 fw-bold" type="submit"> Check</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </section><!--//section-->
+
                                 </#list>
 
-                            </ul>
-                        </div>
-                        <!--                Конец item меню-->
-                    </div>
-                    <!--        Конец бокового меню-->
 
 
+
+                    </article>
+                    </#list>
+                    </#if>
                 </div>
-
             </div>
-        </div>        <!--    Конец общего класса для материалы курса-->
+        </div> <!--    Конец общего класса для материалы курса-->
     </main>
 
 
