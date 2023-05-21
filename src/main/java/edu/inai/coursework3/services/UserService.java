@@ -73,14 +73,38 @@ public class UserService {
 
 
     private Integer calcLearningPercent(Long userId, Long courseId ){
+        CompletedChaptersDto completedQty=getCompletedChaptersQty(userId,courseId);
+
+        return  (int) ((completedQty.getCompleted()*100.0)/completedQty.getOverall());
+
+    }
+
+    public CompletedChaptersDto getCompletedChaptersQty(Long userId, Long courseId){
         List<Long> courseChapterIds=getCourseChapterIds(courseId);
 
         Integer completedTasksQty=completedTaskRepository.getQty(userId,courseChapterIds);
         Integer allTasksQty=courseChapterIds.size();
 
-        return  (int) ((completedTasksQty*100.0)/allTasksQty);
-
+        return CompletedChaptersDto.builder()
+                .completed(completedTasksQty)
+                .overall(allTasksQty)
+                .build();
     }
+
+    public CompletedChaptersDto getCompletedChaptersQty(String userEmail, Long courseId){
+        User user=userRepository.findByEmail(userEmail).orElseThrow();
+
+        List<Long> courseChapterIds=getCourseChapterIds(courseId);
+
+        Integer completedTasksQty=completedTaskRepository.getQty(user.getId(),courseChapterIds);
+        Integer allTasksQty=courseChapterIds.size();
+
+        return CompletedChaptersDto.builder()
+                .completed(completedTasksQty)
+                .overall(allTasksQty)
+                .build();
+    }
+
 
     public List<Long> getCourseChapterIds(Long courseId){
         Course course=courseRepository.findById(courseId)

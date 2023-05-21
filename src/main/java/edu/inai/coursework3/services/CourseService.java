@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -275,11 +276,39 @@ public class CourseService {
         Course course=courseRepository.findById(courseId).orElseThrow();
         User user=userRepository.findByEmail(email).orElseThrow();
 
-        user.getStudyingCourses().add(course);
-        userRepository.save(user);
+        if(!user.getStudyingCourses().contains(course)){
+            user.getStudyingCourses().add(course);
+            userRepository.save(user);
+        }
 
     }
 
+
+    public boolean checkTest(String email, CheckTestForm form){
+        User user=userRepository.findByEmail(email).orElseThrow();
+        CourseChapter chapter=courseChapterRepository.findById(form.getChapterId())
+                .orElseThrow(()-> new IllegalArgumentException("Chapter with id "+form.getChapterId()+" not found"));
+
+        if(form.getTestAnswerId().equals(getRightAnswerId(chapter.getTest()))){
+            CompletedTask completedTask=CompletedTask.builder()
+                    .chapter(chapter)
+                    .dateOn(LocalDateTime.now())
+                    .user(user)
+                    .build();
+
+            completedTaskRepository.saveAndFlush(completedTask);
+            return true;
+        }
+
+        return false;
+
+    }
+
+
+    private Long getRightAnswerId(CourseTest test){
+        List<TestAnswer> answers=test.getAnswers();
+        return answers.stream().filter(TestAnswer::getCorrect).findFirst().orElseThrow().getId();
+    }
 
 
 }

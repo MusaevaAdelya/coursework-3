@@ -1,12 +1,14 @@
 package edu.inai.coursework3.controllers;
 
 
+import edu.inai.coursework3.dto.CheckTestForm;
 import edu.inai.coursework3.dto.CreateCourseForm;
 import edu.inai.coursework3.dto.EditChapterForm;
 import edu.inai.coursework3.entities.Course;
 import edu.inai.coursework3.services.*;
 import edu.inai.coursework3.util.FileStorageService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,24 +20,33 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/course")
 public class CourseController{
     private final UserService userService;
     private final CourseService courseService;
-    private final PropertiesService propertiesService;
     private final CategoryService categoryService;
 
 
     @GetMapping("/{courseId}/content/{chapterId}")
     public String getCourseContent(Model model, Authentication authentication,
-                                   @PathVariable Long courseId,@PathVariable Long chapterId){
+                                   @PathVariable Long courseId,@PathVariable Long chapterId,
+                                   @RequestParam(value = "correct", required = false)Boolean correct){
         model.addAttribute("user",userService.getUserDtoByEmail(authentication.getName()));
+
+        courseService.rollIn(authentication.getName(),courseId);
+
+        if(correct!=null){
+            model.addAttribute("correct",correct);
+        }
+
         model.addAttribute("studentProgress",userService.getStudentProgress(courseId,authentication.getName()));
         model.addAttribute("currentChapter",courseService.getCourseChpaterById(chapterId));
         model.addAttribute("course", courseService.getCourseById(courseId));
         model.addAttribute("completedChapterIds",userService.getCompletedChaptersIds(authentication.getName(),courseId));
+        model.addAttribute("completedQty",userService.getCompletedChaptersQty(authentication.getName(),courseId));
 
         return "course_content_new";
 
@@ -52,7 +63,7 @@ public class CourseController{
     }
 
     @PostMapping("/create")
-    public String createCourse(Model model, Authentication authentication,
+    public String createCourse(Authentication authentication,
                                @ModelAttribute("createCourseData") CreateCourseForm form ){
 
 
@@ -80,8 +91,7 @@ public class CourseController{
 
     @PostMapping ("/{courseId}/edit/{chapterId}")
 
-    public String editCourse(Model model, Authentication authentication,
-                             @PathVariable Long courseId, @PathVariable Long chapterId,
+    public String editCourse(@PathVariable Long courseId, @PathVariable Long chapterId,
                              @ModelAttribute("editChapterForm")EditChapterForm form){
         courseService.editChapter(form);
 
@@ -89,8 +99,14 @@ public class CourseController{
 
     }
 
+    @PostMapping ("/check-test")
+    public String checkTest(Authentication authentication,
+                             @ModelAttribute("checkTestForm") CheckTestForm form){
 
+        boolean pass=courseService.checkTest(authentication.getName(), form);
+        return String.format("redirect:/course/%s/content/%s?correct="+pass,form.getCourseId(),form.getChapterId());
 
+    }
 
 
 }

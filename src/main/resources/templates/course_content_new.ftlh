@@ -4,33 +4,26 @@
     <#assign extraScriptAfterMarkup>
         <script>
 
-            var decodeEntities = (function () {
-                // this prevents any overhead from creating the object each time
-                var element = document.createElement('div');
-
-                function decodeHTMLEntities(str) {
-                    if (str && typeof str === 'string') {
-                        // strip script/html tags
-                        str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-                        str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-                        element.innerHTML = str;
-                        str = element.textContent;
-                        element.textContent = '';
-                    }
-
-                    return str;
-                }
-
-                return decodeHTMLEntities;
-            })();
-
             $(document).ready(function () {
-                let decodedContent = decodeEntities("${currentChapter.text}")
-                let content = document.createElement("div");
-                content.innerHTML = decodedContent
 
-                $("#mainContent").append(content)
+                <#if correct??>
+                <#if correct>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Correct!',
+                    text: 'You passed the test of "${currentChapter.title}" chapter',
+                })
+                <#else>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Try again!',
+                    text: 'You did not pass the test of "${currentChapter.title}" chapter',
+                })
+                </#if>
+                </#if>
+
             })
+
         </script>
     </#assign>
 </#if>
@@ -115,7 +108,7 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
             <div id="docs-sidebar" class="docs-sidebar">
                 <div class="p-3">
                     <h5>${course.name}</h5>
-                    <p>Progress: 3/23</p>
+                    <p>Progress: ${completedQty.completed}/${completedQty.overall}</p>
                     <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                         <div class="progress-bar" style="width: ${studentProgress!0}%;"></div>
                     </div>
@@ -132,7 +125,7 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
                                     <a class="nav-link" href="/course/${course.id}/content/${chapter.id}">
                                         ${chapter.title}
                                         <#if completedChapterIds?seq_contains(chapter.id)>
-                                            <i class="bi bi-check text-success"></i>
+                                            <i class="bi bi-check text-success fs-5"></i>
                                         </#if>
                                     </a>
                                 </li>
@@ -160,61 +153,80 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
                         <#if studentProgress??>
                             <#if currentChapter.test??>
                                 <section class="docs-section">
-                                    <#if completedChapterIds?seq_contains(currentChapter.id)>
-                                        <img src="/img/completed.png" style="object-fit: contain; width: 100%;">
+                                    <#if !completedChapterIds?seq_contains(currentChapter.id)>
+                                        <form method="post"
+                                              action="/course/check-test?courseId=${course.id}&chapterId=${currentChapter.id}"
+                                              role="form" modelAttribute="checkTestForm">
+                                            <#if _csrf??>
+                                                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                                                       value="${(_csrf.token)!'--no-token--'}"/>
+                                            </#if>
+                                            <h2 class="section-heading">Test</h2>
+                                            <div class="container border p-4 mb-5">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <p class="fw-bold">${currentChapter.test.question}</p>
+                                                        <div>
+                                                            <input type="radio" name="testAnswerId"
+                                                                   value="${currentChapter.test.answers[0].id}"
+                                                                   id="one">
+                                                            <input type="radio" name="testAnswerId"
+                                                                   value="${currentChapter.test.answers[1].id}"
+                                                                   id="two">
+                                                            <input type="radio" name="testAnswerId"
+                                                                   value="${currentChapter.test.answers[2].id}"
+                                                                   id="three">
+                                                            <input type="radio" name="testAnswerId"
+                                                                   value="${currentChapter.test.answers[3].id}"
+                                                                   id="four">
 
-                                    <#else>
-
-                                        <h2 class="section-heading">Test</h2>
-                                        <div class="container border p-4 mb-5">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <p class="fw-bold">${currentChapter.test.question}</p>
-                                                    <div>
-                                                        <input type="radio" name="box" id="one">
-                                                        <input type="radio" name="box" id="two">
-                                                        <input type="radio" name="box" id="three">
-                                                        <input type="radio" name="box" id="four">
-
-                                                        <label for="one" class="box first">
-                                                            <div class="course"><span class="circle"></span> <span class="subject">${currentChapter.test.answers[0].text}</span>
-                                                            </div>
-                                                        </label>
+                                                            <label for="one" class="box first">
+                                                                <div class="course"><span class="circle"></span> <span
+                                                                            class="subject">${currentChapter.test.answers[0].text}</span>
+                                                                </div>
+                                                            </label>
 
 
-                                                        <label for="two" class="box second">
-                                                            <div class="course"><span class="circle"></span> <span class="subject">${currentChapter.test.answers[1].text}
+                                                            <label for="two" class="box second">
+                                                                <div class="course"><span class="circle"></span> <span
+                                                                            class="subject">${currentChapter.test.answers[1].text}
                                                     </span>
-                                                            </div>
+                                                                </div>
 
-                                                        </label>
+                                                            </label>
 
 
-                                                        <label for="three" class="box third">
-                                                            <div class="course"><span class="circle"></span> <span class="subject">${currentChapter.test.answers[2].text}</span>
-                                                            </div>
+                                                            <label for="three" class="box third">
+                                                                <div class="course"><span class="circle"></span> <span
+                                                                            class="subject">${currentChapter.test.answers[2].text}</span>
+                                                                </div>
 
-                                                        </label>
+                                                            </label>
 
-                                                        <label for="four" class="box forth">
-                                                            <div class="course"><span class="circle"></span> <span class="subject">${currentChapter.test.answers[3].text}</span>
-                                                            </div>
-                                                        </label>
+                                                            <label for="four" class="box forth">
+                                                                <div class="course"><span class="circle"></span> <span
+                                                                            class="subject">${currentChapter.test.answers[3].text}</span>
+                                                                </div>
+                                                            </label>
 
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 mt-4">
-                                                    <div class="d-flex justify-content-end">
-                                                        <button class="btn btn-primary px-4 py-2 fw-bold"> Check</button>
+                                                    <div class="col-12 mt-4">
+                                                        <div class="d-flex justify-content-end">
+                                                            <button class="btn btn-primary px-4 py-2 fw-bold"
+                                                                    type="submit"> Check
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </form>
+
+
                                     </#if>
                                 </section>
                             </#if>
                         </#if>
-
 
 
                     </article>
