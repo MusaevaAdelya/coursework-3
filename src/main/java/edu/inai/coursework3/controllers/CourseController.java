@@ -95,19 +95,3 @@ public class CourseController{
 
 }
 
-@RestController
-@RequestMapping("/files")
-class FileController {
-    @Autowired
-    private FileStorageService fileStorageService;
-
-
-    @PostMapping("/courses")
-    public ResponseEntity<String> uploadImage(@RequestParam("upload") MultipartFile file, HttpServletRequest request) throws IOException {
-        String fileName = fileStorageService.saveFile(file, "image");
-        String fileUrl = request.getRequestURL().toString().replace(request.getRequestURI().substring(1), "") + "files/courses/image/" + fileName;
-        String response = "<script>window.parent.CKEDITOR.tools.callFunction(" + request.getParameter("CKEditorFuncNum") + ", '" + fileUrl + "', '');</script>";
-        return ResponseEntity.ok(response);
-    }
-
-}
