@@ -37,7 +37,7 @@ public class CourseController{
         model.addAttribute("course", courseService.getCourseById(courseId));
         model.addAttribute("completedChapterIds",userService.getCompletedChaptersIds(authentication.getName(),courseId));
 
-        return "course_content";
+        return "course_content_new";
 
     }
 
