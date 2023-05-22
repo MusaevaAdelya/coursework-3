@@ -132,7 +132,6 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                         href="/login?register=true">Register</a></li>
                         </ul>
                     </@security.authorize>
-
                     <@security.authorize access="isAuthenticated()">
                         <p class="menu-separator d-sm-inline ms-auto">.</p>
                         <#if user??>
@@ -417,7 +416,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <div class="d-flex justify-content-between">
                                                                 <a href="/course/${user.createdCourses[index].id}"
                                                                    class="btn btn-primary">View</a>
-                                                                <#if user.createdCourses[index].courseSections??>
+                                                                <#if user.createdCourses[index].courseSections?has_content>
 
                                                                     <a href="/course/${user.createdCourses[index].id}/edit/${user.createdCourses[index].courseSections[0].chapters[0].id}"
                                                                        class="btn btn-primary">Edit</a>
@@ -440,7 +439,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <div class="d-flex justify-content-between">
                                                                 <a href="/course/${c.id}"
                                                                    class="btn btn-primary">View</a>
-                                                                <#if c.courseSections??>
+                                                                <#if c.courseSections?has_content>
                                                                     <#if c.courseSections[0].chapters[0]??>
                                                                         <a href="/course/${c.id}/edit/${c.courseSections[0].chapters[0].id}"
                                                                            class="btn btn-primary">Edit</a>
@@ -470,7 +469,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                                 <div class="d-flex justify-content-between">
                                                                     <a href="/course/${user.createdCourses[index].id}"
                                                                        class="btn btn-primary">View</a>
-                                                                    <#if user.createdCourses[index].courseSections??>
+                                                                    <#if user.createdCourses[index].courseSections?has_content>
 
                                                                         <a href="/course/${user.createdCourses[index].id}/edit/${user.createdCourses[index].courseSections[0].chapters[0].id}"
                                                                            class="btn btn-primary">Edit</a>

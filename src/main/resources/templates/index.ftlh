@@ -1,5 +1,4 @@
 <#import "partials/main.ftlh" as main />
-
 <@main.renderWith title="Calopsia | Main"
 scripts=["/js/script.js"]
 styles=["/css/style.css"]>
@@ -91,17 +90,17 @@ styles=["/css/style.css"]>
 
                     <div class="input-group mb-3 mt-5 search-input">
                         <i class="b"></i>
-                        <input type="text" class="form-control input-main-page border-0" aria-label="searchInput"
+                        <input type="text" class="form-control input-main-page border-0" id="SearchBtn" aria-label="searchInput"
                                placeholder="Course titles or keywords">
-                        <button class="btn btn-outline-secondary dropdown-toggle btn-categories" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">Categories
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">1</a></li>
-                            <li><a class="dropdown-item" href="#">2</a></li>
-                            <li><a class="dropdown-item" href="#">3</a></li>
-                        </ul>
-                        <button class="btn btn-outline-secondary btn-main text-white" type="button" id="button-addon2">
+<#--                        <button class="btn btn-outline-secondary dropdown-toggle btn-categories" type="button"-->
+<#--                                data-bs-toggle="dropdown" aria-expanded="false">Categories-->
+<#--                        </button>-->
+<#--                        <ul class="dropdown-menu dropdown-menu-end">-->
+<#--                            <li><a class="dropdown-item" href="#">1</a></li>-->
+<#--                            <li><a class="dropdown-item" href="#">2</a></li>-->
+<#--                            <li><a class="dropdown-item" href="#">3</a></li>-->
+<#--                        </ul>-->
+                        <button onclick="openLinkWithInputValue()" class="btn btn-outline-secondary btn-main text-white" type="button" id="button-addon2">
                             Search
                         </button>
                     </div>

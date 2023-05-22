@@ -11,3 +11,12 @@ $(function () {
         });
     }
 });
+
+function openLinkWithInputValue() {
+    // Получаем значение инпута
+    var inputValue = $('#SearchBtn').val();
+
+    // Формируем URL со значением инпута
+    // Открываем ссылку в новой вкладке
+    window.location.href = 'http://localhost:5050/courses?keywords=' + encodeURIComponent(inputValue);
+}
