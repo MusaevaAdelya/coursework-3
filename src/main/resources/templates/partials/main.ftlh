@@ -64,16 +64,9 @@ extraScriptAfter="" extraScriptBefore="">
     <#--    <script src="/vendor/bootstrap5/js/bootstrap.min.js"></script>-->
     <script src="/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
     <script src="https://use.fontawesome.com/ffe0d7ed97.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="/vendor/popper.min.js"></script>
-    <script src="/vendor/smoothscroll.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
-    <script src="/vendor/highlight-custom.js"></script>
-    <script src="/vendor/simplelightbox/simple-lightbox.min.js"></script>
-
-    <script src="https://use.fontawesome.com/ffe0d7ed97.js"></script>
-    <script src="/vendor/gumshoe/gumshoe.polyfills.min.js"></script>
 
     <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- Page level plugins -->
@@ -85,8 +78,6 @@ extraScriptAfter="" extraScriptBefore="">
     <script src="/js/sb-admin-2.min.js"></script>
 
     <script src="/vendor/nestable/jquery.nestable.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 

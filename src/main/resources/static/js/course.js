@@ -56,23 +56,3 @@ allStars.forEach((star, i) => {
     }
 });
 
-
-function RollIn(){
-    var prog = document.getElementById("progress")
-    var prog_block = document.getElementById("progress-t")
-    var comments = document.getElementById("add-reviews")
-    var roll = document.getElementById("roll-in")
-    var width = prog.style.width
-    var width_int = Number(width.replace("%" , ""))
-
-    roll.style.display = "none"
-    prog_block.style.display = "block"
-    if(width_int< 10){
-        comments.style.display = "none"
-        prog.innerHTML = width
-    }else{
-        comments.style.display = "block"
-        prog.innerHTML = width
-    }
-
-}

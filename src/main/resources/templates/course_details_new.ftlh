@@ -278,9 +278,9 @@ extraScriptAfter=extraScriptAfterMarkup>
                        <#list course.courseSections as section>
                            <div class="accordion-item">
                                <button class="accordion-button" data-bs-toggle="collapse"
-                                       data-bs-target="#collapseOne"><i
+                                       data-bs-target="#collapse${section.id}"><i
                                            class="tutor-icon"></i>${section.title!''}</button>
-                               <div id="collapseOne" class="accordion-collapse collapse show"
+                               <div id="collapse${section.id}" class="accordion-collapse collapse show"
                                     data-bs-parent="#accordionCourse">
 
                                    <div class="course-curriculum__lessons">
@@ -323,11 +323,6 @@ extraScriptAfter=extraScriptAfterMarkup>
                                             <a class="tutor-instructor__name" href="#"><h4
                                                         class="tutor-instructor__name">${course.teacher.username!""}</h4>
                                             </a>
-                                            <div class="tutor-instructor__ratings">
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 90%;"></div>
-                                                </div>
-                                            </div>
                                             <div class="tutor-instructor__meta">
                                                 <span><i class="bi bi-play-circle"></i> ${course.teacher.createdCourses?size!""}</span>
 <#--                                                <span><i class="fas fa-comment-alt"></i> 4 Reviews</span>-->
@@ -358,79 +353,6 @@ extraScriptAfter=extraScriptAfterMarkup>
                                             </div>
                                         </div>
                                         <div class="rating-total">${ratings?size!"0"} Ratings</div>
-                                    </div>
-                                    <div class="tutor-course-segment__reviews-metar">
-
-                                        <div class="course-rating-metar">
-                                            <div class="rating-metar-star">
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 100%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="rating-metar-col">
-                                                <div class="rating-metar-bar">
-                                                    <div class="rating-metar-line" style="width: 75%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="rating-metar-text">75%</div>
-                                        </div>
-
-                                        <div class="course-rating-metar">
-                                            <div class="rating-metar-star">
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 80%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="rating-metar-col">
-                                                <div class="rating-metar-bar">
-                                                    <div class="rating-metar-line" style="width: 13%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="rating-metar-text">13%</div>
-                                        </div>
-
-                                        <div class="course-rating-metar">
-                                            <div class="rating-metar-star">
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 60%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="rating-metar-col">
-                                                <div class="rating-metar-bar">
-                                                    <div class="rating-metar-line" style="width: 0%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="rating-metar-text">0%</div>
-                                        </div>
-
-                                        <div class="course-rating-metar">
-                                            <div class="rating-metar-star">
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 40%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="rating-metar-col">
-                                                <div class="rating-metar-bar">
-                                                    <div class="rating-metar-line" style="width: 0%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="rating-metar-text">0%</div>
-                                        </div>
-
-                                        <div class="course-rating-metar">
-                                            <div class="rating-metar-star">
-                                                <div class="rating-star">
-                                                    <div class="rating-label" style="width: 20%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="rating-metar-col">
-                                                <div class="rating-metar-bar">
-                                                    <div class="rating-metar-line" style="width: 13%;"></div>
-                                                </div>
-                                            </div>
-                                            <div class="rating-metar-text">13%</div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -490,58 +412,33 @@ extraScriptAfter=extraScriptAfterMarkup>
                                     <div class="collapse" id="collapseForm">
                                         <!-- Comment Form Start -->
                                         <div class="comment-form">
-                                            <form action="/review" method="post">
-                                                <div class="comment-form__rating">
-                                                    <label class="label">Your rating: *</label>
-                                                    <ul id="rating" class="rating">
-                                                        <li class="star" title="Poor" data-value="1"><i
-                                                                    class="bi bi-star"></i></li>
-                                                        <li class="star" title="Poor" data-value="2"><i
-                                                                    class="bi bi-star"></i></li>
-                                                        <li class="star" title="Poor" data-value="3"><i
-                                                                    class="bi bi-star"></i></li>
-                                                        <li class="star" title="Poor" data-value="4"><i
-                                                                    class="bi bi-star"></i></li>
-                                                        <li class="star" title="Poor" data-value="5"><i
-                                                                    class="bi bi-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="row gy-4">
-                                                    <div class="col-md-6">
-                                                        <div class="comment-form__input">
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="Your Name *">
+                                            <#if studentProgress?has_content>
+                                                <#if (studentProgress>=10)>
+
+                                                        <form method="POST" action="/course/review" modelAttribute="reviewForm">
+                                                            <input name="comment" required type="text" class="comments-input"
+                                                                   placeholder="Comment...">
+                                                            <input name="stars" required hidden id="commentStars">
+                                                            <input name="userId" hidden value="${user.id}">
+                                                            <input name="courseId" hidden value="${course.id}">
+                                                            <#if _csrf??>
+                                                                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                                                                       value="${(_csrf.token)!'--no-token--'}"/>
+                                                            </#if>
+                                                            <button type="submit" class="comments-btn"><i class="bi bi-send"></i></button>
+                                                        </form>
+                                                        <div class="star-rating text-center">
+                                                            <p class="text-center text-secondary fw-bolder fs-5 mb-0">Rating</p>
+                                                            <button class="star-btn">&#9734</button>
+                                                            <button class="star-btn">&#9734</button>
+                                                            <button class="star-btn">&#9734</button>
+                                                            <button class="star-btn">&#9734</button>
+                                                            <button class="star-btn">&#9734</button>
+                                                            <p class="current-rating text-center fw-bold">0 of 5</p>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="comment-form__input">
-                                                            <input type="email" class="form-control"
-                                                                   placeholder="Your Email *">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="comment-form__input">
-                                                            <textarea class="form-control"
-                                                                      placeholder="Your Comment"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="comment-form__input form-check">
-                                                            <input type="checkbox" id="save">
-                                                            <label for="save">Save my name, email, and website
-                                                                in this
-                                                                browser for the next time I comment.</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="comment-form__input">
-                                                            <button class="btn btn-primary btn-hover-secondary">
-                                                                Submit
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
+
+                                                </#if>
+                                            </#if>
                                         </div>
                                         <!-- Comment Form End -->
                                     </div>
@@ -610,34 +507,14 @@ extraScriptAfter=extraScriptAfterMarkup>
 <#--                                    </div>-->
                                     <div class="tutor-course-price-preview__btn">
 
-                                            <button class="btn btn-primary btn-hover-secondary w-100 p-3"><i
+                                            <a class="btn btn-primary btn-hover-secondary w-100 p-3" href="/course/${course.id}/content/${course.courseSections[0].chapters[0].id}"><i
                                                         class="bi bi-bag"></i> Start learning
-                                            </button>
+                                            </a>
 
                                     </div>
                                 </div>
                                 <!-- Tutor Course Price Preview End -->
 
-                                <!-- Sidebar Widget Start -->
-<#--                                <div class="sidebar-widget">-->
-<#--                                    <h3 class="sidebar-widget__title">Course categories</h3>-->
-
-<#--                                    <ul class="sidebar-widget__link">-->
-<#--                                        <li><a href="#">Art &amp; Design</a></li>-->
-<#--                                        <li><a href="#">Business</a></li>-->
-<#--                                        <li><a href="#">Data Science</a></li>-->
-<#--                                        <li><a href="#">Development</a></li>-->
-<#--                                        <li><a href="#">Finance</a></li>-->
-<#--                                        <li><a href="#">Health &amp; Fitness</a></li>-->
-<#--                                        <li><a href="#">Lifestyle</a></li>-->
-<#--                                        <li><a href="#">Marketing</a></li>-->
-<#--                                        <li><a href="#">Music</a></li>-->
-<#--                                        <li><a href="#">Personal Development</a></li>-->
-<#--                                        <li><a href="#">Photography</a></li>-->
-<#--                                        <li><a href="#">Teaching &amp; Academics</a></li>-->
-<#--                                    </ul>-->
-<#--                                </div>-->
-                                <!-- Sidebar Widget End -->
 
                                 <!-- Sidebar Widget Start -->
                                 <div class="sidebar-widget">

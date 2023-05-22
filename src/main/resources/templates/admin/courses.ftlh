@@ -225,8 +225,8 @@ styles=["/css/style.css","/css/admin.css"]>
                                                 </span>${course.ratingScore}
                                                             </td>
                                                             <td>${course.category.name}</td>
-                                                            <td>${course.dateOn.dayOfMonth}-${course.dateOn.monthValue}
-                                                                -${course.dateOn.year}</td>
+<#--                                                            <td>${course.dateOn.dayOfMonth}-${course.dateOn.monthValue}-->
+<#--                                                                -${course.dateOn.year}</td>-->
                                                             <td>
                                                                 <button type="button" data-bs-toggle="modal"
                                                                         data-bs-target="#profile-modal"
@@ -295,8 +295,8 @@ styles=["/css/style.css","/css/admin.css"]>
                                                             </td>
                                                             <td>${course.teacher.username}</td>
                                                             <td>${course.category.name}</td>
-                                                            <td>${course.dateOn.dayOfMonth}-${course.dateOn.monthValue}
-                                                                -${course.dateOn.year}</td>
+<#--                                                            <td>${course.dateOn.dayOfMonth}-${course.dateOn.monthValue}-->
+<#--                                                                -${course.dateOn.year}</td>-->
                                                             <td>
                                                                 <button type="button" data-bs-toggle="modal"
                                                                         data-bs-target="#profile-modal"
@@ -385,8 +385,8 @@ styles=["/css/style.css","/css/admin.css"]>
                                                 </span>${course.ratingScore}
                                                             </td>
                                                             <td>${course.category.name}</td>
-                                                            <td>${course.dateOn.dayOfMonth}-${course.dateOn.monthValue}
-                                                                -${course.dateOn.year}</td>
+<#--                                                            <td>${course.dateOn.dayOfMonth}-${course.dateOn.monthValue}-->
+<#--                                                                -${course.dateOn.year}</td>-->
                                                             <td>
                                                                 <button type="button" data-bs-toggle="modal"
                                                                         data-bs-target="#profile-modal"

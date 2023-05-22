@@ -116,7 +116,7 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
             <div id="docs-sidebar" class="docs-sidebar">
                 <div class="p-3">
                     <h5>${course.name!''}</h5>
-<#--                    <p>Progress: ${studentProgress!"0"}/${course.s}</p>-->
+                    <p>Progress: ${completedChapterIds?size!"0"}/${course.courseSections?size!'0'}</p>
                     <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                         <div class="progress-bar" style="width: ${studentProgress!"0"}%"></div>
                     </div>
