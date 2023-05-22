@@ -357,9 +357,8 @@
     display: inline-block;
     position: relative;
 }
-.tutor-course-top-info__meta-rating .rating-star::before {
-    content: "\2605\2605\2605\2605\2605";
-    font-family: "Font Awesome 5 Free";
+.tutor-course-top-info__meta-rating .rating-star {
+
     font-weight: 900;
     font-size: 14px;
     color: #ccc;
@@ -682,9 +681,7 @@
     position: relative;
     margin-bottom: 4px;
 }
-.tutor-course-segment__reviews-average .rating-star::before {
-    content: "\2605\2605\2605\2605\2605";
-    font-family: "Font Awesome 5 Free";
+.tutor-course-segment__reviews-average .rating-star {
     font-weight: 900;
     font-size: 16px;
     color: #ccc;
@@ -1943,6 +1940,19 @@
 }
 .bg-color-11 {
     background-color: #f5f7fd;
+}
+
+
+.star{
+    color: var(--Star);
+    border:none;
+    background: none;
+
+}
+
+.star:hover {
+    cursor: pointer;
+
 }
 
 .sidebar-widget-wrap {

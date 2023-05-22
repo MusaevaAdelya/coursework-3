@@ -1,0 +1,222 @@
+<#import "partials/main.ftlh" as main />
+
+<@main.renderWith title="Calopsia | Edit Course"
+scripts=["/js/script.js","/js/edit_course_de.js"]
+styles=["/css/style.css","/css/edit-course.css",
+"/css/progress-style.css"]
+footer="false">
+    <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
+    <div id="element">
+        <div class="overflow"></div>
+    </div>
+    <header class="sticky-top">
+        <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3 full" id="mainNav">
+            <div class="container d-flex justify-content-between">
+                <button style="margin-bottom: 0.5rem" id="docs-sidebar-toggler"
+                        class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <a href="#"><img class="logo-header" src="/img/Black_logo.svg" alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarResponsive"
+                        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fa fa-bars text-black fs-1" aria-hidden="true"></i>
+                </button>
+
+                <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-0">
+                        <li class="nav-item"><a class="nav-link text-black " href="/">Startseite</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">Alle Kurse</a></li>
+                        <li class="nav-item"><a class="nav-link text-black" href="#">Über uns</a></li>
+                    </ul>
+                    <@security.authorize access="! isAuthenticated()">
+                        <ul class="navbar-nav ms-auto d-sm-inline py-4 py-lg-0 second">
+                            <li class="menu-separator nav-item ">.</li>
+                            <li class="nav-item d-sm-inline header-button"><a
+                                        class="nav-link d-sm-inline text-black text-bold"
+                                        href="/login">Anmeldung</a>
+                            </li>
+                            <li class="nav-item d-sm-inline header-button"><a
+                                        class="nav-link d-sm-inline text-black header-button-purp"
+                                        href="/login?register=true">Register</a></li>
+                        </ul>
+                    </@security.authorize>
+
+                    <@security.authorize access="isAuthenticated()">
+                        <p class="menu-separator d-sm-inline ms-auto">.</p>
+                        <#if user??>
+                            <a class="auth-user mx-3" href="/profile">
+                                <p class=" username">${user.username}</p>
+                                <img src="${avatarPath}${user.avatar}" alt="user avatar" class=" avatar">
+                            </a>
+                        </#if>
+
+                        <form action="/logout" method="post" role="form">
+                            <#if _csrf??>
+                                <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                                       value="${(_csrf.token)!'--no-token--'}"/>
+                            </#if>
+
+                            <div class="nav-item d-sm-inline  ms-3">
+                                <button type="submit"
+                                        class="d-sm-inline btn btn-outline-secondary btn-main text-white header-button-purp"
+                                        href="#">Abmeldung
+                                </button>
+                            </div>
+
+                        </form>
+                    </@security.authorize>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+
+    <main class="container-fluid min-vh-100-minus-header  pt-nav">
+        <div class="categories-create flex-shrink-0 p-3 scrollarea" style="width: 280px;">
+            <img src="${coursesPath}${course.thumbNailPath}" class="img-fluid rounded img-course w-100" alt="">
+            <div class="mt-2">
+                <!-- Здесь статусы курса, показываться будет один из них -->
+                <!-- <span class="status-course success my-3 rounded px-2 py-1" >Published</span> -->
+                <span class="status-course gray my-3 rounded px-2 py-1">Archiv</span>
+                <!-- <span class="status-course alert my-3 rounded px-2 py-1" >Error</span> -->
+            </div>
+            <a href="/" class="d-flex pb-3 mt-2 link-dark text-decoration-none">
+                <span class="fs-5 fw-semibold">${course.name}</span>
+            </a>
+            <a name="" id="" class="btn btn-outline-primary mb-3 btn-max-width" href="#" role="button">Bearbeiten</a>
+            <ul class="list-unstyled ps-0 pt-2 border-top">
+                <h5>Menü</h5>
+                <#list course.courseSections as section>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                                data-bs-toggle="collapse" data-bs-target="#dashboard-collapse${section.id}"
+                                aria-expanded="true">
+                            ${section.title}
+                        </button>
+                        <div class="collapse" id="dashboard-collapse${section.id}">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <#list section.chapters as chapter>
+                                    <li><a href="/course/${course.id}/edit/${chapter.id}"
+                                           class="link-dark d-inline-flex text-decoration-none rounded">
+                                            ${chapter.title}</a>
+                                    </li>
+                                </#list>
+                            </ul>
+                        </div>
+                    </li>
+                </#list>
+
+            </ul>
+        </div>
+
+
+        <div class="col p-3 shadow bg-white scrollarea categories-create">
+            <form method="POST" action="/course/${course.id}/edit/${chapter.id}"
+                  modelAttribute="editChapterForm" id="editChapterForm">
+
+                <#if _csrf??>
+                    <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                           value="${(_csrf.token)!'--no-token--'}"/>
+                </#if>
+                <input hidden name="chapterId" value="${chapter.id}">
+
+                <div id="content-description" class="content-create">
+                    <input type="text" id="LessonNametext" readonly
+                           class="LessonNameText" value="${chapter.title}">
+                    <hr>
+
+                    <div style="width: 100%;">
+                        <textarea name="text" id="text">${chapter.text!""}</textarea>
+                    </div>
+
+                    <hr>
+
+                    <h2 class="mb-5 mt-4">Test erstellen</h2>
+
+                    <#if chapter.test??>
+                        <div class="test-section mb-5 mt-3">
+                            <input type="text" name="question" id="question" placeholder="Frage schreiben"
+                                   class="question" value="${chapter.test.question!""}">
+                            <#list chapter.test.answers as answer>
+                                <div class="test d-flex justify-content-between">
+                                    <div>
+                                        <input type="radio" name="correct" id="test${answer.id}"
+                                               <#if answer.correct>checked</#if> value="${answer.text}">
+                                        <input type="text" name="answer" data-radio="#test${answer.id}"
+                                               class="answer-input test-input" placeholder="Antwort"
+                                               value="${answer.text}">
+                                    </div>
+                                    <div>
+                                        <button class="btn remove-item ">
+                                            <i class="bi bi-trash3 text-danger"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </#list>
+                            <#--                        <div class="test ps-0">-->
+                            <#--                            <input class="add-answer w-100 h-100 bg-transparent border-0 text-start ps-2" type="button" value="Add answer">-->
+                            <#--                        </div>-->
+                        </div>
+                    <#else>
+                        <div class="test-section mb-5 mt-3">
+                            <input type="text" name="question" id="question" placeholder="Frage schreiben" class="question" >
+                            <#list 1..4 as answer>
+                                <div class="test d-flex justify-content-between">
+                                    <div>
+                                        <input type="radio" name="correct" id="test${answer}" value="${answer}">
+                                        <input type="text" name="answer"  data-radio="#test${answer}" class="answer-input test-input" placeholder="Antwort">
+                                    </div>
+                                    <div>
+                                        <button class="btn remove-item ">
+                                            <i class="bi bi-trash3 text-danger"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </#list>
+                            <#--                        <div class="test ps-0">-->
+                            <#--                            <input class="add-answer w-100 h-100 bg-transparent border-0 text-start ps-2" type="button" value="Add answer">-->
+                            <#--                        </div>-->
+                        </div>
+                    </#if>
+                    <button type="submit" name="action" value="save" class="save-btn" id="test">Speichern</button>
+                    <a href="/course/${course.id}/content/${chapter.id}" class="finish-btn">Oberfläche</a>
+                </div>
+
+            </form>
+
+
+        </div>
+        <script>
+
+
+            CKEDITOR.replace('text', {
+                extraPlugins: 'colorbutton,justify',
+                filebrowserUploadMethod: 'form',
+                filebrowserUploadUrl: '/files/courses',
+                debug: true,
+                filebrowserImageUploadMethod: 'form',
+                filebrowserUploadResponse: function (responseData) {
+                    var response = JSON.parse(responseData);
+                    return {
+                        "url": response.url,
+                        "name": response.name,
+                        "filename": response.name
+                    };
+                }
+            });
+
+
+        </script>
+
+
+    </main>
+
+
+</@main.renderWith>
