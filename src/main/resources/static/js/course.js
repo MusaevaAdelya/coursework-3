@@ -1,21 +1,11 @@
-$(document).ready(function() {
-    $('.seeallcourcesbut').html('See all course');
-    $('.seeallcourcesbut').click(function() {
-        if ($(this).text() == 'See all course') {
-            $(this).html('Hide all course');
-        } else {
-            $(this).html('See all course');
-        }
-    })
-});
 
 $(document).ready(function() {
     $('.seeallreviewsbut').html('See all reviews');
     $('.seeallreviewsbut').click(function() {
         if ($(this).text() == 'See all reviews') {
-            $(this).html('Hide all reviews');
+            $(this).html('Alle Bewertungen ausblenden');
         } else {
-            $(this).html('See all reviews');
+            $(this).html('Alle Bewertungen sehen');
         }
     })
 })

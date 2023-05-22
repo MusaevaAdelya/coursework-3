@@ -13,7 +13,7 @@ $("body").delegate(".add-answer ",'click',function (e) {
    var text = '<div class="test d-flex justify-content-between">\n' +
        '          <div>\n' +
        '            <input type="radio" name="correct" id="test${answer.id + 1}" <#if answer.correct>checked</#if> value="${answer.text!""}">\n' +
-       '            <input type="text" name="answer" data-radio="#test${answer.id + 1}" class="answer-input test-input" placeholder="answer" value="${answer.text!""}">\n' +
+       '            <input type="text" name="answer" data-radio="#test${answer.id + 1}" class="answer-input test-input" placeholder="Antwort" value="${answer.text!""}">\n' +
        '          </div>\n' +
        '          <div>\n' +
        '            <button class="btn remove-item ">\n' +

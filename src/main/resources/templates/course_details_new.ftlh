@@ -7,8 +7,8 @@
             <#if review="success">
             Swal.fire({
                 icon: 'success',
-                title: 'Success',
-                text: 'your review was successfully added to the course "${course.name}"',
+                title: 'Erfolg',
+                text: 'Ihre Bewertung wurde erfolgreich zum Kurs "${course.name}" hinzugefügt.',
             })
             </#if>
             </#if>
@@ -18,15 +18,21 @@
     </script>
 </#assign>
 
-<@main.renderWith title="Calopsia | Course"
+<@main.renderWith title="Calopsia | Kurs"
 scripts=["/js/script.js","/js/course.js"]
 styles=["/css/style.css","/css/course.css"]
 extraScriptAfter=extraScriptAfterMarkup>
     <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 
-    <header>
-        <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3" id="mainNav">
+    <header class="sticky-top">
+        <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3 full" id="mainNav">
             <div class="container d-flex justify-content-between">
+                <button style="margin-bottom: 0.5rem" id="docs-sidebar-toggler"
+                        class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <a href="#"><img class="logo-header" src="/img/Black_logo.svg" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarResponsive"
@@ -37,18 +43,16 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                 <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-0">
-                        <li class="nav-item"><a class="nav-link text-black " href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">All courses</a></li>
-                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>
-                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>
-                        <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
+                        <li class="nav-item"><a class="nav-link text-black " href="/">Startseite</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">Alle Kurse</a></li>
+                        <li class="nav-item"><a class="nav-link text-black" href="#">Über uns</a></li>
                     </ul>
                     <@security.authorize access="! isAuthenticated()">
                         <ul class="navbar-nav ms-auto d-sm-inline py-4 py-lg-0 second">
                             <li class="menu-separator nav-item ">.</li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black text-bold"
-                                        href="/login">Login</a>
+                                        href="/login">Anmeldung</a>
                             </li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black header-button-purp"
@@ -74,7 +78,7 @@ extraScriptAfter=extraScriptAfterMarkup>
                             <div class="nav-item d-sm-inline  ms-3">
                                 <button type="submit"
                                         class="d-sm-inline btn btn-outline-secondary btn-main text-white header-button-purp"
-                                        href="#">Logout
+                                        href="#">Abmeldung
                                 </button>
                             </div>
 
@@ -106,14 +110,16 @@ extraScriptAfter=extraScriptAfterMarkup>
                                 <div class="tutor-course-top-info__meta-instructor">
                                     <div class="instructor-name"><#if course.teacher.username??>${course.teacher.username}</#if></div>
                                 </div>
-                                <div class="tutor-course-top-info__meta-update">Last Update <#if course.dateOn?has_content>${course.dateOn.toString()?datetime.iso?time?string("HH:mm dd MM yyyy")}</#if></div>
+                                <div class="tutor-course-top-info__meta-update">Letzte Aktualisierung <#if course.dateOn?has_content>${course.dateOn.toString()?datetime.iso?time?string("HH:mm dd MM yyyy")}</#if></div>
                             </div>
                             <div class="tutor-course-top-info__meta">
                                 <div class="tutor-course-top-info__meta-rating">
 
                                     <div class="rating-average"><strong>${course.ratingScore!"0"}</strong> /5</div>
                                     <div class="rating-star">
-                                        <div class="rating-label" style="width: 90%;"></div>
+                                        <#list 1..course.ratingScore?int as i>
+                                            <i class="bi bi-star-fill star"></i>
+                                        </#list>
                                     </div>
                                     <div class="rating-count">${course.ratingScore!"0"}</div>
 
@@ -122,10 +128,10 @@ extraScriptAfter=extraScriptAfterMarkup>
                                             class="meta-icon bi bi-person-fill"></i> <#if course.users?has_content>
                                         ${course.users?size}
                                     <#else>
-                                        0 already enrolled
+                                        0 bereits eingeschrieben
                                     </#if>
-                                    already
-                                    enrolled
+                                    bereits
+                                    eingeschrieben
                                 </div>
                             </div>
                         </div>
@@ -150,7 +156,7 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                             <!-- Tutor Course Segment Start -->
                             <div class="tutor-course-segment">
-                                <h4 class="tutor-course-segment__title">Course Prerequisites</h4>
+                                <h4 class="tutor-course-segment__title">Kursvoraussetzungen</h4>
 
                                 <#--                                <!-- Tutor Course Segment Prerequisites Start &ndash;&gt;-->
                                 <#--                                <div class="tutor-course-segment__prerequisites">-->
@@ -177,7 +183,7 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                             <!-- Tutor Course Segment Start -->
                             <div class="tutor-course-segment">
-                                <h4 class="tutor-course-segment__title">About This Course</h4>
+                                <h4 class="tutor-course-segment__title">Über diesen Kurs</h4>
 
                                 <!-- Tutor Course Segment Content Wrapper Start -->
                                 <div class="tutor-course-segment__content-wrap">
@@ -204,7 +210,7 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                             <!-- Tutor Course Segment Start -->
                             <div class="tutor-course-segment benefits-wrap">
-                                <h4 class="tutor-course-segment__title">Learning Objectives</h4>
+                                <h4 class="tutor-course-segment__title">Lernziele</h4>
 
                                 <!-- Tutor Course Segment Benefits Items Start -->
                                 <div class="tutor-course-segment__benefits-items">
@@ -227,7 +233,7 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                             <!-- Tutor Course Segment Start -->
                             <div class="tutor-course-segment">
-                                <h4 class="tutor-course-segment__title">Requirements</h4>
+                                <h4 class="tutor-course-segment__title">Anforderungen</h4>
 
 
                                 <!-- Tutor Course Segment Requirements Items Start -->
@@ -264,7 +270,7 @@ extraScriptAfter=extraScriptAfterMarkup>
                             <div class="tutor-course-segment">
 
                                 <div class="tutor-course-segment__header">
-                                    <h4 class="tutor-course-segment__title">Curriculum</h4>
+                                    <h4 class="tutor-course-segment__title">Lehrplan</h4>
 
                                     <div class="tutor-course-segment__lessons-duration">
                                         <span class="tutor-course-segment__lessons"><#if course.courseSections?has_content>${course.courseSections?size}</#if></span>
@@ -311,7 +317,7 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                             <!-- Tutor Course Segment Start -->
                             <div class="tutor-course-segment">
-                                <h4 class="tutor-course-segment__title">Your Teacher</h4>
+                                <h4 class="tutor-course-segment__title">Deine Lehrerin</h4>
 
                                 <div class="tutor-course-segment__instructor">
                                     <div class="tutor-instructor">
@@ -341,7 +347,7 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                             <!-- Tutor Course Segment Start -->
                             <div class="tutor-course-segment">
-                                <h4 class="tutor-course-segment__title">Student Feedback</h4>
+                                <h4 class="tutor-course-segment__title">Studentisches Feedback</h4>
 
 
                                 <div class="tutor-course-segment__feedback">
@@ -349,10 +355,12 @@ extraScriptAfter=extraScriptAfterMarkup>
                                         <div class="count"></div>
                                         <div class="reviews-rating-star">
                                             <div class="rating-star">
-                                                <div class="rating-label" style="width: 90%;"></div>
+                                                <#list 1..course.ratingScore?int as i>
+                                                    <i class="bi bi-star-fill star"></i>
+                                                </#list>
                                             </div>
                                         </div>
-                                        <div class="rating-total">${ratings?size!"0"} Ratings</div>
+                                        <div class="rating-total">${ratings?size!"0"} Bewertungen</div>
                                     </div>
                                 </div>
                             </div>
@@ -360,7 +368,7 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                             <!-- Tutor Course Segment Start -->
                             <div class="tutor-course-segment">
-                                <h4 class="tutor-course-segment__title">Reviews <span class="count">${ratings?size!"0"}</span>
+                                <h4 class="tutor-course-segment__title">Rezensionen <span class="count">${ratings?size!"0"}</span>
                                 </h4>
 
                                 <div class="tutor-course-segment__review-commnet">
@@ -382,8 +390,10 @@ extraScriptAfter=extraScriptAfterMarkup>
                                                        </div>
                                                        <div class="comment-item-02__body">
 
-                                                           <div class="rating-star">
-                                                               <div class="rating-label" style="width: 80%;"></div>
+                                                           <div>
+                                                               <#list 1..rating.rating as i>
+                                                                   <i class="bi bi-star-fill star"></i>
+                                                               </#list>
                                                            </div>
 
                                                            <p>${rating.comment!""}</p>
@@ -401,12 +411,11 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                             <!-- Tutor Course Segment Start -->
                             <div class="tutor-course-segment">
-                                <h4 class="tutor-course-segment__title">Write a review</h4>
+                                <h4 class="tutor-course-segment__title">Eine Bewertung schreiben</h4>
 
                                 <div class="tutor-course-segment__reviews">
                                     <button class="tutor-course-segment__btn btn btn-primary btn-hover-secondary"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseForm">Write a
-                                        review
+                                            data-bs-toggle="collapse" data-bs-target="#collapseForm">Schreiben Sie eine Bewertung
                                     </button>
 
                                     <div class="collapse" id="collapseForm">
@@ -417,7 +426,7 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                                                         <form method="POST" action="/course/review" modelAttribute="reviewForm">
                                                             <input name="comment" required type="text" class="comments-input"
-                                                                   placeholder="Comment...">
+                                                                   placeholder="Kommentar...">
                                                             <input name="stars" required hidden id="commentStars">
                                                             <input name="userId" hidden value="${user.id}">
                                                             <input name="courseId" hidden value="${course.id}">
@@ -428,7 +437,7 @@ extraScriptAfter=extraScriptAfterMarkup>
                                                             <button type="submit" class="comments-btn"><i class="bi bi-send"></i></button>
                                                         </form>
                                                         <div class="star-rating text-center">
-                                                            <p class="text-center text-secondary fw-bolder fs-5 mb-0">Rating</p>
+                                                            <p class="text-center text-secondary fw-bolder fs-5 mb-0">Bewertung</p>
                                                             <button class="star-btn">&#9734</button>
                                                             <button class="star-btn">&#9734</button>
                                                             <button class="star-btn">&#9734</button>
@@ -475,7 +484,7 @@ extraScriptAfter=extraScriptAfterMarkup>
                                     <div class="tutor-course-price-preview__meta">
                                         <ul class="tutor-course-meta-list">
                                             <li>
-                                                <div class="label"><i class="bi bi-sliders-h"></i> Level</div>
+                                                <div class="label"><i class="bi bi-sliders-h"></i> Ebene</div>
                                                 <div class="value">${course.level!""}</div>
                                             </li>
 <#--                                            <li>-->
@@ -483,12 +492,12 @@ extraScriptAfter=extraScriptAfterMarkup>
 <#--                                                <div class="value">${course.category.name!""}</div>-->
 <#--                                            </li>-->
                                             <li>
-                                                <div class="label"><i class="bi bi-play-circle"></i> Lectures
+                                                <div class="label"><i class="bi bi-play-circle"></i> Vorlesungen
                                                 </div>
-                                                <div class="value">${course.courseSections?size!"0"} lectures</div>
+                                                <div class="value">${course.courseSections?size!"0"} Vorträge</div>
                                             </li>
                                             <li>
-                                                <div class="label"><i class="bi bi-tag"></i> Subject</div>
+                                                <div class="label"><i class="bi bi-tag"></i> Kategorie</div>
                                                 <div class="value"><a href="#">${course.category.name!""}</a></div>
                                             </li>
 <#--                                            <li>-->
@@ -508,7 +517,7 @@ extraScriptAfter=extraScriptAfterMarkup>
                                     <div class="tutor-course-price-preview__btn">
 
                                             <a class="btn btn-primary btn-hover-secondary w-100 p-3" href="/course/${course.id}/content/${course.courseSections[0].chapters[0].id}"><i
-                                                        class="bi bi-bag"></i> Start learning
+                                                        class="bi bi-bag"></i> Lernen beginnen
                                             </a>
 
                                     </div>
@@ -518,7 +527,7 @@ extraScriptAfter=extraScriptAfterMarkup>
 
                                 <!-- Sidebar Widget Start -->
                                 <div class="sidebar-widget">
-                                    <h3 class="sidebar-widget__title">Related Courses</h3>
+                                    <h3 class="sidebar-widget__title">Verwandte Kurse</h3>
 
                                     <div class="sidebar-widget__course">
 

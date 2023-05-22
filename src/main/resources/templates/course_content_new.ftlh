@@ -10,14 +10,14 @@
                 <#if correct>
                 Swal.fire({
                     icon: 'success',
-                    title: 'Correct!',
-                    text: 'You passed the test of "${currentChapter.title}" chapter',
+                    title: 'Richtig!',
+                    text: 'Sie haben den Test des Kapitels "${currentChapter.title}" bestanden',
                 })
                 <#else>
                 Swal.fire({
                     icon: 'error',
-                    title: 'Try again!',
-                    text: 'You did not pass the test of "${currentChapter.title}" chapter',
+                    title: 'Versuchen Sie es noch einmal!',
+                    text: 'Sie haben den Test des Kapitels "${currentChapter.title}" nicht bestanden',
                 })
                 </#if>
                 </#if>
@@ -30,7 +30,7 @@
 
 
 
-<@main.renderWith title="Calopsia | Course"
+<@main.renderWith title="Calopsia | Kurs"
 scripts=["/js/script.js","/js/course-materials.js"]
 styles=["/css/style.css","/css/course-materials.css"]
 extraScriptAfter=extraScriptAfterMarkup footer="false">
@@ -55,18 +55,16 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
 
                 <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-0">
-                        <li class="nav-item"><a class="nav-link text-black " href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">All courses</a></li>
-                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>
-                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>
-                        <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
+                        <li class="nav-item"><a class="nav-link text-black " href="/">Startseite</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">Alle Kurse</a></li>
+                        <li class="nav-item"><a class="nav-link text-black" href="#">Über uns</a></li>
                     </ul>
                     <@security.authorize access="! isAuthenticated()">
                         <ul class="navbar-nav ms-auto d-sm-inline py-4 py-lg-0 second">
                             <li class="menu-separator nav-item ">.</li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black text-bold"
-                                        href="/login">Login</a>
+                                        href="/login">Anmeldung</a>
                             </li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black header-button-purp"
@@ -92,7 +90,7 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
                             <div class="nav-item d-sm-inline  ms-3">
                                 <button type="submit"
                                         class="d-sm-inline btn btn-outline-secondary btn-main text-white header-button-purp"
-                                        href="#">Logout
+                                        href="#">Abmeldung
                                 </button>
                             </div>
 
@@ -103,12 +101,13 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
             </div>
         </nav>
     </header>
+
     <main>
         <div class="docs-wrapper">
             <div id="docs-sidebar" class="docs-sidebar">
                 <div class="p-3">
                     <h5>${course.name}</h5>
-                    <p>Progress: ${completedQty.completed}/${completedQty.overall}</p>
+                    <p>Fortschritt: ${completedQty.completed}/${completedQty.overall}</p>
                     <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                         <div class="progress-bar" style="width: ${studentProgress!0}%;"></div>
                     </div>
@@ -161,7 +160,7 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
                                                 <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
                                                        value="${(_csrf.token)!'--no-token--'}"/>
                                             </#if>
-                                            <h2 class="section-heading">Test</h2>
+                                            <h2 class="section-heading">Prüfung</h2>
                                             <div class="container border p-4 mb-5">
                                                 <div class="row">
                                                     <div class="col-12">
@@ -214,7 +213,7 @@ extraScriptAfter=extraScriptAfterMarkup footer="false">
                                                     <div class="col-12 mt-4">
                                                         <div class="d-flex justify-content-end">
                                                             <button class="btn btn-primary px-4 py-2 fw-bold"
-                                                                    type="submit"> Check
+                                                                    type="submit"> Prüfen
                                                             </button>
                                                         </div>
                                                     </div>
