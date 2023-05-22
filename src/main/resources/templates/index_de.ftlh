@@ -17,14 +17,14 @@ styles=["/css/style.css"]>
 
                 <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-0">
-                        <li class="nav-item"><a class="nav-link text-black active" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-black " href="/courses">All courses</a></li>
-                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>
-                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>
-                        <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/">Startseite</a></li>
+                        <li class="nav-item"><a class="nav-link text-black " href="/courses">Alle Kurse</a></li>
+                        <#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>-->
+                        <#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>-->
+                        <li class="nav-item"><a class="nav-link text-black" href="#">Über uns</a></li>
                         <@security.authorize access="isAuthenticated()">
                             <#if user.role == "ADMIN">
-                                <li class="nav-item"><a class="nav-link text-black" href="/admin/users">Admin panel</a></li>
+                                <li class="nav-item"><a class="nav-link text-black" href="/admin/users">Admin-Bereich</a></li>
                             </#if>
                         </@security.authorize>
                     </ul>
@@ -33,11 +33,11 @@ styles=["/css/style.css"]>
                             <li class="menu-separator nav-item ">.</li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black text-bold"
-                                        href="/login">Login</a>
+                                        href="/login">einloggen</a>
                             </li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black header-button-purp"
-                                        href="/login?register=true">Register</a></li>
+                                        href="/login?register=true">anmelden</a></li>
                         </ul>
                     </@security.authorize>
 
@@ -60,7 +60,7 @@ styles=["/css/style.css"]>
                             <div class="nav-item d-sm-inline  ms-3">
                                 <button type="submit"
                                         class="d-sm-inline btn btn-outline-secondary btn-main text-white header-button-purp"
-                                        href="#">Logout
+                                        href="#">ausloggen
                                 </button>
                             </div>
 
@@ -77,11 +77,13 @@ styles=["/css/style.css"]>
             <div class="container">
                 <div class="col-lg-6 text-c">
                     <h1 class="hero-text text-size text-start">
-                        Deutsch<br>
+                        Überall, jederzeit, <br>
+                        Erfahren Sie, was Sie wollen, <br>
+                        von jedem Gerät <br>
                     </h1>
                     <div class="w-75">
-                        <p class="hero-sub-text text-start fs-5 mt-3">“Yesterday is history, tomorrow is a mystery, but
-                            today is a gift. That is why it is called the present.”</p>
+                        <p class="hero-sub-text text-start fs-5 mt-3">"Gestern ist Geschichte, morgen ist ein Geheimnis, aber
+                            heute ist ein Geschenk. Deshalb wird es die Gegenwart genannt.”</p>
                         <p class="hero-sub-text text-end italic fs-6">- Master Oogway</p>
                     </div>
 
@@ -90,14 +92,14 @@ styles=["/css/style.css"]>
                         <i class="b"></i>
                         <input type="text" class="form-control input-main-page border-0" id="SearchBtn" aria-label="searchInput"
                                placeholder="Course titles or keywords">
-<#--                        <button class="btn btn-outline-secondary dropdown-toggle btn-categories" type="button"-->
-<#--                                data-bs-toggle="dropdown" aria-expanded="false">Categories-->
-<#--                        </button>-->
-<#--                        <ul class="dropdown-menu dropdown-menu-end">-->
-<#--                            <li><a class="dropdown-item" href="#">1</a></li>-->
-<#--                            <li><a class="dropdown-item" href="#">2</a></li>-->
-<#--                            <li><a class="dropdown-item" href="#">3</a></li>-->
-<#--                        </ul>-->
+                        <#--                        <button class="btn btn-outline-secondary dropdown-toggle btn-categories" type="button"-->
+                        <#--                                data-bs-toggle="dropdown" aria-expanded="false">Categories-->
+                        <#--                        </button>-->
+                        <#--                        <ul class="dropdown-menu dropdown-menu-end">-->
+                        <#--                            <li><a class="dropdown-item" href="#">1</a></li>-->
+                        <#--                            <li><a class="dropdown-item" href="#">2</a></li>-->
+                        <#--                            <li><a class="dropdown-item" href="#">3</a></li>-->
+                        <#--                        </ul>-->
                         <button onclick="openLinkWithInputValue()" class="btn btn-outline-secondary btn-main text-white" type="button" id="button-addon2">
                             Search
                         </button>
@@ -108,7 +110,7 @@ styles=["/css/style.css"]>
 
         <div class="courses-block mt-5 py-5">
             <div class="container">
-                <h2 class="text-center"><b>Our most popular courses</b></h2>
+                <h2 class="text-center"><b>Unsere beliebtesten Kurse</b></h2>
                 <hr class="hr mx-auto mb-5">
 
                 <div class="row">
@@ -124,12 +126,11 @@ styles=["/css/style.css"]>
                                     </div>
                                     <h4 class="text-black fw-bold">${course.name}</h4>
 
-                                    <p class="text-secondary fw-bolder">${course.users?size} Students</p>
+                                    <p class="text-secondary fw-bolder">${course.users?size} Studenten</p>
 
                                     <div class="btn-price d-flex justify-content-between">
                                         <a class="purp_button rounded text-white fw-bolder p-2"
-                                           href="/course/${course.id}">Start
-                                            learning</a>
+                                           href="/course/${course.id}">lernen</a>
                                         <span class="fw-bolder purp-text  text-center"><i
                                                     class="bi bi-star-fill text-warning"></i>${course.ratingScore?string["0.#"]}</span>
                                     </div>
@@ -141,7 +142,7 @@ styles=["/css/style.css"]>
                 </div>
             </div>
             <div class="text-center mt-5">
-                <a class="fw-bolder view-all text-center mt-5 mx-auto py-3 px-5" href="/courses">View All</a>
+                <a class="fw-bolder view-all text-center mt-5 mx-auto py-3 px-5" href="/courses">Alle anzeigen</a>
             </div>
         </div>
         </div>
@@ -158,7 +159,7 @@ styles=["/css/style.css"]>
                 </div>
                 <div class="container">
                     <div class="col-12">
-                        <h2 class="fw-bold text-white mb-0 fs-2">Our student voice</h2>
+                        <h2 class="fw-bold text-white mb-0 fs-2">Unsere Studentenstimme</h2>
                         <hr class="hr-wt">
                     </div>
                 </div>
@@ -169,20 +170,20 @@ styles=["/css/style.css"]>
 
                                 <div class="col col-sm-12 col-md-6 text-c">
 
-                                    <p class="fw-bold text-white mb-3 mt-0 fs-5">“Excellent progression of material
-                                        with...”</p>
+                                    <p class="fw-bold text-white mb-3 mt-0 fs-5">“Exzellenter Materialverlauf
+                                        mit...”</p>
 
 
-                                    <p class="text-white mb-5 fs-5">Excellent progression of material with clear
-                                        examples.
+                                    <p class="text-white mb-5 fs-5">Hervorragender Materialverlauf mit klarem
+                                        Beispiel.
                                         <br>
-                                        Format allows for replay and review for topics that require greater
-                                        reinforcement.
+                                        Format ermöglicht die Wiedergabe und Überprüfung von Themen, die mehr erfordern
+                                        Verstärkung.
                                         <br>
-                                        Chapter sections are sized about right to learning and testing purpouses.</p>
+                                        Kapitelabschnitte sind ungefähr richtig für Lern- und Testzwecke dimensioniert.</p>
 
                                     <p class="fw-bold text-white fs-5">Ilya Ugai</p>
-                                    <p class="text-white fs-5">Bishkek , Kyrgyzstan</p>
+                                    <p class="text-white fs-5">Bischkek , Kirgisistan</p>
 
                                 </div>
 
@@ -201,20 +202,20 @@ styles=["/css/style.css"]>
 
                                 <div class="col col-sm-12 col-md-6 text-c">
 
-                                    <p class="fw-bold text-white mb-3 mt-0 fs-5">“Excellent progression of material
-                                        with...”</p>
+                                    <p class="fw-bold text-white mb-3 mt-0 fs-5">“Exzellenter Materialverlauf
+                                        mit...”</p>
 
 
-                                    <p class="text-white mb-5 fs-5">Excellent progression of material with clear
-                                        examples.
+                                    <p class="text-white mb-5 fs-5">Hervorragender Materialverlauf mit klarem
+                                        Beispiel.
                                         <br>
-                                        Format allows for replay and review for topics that require greater
-                                        reinforcement.
+                                        Format ermöglicht die Wiedergabe und Überprüfung von Themen, die mehr erfordern
+                                        Verstärkung.
                                         <br>
-                                        Chapter sections are sized about right to learning and testing purpouses.</p>
+                                        Kapitelabschnitte sind ungefähr richtig für Lern- und Testzwecke dimensioniert.</p>
 
                                     <p class="fw-bold text-white fs-5">Aidar Toktorbaev</p>
-                                    <p class="text-white fs-5">Bishkek , Kyrgyzstan</p>
+                                    <p class="text-white fs-5">Bischkek , Kirgisistan</p>
 
                                 </div>
 
@@ -233,20 +234,20 @@ styles=["/css/style.css"]>
 
                                 <div class="col col-sm-12 col-md-6 text-c">
 
-                                    <p class="fw-bold text-white mb-3 mt-0 fs-5">“Excellent progression of material
-                                        with...”</p>
+                                    <p class="fw-bold text-white mb-3 mt-0 fs-5">“Exzellenter Materialverlauf
+                                        mit...”</p>
 
 
-                                    <p class="text-white mb-5 fs-5">Excellent progression of material with clear
-                                        examples.
+                                    <p class="text-white mb-5 fs-5">Hervorragender Materialverlauf mit klarem
+                                        Beispiel.
                                         <br>
-                                        Format allows for replay and review for topics that require greater
-                                        reinforcement.
+                                        Format ermöglicht die Wiedergabe und Überprüfung von Themen, die mehr erfordern
+                                        Verstärkung.
                                         <br>
-                                        Chapter sections are sized about right to learning and testing purpouses.</p>
+                                        Kapitelabschnitte sind ungefähr richtig für Lern- und Testzwecke dimensioniert.</p>
 
-                                    <p class="fw-bold text-white fs-5">Nikon</p>
-                                    <p class="text-white fs-5">Bishkek , Kyrgyzstan</p>
+                                    <p class="fw-bold text-white fs-5">Nikolai</p>
+                                    <p class="text-white fs-5">Bischkek , Kirgisistan</p>
 
                                 </div>
 
