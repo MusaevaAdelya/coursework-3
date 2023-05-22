@@ -3,56 +3,58 @@
 <#assign extraScriptBeforerMarkup>
     <script>
 
-        anychart.onDocumentReady(function () {
+        anychart.onDocumentReady(async function () {
             // set chart theme
             anychart.theme('monochrome');
-            anychart.data.loadJsonFile(
-                '/vendor/anychart/data.json',
-                function (data) {
-                    var dataset = anychart.data.set(data);
-                    var mapping = dataset.mapAs({
-                        x: 'date',
-                        value: 'level'
-                    });
-                    var chart = anychart.calendar(mapping);
 
-                    chart.background('#fff');
+            let activity = await fetch("/profile/get-activity/${user.id}")
+            let activityJson = await activity.json()
+            console.log(activityJson)
 
-                    chart.months()
-                        .stroke(false)
-                        .noDataStroke(false);
 
-                    chart.days()
-                        .spacing(5)
-                        .stroke(false)
-                        .noDataStroke(false)
-                        .noDataFill('#f2f2f2')
-                        .noDataHatchFill(false);
+            var dataset = anychart.data.set(activityJson);
+            var mapping = dataset.mapAs({
+                x: 'date',
+                value: 'count'
+            });
+            var chart = anychart.calendar(mapping);
 
-                    chart.colorRange(false);
+            chart.background('#fff');
 
-                    var customColorScale = anychart.scales.ordinalColor();
-                    customColorScale.ranges([
-                        {equal: 1, color: '#0119aa'},
-                        {equal: 2, color: '#425dff'},
-                        {equal: 3, color: '#6c81ff'},
-                        {equal: 4, color: '#b9c3ff'}
-                    ]);
+            chart.months()
+                .stroke(false)
+                .noDataStroke(false);
 
-                    // Set color scale.
-                    chart.colorScale(customColorScale);
+            chart.days()
+                .spacing(5)
+                .stroke(false)
+                .noDataStroke(false)
+                .noDataFill('#f2f2f2')
+                .noDataHatchFill(false);
 
-                    chart.tooltip()
-                        .format('{%count} courses');
+            chart.colorRange(false);
 
-                    chart.listen('chartDraw', function () {
-                        document.getElementById('container').style.height = chart.getActualHeight() + 'px';
-                    });
+            var customColorScale = anychart.scales.ordinalColor();
+            customColorScale.ranges([
+                {less: 2},
+                {from: 3, to: 5},
+                {greater: 6},
+            ]);
 
-                    chart.container('activity-chart');
-                    chart.draw();
-                }
-            );
+            customColorScale.colors(["#7786ff", "#3f59ff","#1d3cff" ]);
+
+            // Set color scale.
+            chart.colorScale(customColorScale);
+
+            chart.tooltip()
+                .format('{%count} courses');
+
+            chart.listen('chartDraw', function () {
+                document.getElementById('container').style.height = chart.getActualHeight() + 'px';
+            });
+
+            chart.container('activity-chart');
+            chart.draw();
         });
 
     </script>
@@ -211,10 +213,10 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <button class="btn btn-secondary" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             Discard changes
                         </button>
-                        <button class="btn btn-primary btn-close" type="submit" data-bs-dismiss="modal"
+                        <button class="btn btn-primary" class="btn-close" type="submit" data-bs-dismiss="modal"
                                 aria-label="Close">Save
                         </button>
                     </div>
@@ -274,17 +276,9 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                             <div id="activity-chart" class="mt-5 border px-3">
                                 <div class="text-chart m-2">Activity last year</div>
                             </div>
-                            <div class="statistic-chart w-100 d-flex border justify-content-between py-3 px-4">
+                            <div class="statistic-chart w-100 d-flex border justify-content-center py-3 px-4">
                                 <div>
-                                    <dt class="activity-graph__counter-val">0</dt>
-                                    <dd class="activity-graph__counter-descr">Days repeat</dd>
-                                </div>
-                                <div>
-                                    <dt class="activity-graph__counter-val">2</dt>
-                                    <dd class="activity-graph__counter-descr">Day maximum</dd>
-                                </div>
-                                <div>
-                                    <dt class="activity-graph__counter-val">30</dt>
+                                    <dt class="activity-graph__counter-val">${solvedQty}</dt>
                                     <dd class="activity-graph__counter-descr">Solved</dd>
                                 </div>
                             </div>
@@ -440,7 +434,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                                 <a href="/course/${c.id}"
                                                                    class="btn btn-primary">View</a>
                                                                 <#if c.courseSections?has_content>
-                                                                    <#if !c.courseSections[0].chapters.isEmpty()>
+                                                                    <#if !c.courseSections[0].chapters?has_content>
                                                                         <a href="/course/${c.id}/edit/${c.courseSections[0].chapters[0].id}"
                                                                            class="btn btn-primary">Edit</a>
                                                                     </#if>

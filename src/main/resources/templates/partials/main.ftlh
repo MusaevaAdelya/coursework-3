@@ -1,5 +1,6 @@
 <#macro renderWith title="Calopsia" scripts=[] styles=[] footer="true" extrastyle=""
 extraScriptAfter="" extraScriptBefore="">
+
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
     <!DOCTYPE html>
     <html lang="en">

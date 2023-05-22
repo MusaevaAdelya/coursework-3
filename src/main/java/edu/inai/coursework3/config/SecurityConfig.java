@@ -1,6 +1,7 @@
 package edu.inai.coursework3.config;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
@@ -57,16 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling().accessDeniedPage("/login")
                 .and().authorizeRequests().anyRequest()
                 .permitAll();
-
-//        http.authorizeRequests()
-//                .antMatchers("/profile/**",
-//                        "/course/**/content/**",
-//                        "/course/create/**","/course/**/edit/**","/course/uploadImage/**")
-//                .authenticated();
-
-//        http.authorizeRequests().anyRequest()
-//                .permitAll();
-
 
         http.csrf().ignoringAntMatchers("/admin/**");
         http.csrf().ignoringAntMatchers("/files/courses").ignoringAntMatchers("/rollIn");
