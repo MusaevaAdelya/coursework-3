@@ -1,7 +1,7 @@
 <#import "partials/main.ftlh" as main />
 
 <@main.renderWith title="Calopsia | Edit Course"
-scripts=["/js/script.js","/js/edit_course.js"]
+scripts=["/js/script.js","/js/edit_course_de.js"]
 styles=["/css/style.css","/css/edit-course.css",
 "/css/progress-style.css"]
 footer="false">
@@ -9,9 +9,15 @@ footer="false">
     <div id="element">
         <div class="overflow"></div>
     </div>
-    <header>
-        <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3" id="mainNav">
+    <header class="sticky-top">
+        <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3 full" id="mainNav">
             <div class="container d-flex justify-content-between">
+                <button style="margin-bottom: 0.5rem" id="docs-sidebar-toggler"
+                        class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <a href="#"><img class="logo-header" src="/img/Black_logo.svg" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarResponsive"
@@ -22,11 +28,9 @@ footer="false">
 
                 <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-0">
-                        <li class="nav-item"><a class="nav-link text-black " href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">All courses</a></li>
-<#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>-->
-<#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>-->
-                        <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
+                        <li class="nav-item"><a class="nav-link text-black " href="/">Startseite</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">Alle Kurse</a></li>
+                        <li class="nav-item"><a class="nav-link text-black" href="#">Über uns</a></li>
                         <li class="nav-item">
                             <a class=" navbar-toggler" href="#" role="button" data-bs-toggle="collapse"
                                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -38,7 +42,7 @@ footer="false">
                                     <li class="nav-item dropdown">
                                         <a class="text-black nav-link dropdown-toggle" href="#" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none">
-                                            Languages
+                                            Srpachen
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-dark">
                                             <li><a class="dropdown-item" href="${url}?lang=en">EN</a></li>
@@ -51,7 +55,7 @@ footer="false">
                         <@security.authorize access="isAuthenticated()">
                             <#if user.role == "ADMIN">
                                 <li class="nav-item"><a class="nav-link text-black"
-                                                        href="/admin/users">Admin-Panel</a></li>
+                                                        href="/admin/users">Admin-Bereich</a></li>
                             </#if>
                         </@security.authorize>
                     </ul>
@@ -60,7 +64,7 @@ footer="false">
                             <li class="menu-separator nav-item ">.</li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black text-bold"
-                                        href="/login">Login</a>
+                                        href="/login">Anmeldung</a>
                             </li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black header-button-purp"
@@ -86,7 +90,7 @@ footer="false">
                             <div class="nav-item d-sm-inline  ms-3">
                                 <button type="submit"
                                         class="d-sm-inline btn btn-outline-secondary btn-main text-white header-button-purp"
-                                        href="#">Logout
+                                        href="#">Abmeldung
                                 </button>
                             </div>
 
@@ -100,21 +104,22 @@ footer="false">
 
 
 
+
     <main class="container-fluid min-vh-100-minus-header  pt-nav">
         <div class="categories-create flex-shrink-0 p-3 scrollarea" style="width: 280px;">
             <img src="${coursesPath}${course.thumbNailPath}" class="img-fluid rounded img-course w-100" alt="">
             <div class="mt-2">
                 <!-- Здесь статусы курса, показываться будет один из них -->
                 <!-- <span class="status-course success my-3 rounded px-2 py-1" >Published</span> -->
-                <span class="status-course gray my-3 rounded px-2 py-1">Archive</span>
+                <span class="status-course gray my-3 rounded px-2 py-1">Archiv</span>
                 <!-- <span class="status-course alert my-3 rounded px-2 py-1" >Error</span> -->
             </div>
             <a href="/" class="d-flex pb-3 mt-2 link-dark text-decoration-none">
                 <span class="fs-5 fw-semibold">${course.name}</span>
             </a>
-            <a name="" id="" class="btn btn-outline-primary mb-3 btn-max-width" href="#" role="button">Edit</a>
+            <a name="" id="" class="btn btn-outline-primary mb-3 btn-max-width" href="#" role="button">Bearbeiten</a>
             <ul class="list-unstyled ps-0 pt-2 border-top">
-                <h5>Menu</h5>
+                <h5>Menü</h5>
                 <#list course.courseSections as section>
                     <li class="mb-1">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
@@ -160,11 +165,11 @@ footer="false">
 
                     <hr>
 
-                    <h2 class="mb-5 mt-4">Create test</h2>
+                    <h2 class="mb-5 mt-4">Test erstellen</h2>
 
                     <#if chapter.test??>
                         <div class="test-section mb-5 mt-3">
-                            <input type="text" name="question" id="question" placeholder="Write question"
+                            <input type="text" name="question" id="question" placeholder="Frage schreiben"
                                    class="question" value="${chapter.test.question!""}">
                             <#list chapter.test.answers as answer>
                                 <div class="test d-flex justify-content-between">
@@ -172,7 +177,7 @@ footer="false">
                                         <input type="radio" name="correct" id="test${answer.id}"
                                                <#if answer.correct>checked</#if> value="${answer.text}">
                                         <input type="text" name="answer" data-radio="#test${answer.id}"
-                                               class="answer-input test-input" placeholder="answer"
+                                               class="answer-input test-input" placeholder="Antwort"
                                                value="${answer.text}">
                                     </div>
                                     <div>
@@ -188,12 +193,12 @@ footer="false">
                         </div>
                     <#else>
                         <div class="test-section mb-5 mt-3">
-                            <input type="text" name="question" id="question" placeholder="Write question" class="question" >
+                            <input type="text" name="question" id="question" placeholder="Frage schreiben" class="question" >
                             <#list 1..4 as answer>
                                 <div class="test d-flex justify-content-between">
                                     <div>
                                         <input type="radio" name="correct" id="test${answer}" value="${answer}">
-                                        <input type="text" name="answer"  data-radio="#test${answer}" class="answer-input test-input" placeholder="answer">
+                                        <input type="text" name="answer"  data-radio="#test${answer}" class="answer-input test-input" placeholder="Antwort">
                                     </div>
                                     <div>
                                         <button class="btn remove-item ">
@@ -207,8 +212,8 @@ footer="false">
                             <#--                        </div>-->
                         </div>
                     </#if>
-                    <button type="submit" name="action" value="save" class="save-btn" id="test">Save</button>
-                    <a href="/course/${course.id}/content/${chapter.id}" class="finish-btn">Finish</a>
+                    <button type="submit" name="action" value="save" class="save-btn" id="test">Speichern</button>
+                    <a href="/course/${course.id}/content/${chapter.id}" class="finish-btn">Oberfläche</a>
                 </div>
 
             </form>

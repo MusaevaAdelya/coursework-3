@@ -116,11 +116,11 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
 
                 <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-0">
-                        <li class="nav-item"><a class="nav-link text-black " href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">All courses</a></li>
-<#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>-->
-<#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>-->
-                        <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/">Startseite</a></li>
+                        <li class="nav-item"><a class="nav-link text-black " href="/courses">Alle Kurse</a></li>
+                        <#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>-->
+                        <#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>-->
+                        <li class="nav-item"><a class="nav-link text-black" href="#">Über uns</a></li>
                         <li class="nav-item">
                             <a class=" navbar-toggler" href="#" role="button" data-bs-toggle="collapse"
                                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -132,7 +132,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                     <li class="nav-item dropdown">
                                         <a class="text-black nav-link dropdown-toggle" href="#" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none">
-                                            Languages
+                                            Srpachen
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-dark">
                                             <li><a class="dropdown-item" href="${url}?lang=en">EN</a></li>
@@ -144,8 +144,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                         </li>
                         <@security.authorize access="isAuthenticated()">
                             <#if user.role == "ADMIN">
-                                <li class="nav-item"><a class="nav-link text-black"
-                                                        href="/admin/users">Admin-Panel</a></li>
+                                <li class="nav-item"><a class="nav-link text-black" href="/admin/users">Admin-Bereich</a></li>
                             </#if>
                         </@security.authorize>
                     </ul>
@@ -154,13 +153,14 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                             <li class="menu-separator nav-item ">.</li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black text-bold"
-                                        href="/login">Login</a>
+                                        href="/login">einloggen</a>
                             </li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black header-button-purp"
-                                        href="/login?register=true">Register</a></li>
+                                        href="/login?register=true">anmelden</a></li>
                         </ul>
                     </@security.authorize>
+
                     <@security.authorize access="isAuthenticated()">
                         <p class="menu-separator d-sm-inline ms-auto">.</p>
                         <#if user??>
@@ -169,6 +169,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                 <img src="${avatarPath}${user.avatar}" alt="user avatar" class=" avatar">
                             </a>
                         </#if>
+
 
                         <form action="/logout" method="post" role="form">
                             <#if _csrf??>
@@ -179,7 +180,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                             <div class="nav-item d-sm-inline  ms-3">
                                 <button type="submit"
                                         class="d-sm-inline btn btn-outline-secondary btn-main text-white header-button-purp"
-                                        href="#">Logout
+                                        href="#">ausloggen
                                 </button>
                             </div>
 
@@ -187,6 +188,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                     </@security.authorize>
 
                 </div>
+
             </div>
         </nav>
     </header>
@@ -195,7 +197,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="titleModal">Profile Settings</h1>
+                    <h1 class="modal-title fs-5" id="titleModal">Profileinstellungen</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="POST" action="/profile/edit" enctype="multipart/form-data"
@@ -208,7 +210,7 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                     <div class="modal-body p-4">
                         <div class="row">
                             <div class="mb-3">
-                                <label for="formFile" class="form-label">Profile picture</label>
+                                <label for="formFile" class="form-label">Profilbild</label>
                                 <div class="image-upload">
 
                                     <label for="formFile">
@@ -219,32 +221,32 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
+                                <label for="username" class="form-label">der Name</label>
                                 <input name="newUsername" type="text" value="${user.username}" class="form-control"
                                        id="username">
                             </div>
                             <div class="mb-3">
-                                <label for="about" class="form-label">About</label>
+                                <label for="about" class="form-label">Über</label>
                                 <textarea name="newAbout" type="text" class="form-control"
                                           id="about"><#if user.about??>${user.about}</#if>
                                 </textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="newPass" class="form-label">New Password</label>
+                                <label for="newPass" class="form-label">Neues Passwort</label>
                                 <input name="newPassword" type="password" class="form-control" id="newPass">
                             </div>
                             <div class="mb-3">
-                                <label for="renewPass" class="form-label">Repeat Password</label>
+                                <label for="renewPass" class="form-label">Passwort wiederholen</label>
                                 <input name="newPasswordRepeat" type="password" class="form-control" id="renewPass">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                            Discard changes
+                        <button class="btn btn-secondary btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            Änderungen verwerfen
                         </button>
-                        <button class="btn btn-primary" class="btn-close" type="submit" data-bs-dismiss="modal"
-                                aria-label="Close">Save
+                        <button class="btn btn-primary btn-close" type="submit" data-bs-dismiss="modal"
+                                aria-label="Close">speichern
                         </button>
                     </div>
                 </form>
@@ -277,18 +279,17 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                             <li class="nav-item">
                                 <a class="nav-link active" id="prof-stats-tab" data-bs-toggle="tab"
                                    data-bs-target="#prof-stats" type="button" role="tab" aria-controls="nav-home"
-                                   aria-selected="true">Overview</a>
+                                   aria-selected="true">Überblick</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="prof-stud-activity-tab" data-bs-toggle="tab"
                                    data-bs-target="#prof-stud-activity" type="button" role="tab"
-                                   aria-controls="nav-home" aria-selected="true">Student
-                                    Activity</a>
+                                   aria-controls="nav-home" aria-selected="true">Studentische Aktivitäten</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="prof-teach-activity-tab" data-bs-toggle="tab"
                                    data-bs-target="#prof-teach-activity" type="button" role="tab"
-                                   aria-controls="nav-profile" aria-selected="false">Teacher Activity</a>
+                                   aria-controls="nav-profile" aria-selected="false">Lehrer Aktivitäten</a>
                             </li>
 
                             <li class="nav-item ms-auto">
@@ -301,12 +302,12 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                         <div class="tab-pane fade active show" id="prof-stats" role="tabpanel"
                              aria-labelledby="prof-stats-tab">
                             <div id="activity-chart" class="mt-5 border px-3">
-                                <div class="text-chart m-2">Activity last year</div>
+                                <div class="text-chart m-2">Aktivität im letzten Jahr</div>
                             </div>
                             <div class="statistic-chart w-100 d-flex border justify-content-center py-3 px-4">
                                 <div>
                                     <dt class="activity-graph__counter-val">${solvedQty}</dt>
-                                    <dd class="activity-graph__counter-descr">Solved</dd>
+                                    <dd class="activity-graph__counter-descr">Gelöst</dd>
                                 </div>
                             </div>
                         </div>
@@ -327,8 +328,8 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <h4 class="card-title mt-4">${user.studyingCourses[index].name}</h4>
                                                             <p class="card-text">${user.studyingCourses[index].description!''}</p>
                                                             <div class="d-flex justify-content-between">
-                                                                <a href="#" class="btn btn-primary">Continue
-                                                                    Learning</a>
+                                                                <a href="#" class="btn btn-primary">Weiter
+                                                                    lernen</a>
                                                                 <div class="progress-circle <#if (user.studyingCourses[index].percent>=50)>over50</#if> p${user.studyingCourses[index].percent}">
                                                                     <span>${user.studyingCourses[index].percent}%</span>
                                                                     <div class="left-half-clipper">
@@ -351,8 +352,8 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <h4 class="card-title mt-4">${c.name}</h4>
                                                             <p class="card-text">${c.description!''}</p>
                                                             <div class="d-flex justify-content-between">
-                                                                <a href="#" class="btn btn-primary">Continue
-                                                                    Learning</a>
+                                                                <a href="#" class="btn btn-primary">Weiter
+                                                                    lernen</a>
                                                                 <div class="progress-circle <#if (c.percent>=50)>over50</#if> p${c.percent}">
                                                                     <span>${c.percent}%</span>
                                                                     <div class="left-half-clipper">
@@ -382,8 +383,8 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                                 <h4 class="card-title mt-4">${user.studyingCourses[index].name}</h4>
                                                                 <p class="card-text">${user.studyingCourses[index].description!''}</p>
                                                                 <div class="d-flex justify-content-between">
-                                                                    <a href="#" class="btn btn-primary">Continue
-                                                                        Learning</a>
+                                                                    <a href="#" class="btn btn-primary">Weiter
+                                                                        lernen</a>
                                                                     <div class="progress-circle <#if (user.studyingCourses[index].percent>=50)>over50</#if> p${user.studyingCourses[index].percent}">
                                                                         <span>${user.studyingCourses[index].percent}%</span>
                                                                         <div class="left-half-clipper">
@@ -417,8 +418,8 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                         <div class="tab-pane fade" id="prof-teach-activity" role="tabpanel"
                              aria-labelledby="prof-teach-activity-tab">
                             <div class="header-teacher-activity">
-                                <h3>Created Courses</h3>
-                                <a class="create-course" href="course/create">Create course</a>
+                                <h3>Erstellte Kurse</h3>
+                                <a class="create-course" href="course/create">Kurs erstellen</a>
                             </div>
                             <hr>
                             <div class="cources-block">
@@ -436,11 +437,11 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <p class="card-text">${user.createdCourses[index].description!''}</p>
                                                             <div class="d-flex justify-content-between">
                                                                 <a href="/course/${user.createdCourses[index].id}"
-                                                                   class="btn btn-primary">View</a>
+                                                                   class="btn btn-primary">Blick</a>
                                                                 <#if user.createdCourses[index].courseSections?has_content>
 
                                                                     <a href="/course/${user.createdCourses[index].id}/edit/${user.createdCourses[index].courseSections[0].chapters[0].id}"
-                                                                       class="btn btn-primary">Edit</a>
+                                                                       class="btn btn-primary">Bearbeiten</a>
                                                                 </#if>
 
                                                             </div>
@@ -459,11 +460,11 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                             <p class="card-text">${c.description!''}</p>
                                                             <div class="d-flex justify-content-between">
                                                                 <a href="/course/${c.id}"
-                                                                   class="btn btn-primary">View</a>
+                                                                   class="btn btn-primary">Blick</a>
                                                                 <#if c.courseSections?has_content>
                                                                     <#if !c.courseSections[0].chapters?has_content>
                                                                         <a href="/course/${c.id}/edit/${c.courseSections[0].chapters[0].id}"
-                                                                           class="btn btn-primary">Edit</a>
+                                                                           class="btn btn-primary">Bearbeiten</a>
                                                                     </#if>
                                                                 </#if>
                                                             </div>
@@ -489,11 +490,11 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                                                                 <p class="card-text">${user.createdCourses[index].description!''}</p>
                                                                 <div class="d-flex justify-content-between">
                                                                     <a href="/course/${user.createdCourses[index].id}"
-                                                                       class="btn btn-primary">View</a>
+                                                                       class="btn btn-primary">Blick</a>
                                                                     <#if user.createdCourses[index].courseSections?has_content>
 
                                                                         <a href="/course/${user.createdCourses[index].id}/edit/${user.createdCourses[index].courseSections[0].chapters[0].id}"
-                                                                           class="btn btn-primary">Edit</a>
+                                                                           class="btn btn-primary">Bearbeiten</a>
 
                                                                     </#if>
                                                                 </div>

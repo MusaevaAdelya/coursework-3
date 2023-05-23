@@ -10,15 +10,20 @@
 </#assign>
 
 <@main.renderWith title="Calopsia | Create Course"
-scripts=["/js/script.js","/js/create_course.js","/js/profile.js"]
+scripts=["/js/script.js","/js/create_course_de.js","/js/profile.js"]
 styles=["/css/style.css","/css/create_courses.css",
 "/css/progress-style.css", "/css/catalog.css","/css/profile.css"]
 extrastyle=extraStyleMarkup footer="false">
     <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
-
-    <header>
-        <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3" id="mainNav">
+    <header class="sticky-top">
+        <nav class="container nav navbar navbar-expand-lg navbar-dark fixed-top mt-3 full" id="mainNav">
             <div class="container d-flex justify-content-between">
+                <button style="margin-bottom: 0.5rem" id="docs-sidebar-toggler"
+                        class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <a href="#"><img class="logo-header" src="/img/Black_logo.svg" alt=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarResponsive"
@@ -29,11 +34,9 @@ extrastyle=extraStyleMarkup footer="false">
 
                 <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-0">
-                        <li class="nav-item"><a class="nav-link text-black " href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">All courses</a></li>
-<#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>-->
-<#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>-->
-                        <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
+                        <li class="nav-item"><a class="nav-link text-black " href="/">Startseite</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">Alle Kurse</a></li>
+                        <li class="nav-item"><a class="nav-link text-black" href="#">Über uns</a></li>
                         <li class="nav-item">
                             <a class=" navbar-toggler" href="#" role="button" data-bs-toggle="collapse"
                                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -45,7 +48,7 @@ extrastyle=extraStyleMarkup footer="false">
                                     <li class="nav-item dropdown">
                                         <a class="text-black nav-link dropdown-toggle" href="#" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none">
-                                            Languages
+                                            Srpachen
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-dark">
                                             <li><a class="dropdown-item" href="${url}?lang=en">EN</a></li>
@@ -58,7 +61,7 @@ extrastyle=extraStyleMarkup footer="false">
                         <@security.authorize access="isAuthenticated()">
                             <#if user.role == "ADMIN">
                                 <li class="nav-item"><a class="nav-link text-black"
-                                                        href="/admin/users">Admin-Panel</a></li>
+                                                        href="/admin/users">Admin-Bereich</a></li>
                             </#if>
                         </@security.authorize>
                     </ul>
@@ -67,7 +70,7 @@ extrastyle=extraStyleMarkup footer="false">
                             <li class="menu-separator nav-item ">.</li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black text-bold"
-                                        href="/login">Login</a>
+                                        href="/login">Anmeldung</a>
                             </li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black header-button-purp"
@@ -93,7 +96,7 @@ extrastyle=extraStyleMarkup footer="false">
                             <div class="nav-item d-sm-inline  ms-3">
                                 <button type="submit"
                                         class="d-sm-inline btn btn-outline-secondary btn-main text-white header-button-purp"
-                                        href="#">Logout
+                                        href="#">Abmeldung
                                 </button>
                             </div>
 
@@ -105,35 +108,36 @@ extrastyle=extraStyleMarkup footer="false">
         </nav>
     </header>
 
+
     <main class="container-fluid min-vh-100-minus-header pt-nav">
         <div class="categories-create flex-shrink-0 p-3 scrollarea" style="width: 280px">
             <img src="${coursesPath}DEFAULT.png" class="img-fluid rounded img-course w-100" alt=""/>
             <div class="mt-2">
                 <!-- Здесь статусы курса, показываться будет один из них -->
                 <!-- <span class="status-course success my-3 rounded px-2 py-1" >Published</span> -->
-                <span class="status-course gray my-3 rounded px-2 py-1">Archive</span>
+                <span class="status-course gray my-3 rounded px-2 py-1">Archiv</span>
                 <!-- <span class="status-course alert my-3 rounded px-2 py-1" >Error</span> -->
             </div>
             <a href="/" class="d-flex pb-3 mt-2 link-dark text-decoration-none">
-                <span class="fs-5 fw-semibold">Course name</span>
+                <span class="fs-5 fw-semibold">Name des Kurses</span>
             </a>
-            <a name="" id="" class="btn btn-outline-primary mb-3 btn-max-width" href="#" role="button">Publish</a>
+            <a name="" id="" class="btn btn-outline-primary mb-3 btn-max-width" href="#" role="button">Veröffentlichen</a>
             <ul class="list-unstyled ps-0 pt-2 border-top">
-                <h5>Menu</h5>
+                <h5>Menü</h5>
                 <li class="mb-1">
                     <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
                             data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                        Settings
+                        Einstellungen
                     </button>
                     <div class="collapse show" id="home-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li>
                                 <a data-content="#content-description" href="#"
-                                   class="link-dark create-menu-link d-inline-flex text-decoration-none rounded">Description</a>
+                                   class="link-dark create-menu-link d-inline-flex text-decoration-none rounded">Beschreibung</a>
                             </li>
                             <li>
                                 <a data-content="#content-content" href="#"
-                                   class="link-dark create-menu-link d-inline-flex text-decoration-none rounded">Content</a>
+                                   class="link-dark create-menu-link d-inline-flex text-decoration-none rounded">Inhalt</a>
                             </li>
                         </ul>
                     </div>
@@ -151,11 +155,11 @@ extrastyle=extraStyleMarkup footer="false">
                 </#if>
 
                 <div id="content-description" class="content-create hide">
-                    <h2>Description</h2>
+                    <h2>Beschreibung</h2>
                     <hr/>
 
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Course picture</label>
+                        <label for="formFile" class="form-label">Kursbild</label>
                         <div class="image-upload">
 
                             <label for="formFile">
@@ -166,7 +170,7 @@ extrastyle=extraStyleMarkup footer="false">
                         </div>
                     </div>
                     <div class="mb-3 form-floating">
-                        <input name="name" type="text" class="form-control" id="courseNameInput" placeholder="Example name"/>
+                        <input name="name" type="text" class="form-control" id="courseNameInput" placeholder="Beispielname"/>
                         <label for="courseNameInput" class="form-label">Name</label>
                     </div>
                     <div class="mb-3">
@@ -232,41 +236,41 @@ extrastyle=extraStyleMarkup footer="false">
 
                     </div>
                     <div class="mb-3">
-                        <label for="shortDescInput" class="form-label">Short Description</label>
+                        <label for="shortDescInput" class="form-label">Kurzbeschreibung</label>
                         <textarea name="description" type="text" class="form-control" id="shortDescInput"
-                                  placeholder="Enter Something"></textarea>
+                                  placeholder="Etwas eingeben"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="selectLevel" class="form-label">Select Difficulty</label>
+                        <label for="selectLevel" class="form-label">Schwierigkeitsgrad auswählen</label>
                         <select name="level" id="selectLevel" class="form-select" aria-label="Default select example">
-                            <option selected value="AllLevels">All levels</option>
-                            <option value="Beginner">Beginner</option>
-                            <option value="Intermediate">Intermediate</option>
-                            <option value="Expert">Expert</option>
+                            <option selected value="AllLevels">Alle Stufen</option>
+                            <option value="Beginner">Anfänger</option>
+                            <option value="Intermediate">Zwischenbericht</option>
+                            <option value="Expert">Experte</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="shortDescInput" class="form-label">Enter what students will learn</label>
-                        <textarea name="skills" type="text" class="form-control" id="shortDescInput" rows="5" placeholder="Enter the skills acquired by students who completed the course.
+                        <label for="shortDescInput" class="form-label">Geben Sie ein, was die Schüler lernen werden</label>
+                        <textarea name="skills" type="text" class="form-control" id="shortDescInput" rows="5" placeholder="Geben Sie die von den Teilnehmern des Kurses erworbenen Fähigkeiten an.
 
-Each skill on a new line:
-Good reading
+Jede Fähigkeit in einer neuen Zeile:
+Gute Lektüre
 PHP / MySQL"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="requirementsInput" class="form-label">Enter initial requirements</label>
+                        <label for="requirementsInput" class="form-label">Ersten Bedarf eingeben</label>
                         <textarea name="req" type="text" class="form-control" id="requirementsInput" rows="5"
-                                  placeholder="Enter requirements for students.
+                                  placeholder="Geben Sie die Anforderungen für Studenten ein.
 
-Each on a new line:
-Good reading
+Jede Fähigkeit in einer neuen Zeile:
+Gute Lektüre
 PHP / MySQL"></textarea>
                     </div>
 
 
                 </div>
                 <div id="content-content" class="content-create">
-                    <h2>Content</h2>
+                    <h2>Inhalt</h2>
                     <hr/>
                     <div class="list-group w-auto ">
                         <div class="list-group-item module-item">
@@ -277,7 +281,7 @@ PHP / MySQL"></textarea>
                                     <div class="w-50">
                                         <div class="mb-3">
                                             <input type="text" name="module" class="form-control fs-5 module-class" id="courseNameInput"
-                                                   placeholder="Module name" value="Module 1"/>
+                                                   placeholder="Name des Moduls" value="Modul 1"/>
                                         </div>
                                     </div>
                                     <div>
@@ -295,13 +299,13 @@ PHP / MySQL"></textarea>
                                         <div class="w-50">
                                             <div class="mb-3">
                                                 <input type="text" name="lesson" class="form-control fs-5 lesson-class" id="courseNameInput"
-                                                       placeholder="Lesson name"/>
+                                                       placeholder="Name der Lektion"/>
 
                                             </div>
                                         </div>
                                         <div>
                                             <button class="btn btn-primary" type="button">
-                                                Edit
+                                                Bearbeiten
                                             </button>
                                             <button data-item="lesson" class="btn remove-item" type="button">
                                                 <i class="bi bi-trash3 text-danger"></i>
@@ -313,18 +317,18 @@ PHP / MySQL"></textarea>
                                 <a data-item="lesson" href="#"
                                    class="list-group-item list-group-item-action d-flex gap-3 py-3 add-lesson"
                                    aria-current="true">
-                                    <div class="fs-3">Add lesson</div>
+                                    <div class="fs-3">Lektion hinzufügen</div>
                                 </a>
                             </div>
                         </div>
 
                         <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 add-module"
                            aria-current="true">
-                            <div class="fs-3">Add Module</div>
+                            <div class="fs-3">Modul hinzufügen</div>
                         </a>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mt-5" id="courseSubmit">Submit</button>
+                    <button type="submit" class="btn btn-primary mt-5" id="courseSubmit">Einreichen</button>
                 </div>
             </form>
         </div>

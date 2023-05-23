@@ -18,11 +18,11 @@ styles=["/css/style.css","/css/catalog.css"]>
 
                 <div class="collapse navbar-collapse bg-white" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-0">
-                        <li class="nav-item"><a class="nav-link text-black " href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-black active" href="/courses">All courses</a></li>
+                        <li class="nav-item"><a class="nav-link text-black active" href="/">Startseite</a></li>
+                        <li class="nav-item"><a class="nav-link text-black " href="/courses">Alle Kurse</a></li>
                         <#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>-->
                         <#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>-->
-                        <li class="nav-item"><a class="nav-link text-black" href="#">About us</a></li>
+                        <li class="nav-item"><a class="nav-link text-black" href="#">Über uns</a></li>
                         <li class="nav-item">
                             <a class=" navbar-toggler" href="#" role="button" data-bs-toggle="collapse"
                                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -34,7 +34,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                                     <li class="nav-item dropdown">
                                         <a class="text-black nav-link dropdown-toggle" href="#" role="button"
                                            data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none">
-                                            Languages
+                                            Srpachen
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-dark">
                                             <li><a class="dropdown-item" href="${url}?lang=en">EN</a></li>
@@ -47,7 +47,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                         <@security.authorize access="isAuthenticated()">
                             <#if user.role == "ADMIN">
                                 <li class="nav-item"><a class="nav-link text-black"
-                                                        href="/admin/users">Admin-Panel</a></li>
+                                                        href="/admin/users">Admin-Bereich</a></li>
                             </#if>
                         </@security.authorize>
                     </ul>
@@ -56,11 +56,11 @@ styles=["/css/style.css","/css/catalog.css"]>
                             <li class="menu-separator nav-item ">.</li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black text-bold"
-                                        href="/login">Login</a>
+                                        href="/login">einloggen</a>
                             </li>
                             <li class="nav-item d-sm-inline header-button"><a
                                         class="nav-link d-sm-inline text-black header-button-purp"
-                                        href="/login?register=true">Register</a></li>
+                                        href="/login?register=true">anmelden</a></li>
                         </ul>
                     </@security.authorize>
 
@@ -73,6 +73,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                             </a>
                         </#if>
 
+
                         <form action="/logout" method="post" role="form">
                             <#if _csrf??>
                                 <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
@@ -82,7 +83,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                             <div class="nav-item d-sm-inline  ms-3">
                                 <button type="submit"
                                         class="d-sm-inline btn btn-outline-secondary btn-main text-white header-button-purp"
-                                        href="#">Logout
+                                        href="#">ausloggen
                                 </button>
                             </div>
 
@@ -113,10 +114,10 @@ styles=["/css/style.css","/css/catalog.css"]>
                         <div class="input-group search-input container mb-3">
                             <i class="b"></i>
                             <input type="text" class="form-control input-main-page border-0" aria-label="searchInput"
-                                   placeholder="Course titles or keywords" name="keywords">
+                                   placeholder="Kurstitel oder Schlüsselwörter" name="keywords">
                             <button class="btn btn-outline-secondary btn-main text-white" type="submit"
                                     id="button-addon2">
-                                Search
+                                suchen
                             </button>
                         </div>
                         <!--                Конец поиска-->
@@ -156,7 +157,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                         <!--                Сортировка по рейтингу-->
 
                         <div class="wrapper mt-2">
-                            <p class="text-center text-secondary fw-bolder fs-5">Rating</p>
+                            <p class="text-center text-secondary fw-bolder fs-5">Bewertung</p>
 
                             <div class="star-rating text-center">
                                 <button class="star" type="button">&#9734</button>
@@ -175,7 +176,7 @@ styles=["/css/style.css","/css/catalog.css"]>
 
                         <!--                Уровни сложности-->
                         <div class="wrapper mt-2">
-                            <p class="text-center text-secondary fw-bolder fs-5">Levels</p>
+                            <p class="text-center text-secondary fw-bolder fs-5">Stufen</p>
 
                             <div class="levels">
                                 <div class="row row-cols-2">
@@ -186,7 +187,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                                                     <input type="checkbox" id="${level}" value="${level}"
                                                            class="checkbox-level" name="level">
                                                     <label class="label-level" for="${level}">
-                                                        <#if level=="AllLevels">All levels<#else>${level}</#if>
+                                                        <#if level=="AllLevels">alle Niveaus<#else>${level}</#if>
                                                     </label>
                                                 </div>
                                             </div>
@@ -202,28 +203,28 @@ styles=["/css/style.css","/css/catalog.css"]>
 
                         <!--                Новый , Популярный , Лучший-->
                         <div class="wrapper mt-2">
-                            <p class="text-center text-secondary fw-bolder fs-5">Sort by</p>
+                            <p class="text-center text-secondary fw-bolder fs-5">Sortieren nach</p>
                             <div class="sort-by">
                                 <div class="row">
                                     <div class="col">
                                         <div class="sort-radio">
                                             <input type="radio" id="New" value="New" class="radio-sort" name="orderBy">
-                                            <label class="sort-label" for="New">New</label>
+                                            <label class="sort-label" for="New">Neu</label>
                                         </div>
                                         <div class="sort-radio">
                                             <input type="radio" id="Popular" value="Popular" class="radio-sort"
                                                    name="orderBy">
-                                            <label class="sort-label" for="Popular">Popular</label>
+                                            <label class="sort-label" for="Popular">Beliebt</label>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="sort-radio">
                                             <input type="radio" id="Top" value="Top" class="radio-sort" name="orderBy">
-                                            <label class="sort-label" for="Top">Top</label>
+                                            <label class="sort-label" for="Top">Oberen</label>
                                         </div>
                                         <div class="sort-radio">
                                             <input type="radio" id="All" value="All" class="radio-sort" name="orderBy">
-                                            <label class="sort-label " for="All">All</label>
+                                            <label class="sort-label " for="All">Alle</label>
                                         </div>
                                     </div>
                                 </div>
@@ -234,7 +235,7 @@ styles=["/css/style.css","/css/catalog.css"]>
 
                         <!--            Фильтр по бесплатное и платное-->
                         <div class="wrapper mt-2">
-                            <p class="text-center text-secondary fw-bolder fs-5">Categories</p>
+                            <p class="text-center text-secondary fw-bolder fs-5">Kategorien</p>
                             <#--                            <div class="free-or-paid text-center">-->
                             <#--                                <div class="radio">-->
                             <#--                                    <input type="radio" name="free-paid" id="free" value="free" class="radio-input"-->
@@ -322,7 +323,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="filter-search-btn mt-3">Search</button>
+                            <button type="submit" class="filter-search-btn mt-3">suchen</button>
                         </div>
                     </form>
                 </div>
@@ -348,11 +349,11 @@ styles=["/css/style.css","/css/catalog.css"]>
                                                                  href="#">${course.category.name}</a></div>
                                             <h4 class="text-black fw-bold">${course.name}</h4>
 
-                                            <p class="text-secondary fw-bolder">${course.users?size} Students</p>
+                                            <p class="text-secondary fw-bolder">${course.users?size} Studenten</p>
 
                                             <div class="btn-price d-flex justify-content-between">
-                                                <a class="purp_button rounded text-white fw-bolder p-2" href="/course/${course.id}">Start
-                                                    learning</a>
+                                                <a class="purp_button rounded text-white fw-bolder p-2"
+                                                   href="/course/${course.id}">lernen</a>
                                                 <span class="fw-bolder purp-text  text-center"><i
                                                             class="bi bi-star-fill text-warning"></i>${course.ratingScore?string["0.#"]}</span>
                                             </div>
@@ -379,10 +380,10 @@ styles=["/css/style.css","/css/catalog.css"]>
                     <nav aria-label="Page">
                         <ul class="pagination d-flex justify-content-center py-5 mt-5">
                             <li class="page-item <#if !hasPrev>disabled</#if>">
-                                <a class="page-link" href="${prevPageLink!'#'}">Previous</a>
+                                <a class="page-link" href="${prevPageLink!'#'}">Vorherigen</a>
                             </li>
                             <li class="page-item <#if !hasNext>disabled</#if>">
-                                <a class="page-link" href="${nextPageLink!'#'}">Next</a>
+                                <a class="page-link" href="${nextPageLink!'#'}">Nächsten</a>
                             </li>
                         </ul>
                     </nav>
@@ -415,7 +416,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                                placeholder="Course titles or keywords" name="keywords">
                         <button class="btn btn-outline-secondary btn-main text-white" type="submit"
                                 id="button-addon2">
-                            Search
+                            suchen
                         </button>
                     </div>
                     <!--                Конец поиска-->
@@ -455,7 +456,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                     <!--                Сортировка по рейтингу-->
 
                     <div class="wrapper mt-2">
-                        <p class="text-center text-secondary fw-bolder fs-5">Rating</p>
+                        <p class="text-center text-secondary fw-bolder fs-5">Bewertung</p>
 
                         <div class="star-rating text-center">
                             <button class="star" type="button">&#9734</button>
@@ -474,7 +475,7 @@ styles=["/css/style.css","/css/catalog.css"]>
 
                     <!--                Уровни сложности-->
                     <div class="wrapper mt-2">
-                        <p class="text-center text-secondary fw-bolder fs-5">Levels</p>
+                        <p class="text-center text-secondary fw-bolder fs-5">Stufen</p>
 
                         <div class="levels">
                             <div class="row row-cols-2">
@@ -485,7 +486,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                                                 <input type="checkbox" id="${level}" value="${level}"
                                                        class="checkbox-level" name="level">
                                                 <label class="label-level" for="${level}">
-                                                    <#if level=="AllLevels">All levels<#else>${level}</#if>
+                                                    <#if level=="AllLevels">Alle Niveaus<#else>${level}</#if>
                                                 </label>
                                             </div>
                                         </div>
@@ -520,28 +521,28 @@ styles=["/css/style.css","/css/catalog.css"]>
 
                     <!--                Новый , Популярный , Лучший-->
                     <div class="wrapper mt-2">
-                        <p class="text-center text-secondary fw-bolder fs-5">Sort by</p>
+                        <p class="text-center text-secondary fw-bolder fs-5">Sortieren nach</p>
                         <div class="sort-by">
                             <div class="row">
                                 <div class="col">
                                     <div class="sort-radio">
                                         <input type="radio" id="New" value="New" class="radio-sort" name="orderBy">
-                                        <label class="sort-label" for="New">New</label>
+                                        <label class="sort-label" for="New">Neu</label>
                                     </div>
                                     <div class="sort-radio">
                                         <input type="radio" id="Popular" value="Popular" class="radio-sort"
                                                name="orderBy">
-                                        <label class="sort-label" for="Popular">Popular</label>
+                                        <label class="sort-label" for="Popular">Beliebt</label>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="sort-radio">
                                         <input type="radio" id="Top" value="Top" class="radio-sort" name="orderBy">
-                                        <label class="sort-label" for="Top">Top</label>
+                                        <label class="sort-label" for="Top">Oberen</label>
                                     </div>
                                     <div class="sort-radio">
                                         <input type="radio" id="All" value="All" class="radio-sort" name="orderBy">
-                                        <label class="sort-label " for="All">All</label>
+                                        <label class="sort-label " for="All">Alle</label>
                                     </div>
                                 </div>
                             </div>
@@ -552,7 +553,7 @@ styles=["/css/style.css","/css/catalog.css"]>
 
                     <!--            Фильтр по бесплатное и платное-->
                     <div class="wrapper mt-2">
-                        <p class="text-center text-secondary fw-bolder fs-5">Categories</p>
+                        <p class="text-center text-secondary fw-bolder fs-5">Kategorien</p>
                         <#--                            <div class="free-or-paid text-center">-->
                         <#--                                <div class="radio">-->
                         <#--                                    <input type="radio" name="free-paid" id="free" value="free" class="radio-input"-->
@@ -640,7 +641,7 @@ styles=["/css/style.css","/css/catalog.css"]>
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="filter-search-btn mt-3">Search</button>
+                        <button type="submit" class="filter-search-btn mt-3">suchen</button>
                     </div>
                 </form>
             </div>
