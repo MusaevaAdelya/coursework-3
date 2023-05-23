@@ -121,6 +121,27 @@ extraScriptAfter=extraScriptAfterMarkup extraScriptBefore=extraScriptBeforerMark
                         <#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Market</a></li>-->
                         <#--                        <li class="nav-item"><a class="nav-link text-black" href="#">Contacts</a></li>-->
                         <li class="nav-item"><a class="nav-link text-black" href="#">Über uns</a></li>
+                        <li class="nav-item">
+                            <a class=" navbar-toggler" href="#" role="button" data-bs-toggle="collapse"
+                               data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                               aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </a>
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown">
+                                        <a class="text-black nav-link dropdown-toggle" href="#" role="button"
+                                           data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none">
+                                            Srpachen
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-dark">
+                                            <li><a class="dropdown-item" href="${url}?lang=en">EN</a></li>
+                                            <li><a class="dropdown-item" href="${url}?lang=de">DE</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                         <@security.authorize access="isAuthenticated()">
                             <#if user.role == "ADMIN">
                                 <li class="nav-item"><a class="nav-link text-black" href="/admin/users">Admin-Bereich</a></li>
